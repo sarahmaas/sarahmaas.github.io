@@ -65,8 +65,8 @@
 	  text-decoration: underline;
 	  /*display: block; */
 	  /*overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;*/
+    white-space: nowrap; 
+    text-overflow: ellipsis; */
   }
   
   pre code {
