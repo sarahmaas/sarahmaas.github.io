@@ -26,7 +26,7 @@
       color: #ffffff;
   }
   .bg-topic-even { 
-      background-color: 	#47595d; /* Dark Blue */
+      background-color: #47595d; /* Dark Blue */
       color: #ffffff;
 
   }
@@ -58,7 +58,6 @@
   }
   
   .links {
-	  //color: #dadbde;
 	  color: #b5b8be;
 	  text-decoration: underline;
   }
