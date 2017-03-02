@@ -61,7 +61,12 @@
   
   .links {
 	  color: #b5b8be;
+
 	  text-decoration: underline;
+	  /*display: block; */
+	  /*overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;*/
   }
   
   pre code {

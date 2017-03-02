@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <!-- Really just used the theme to set up the nav and original divs -->
+  <title>Visualizations in D3: A How To Guide by Sarah Maas</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://use.fontawesome.com/147d8defdd.js"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="index.html">Visualizations in D3</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="index.html">WHAT</a></li>
+        <li><a href="tools.html">TOOLS</a></li>
+		<li><a href="build.html">BUILD</a></li>
+        <li><a href="examples.html">EXAMPLES</a></li>
+		<li><a href="sources.html">SOURCES</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Heading -->
+<div class="container-fluid bg-heading text-center">
+  <h2 class="margin">How To Guide: <br>Intro to Visualizations</h2>
+<svg width="96" height="91">
+    <clipPath id="clip">
+      <path d="M0,0h7.75a45.5,45.5 0 1 1 0,91h-7.75v-20h7.75a25.5,25.5 0 1 0 0,-51h-7.75zm36.2510,0h32a27.75,27.75 0 0 1 21.331,45.5a27.75,27.75 0 0 1 -21.331,45.5h-32a53.6895,53.6895 0 0 0 18.7464,-20h13.2526a7.75,7.75 0 1 0 0,-15.5h-7.75a53.6895,53.6895 0 0 0 0,-20h7.75a7.75,7.75 0 1 0 0,-15.5h-13.2526a53.6895,53.6895 0 0 0 -18.7464,-20z"></path>
+    </clipPath>
+    <linearGradient id="gradient-1" gradientUnits="userSpaceOnUse" x1="7" y1="64" x2="50" y2="107">
+      <stop offset="0" stop-color="#f9a03c"></stop>
+      <stop offset="1" stop-color="#f7974e"></stop>
+    </linearGradient>
+    <linearGradient id="gradient-2" gradientUnits="userSpaceOnUse" x1="2" y1="-2" x2="87" y2="84">
+      <stop offset="0" stop-color="#f26d58"></stop>
+      <stop offset="1" stop-color="#f9a03c"></stop>
+    </linearGradient>
+    <linearGradient id="gradient-3" gradientUnits="userSpaceOnUse" x1="45" y1="-10" x2="108" y2="53">
+      <stop offset="0" stop-color="#b84e51"></stop>
+      <stop offset="1" stop-color="#f68e48"></stop>
+    </linearGradient>
+    <g clip-path="url(#clip)">
+      <path d="M-100,-102m-27,0v300h300z" fill="url(#gradient-1)"></path>
+      <path d="M-100,-102m27,0h300v300z" fill="url(#gradient-3)"></path>
+      <path d="M-100,-102l300,300" fill="none" stroke="url(#gradient-2)" stroke-width="40"></path>
+    </g>
+  </svg> 
+  <h3 class="bg-page-title">Bar Graph</h3>
+</div>
+
+<!-- Second Container -->
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<div id="bar-graph"></div>
+<script async src="scripts/bar_graph.js"></script>
+  <p>  Tutorial Steps from <a class="links" href="https://www.rtfmanual.io/d3garden">https://www.rtfmanual.io/d3garden</a></p>
+</div>
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="step-1">Step 1: The SVG Canvas</h4>
+
+<p>D3 uses SVG (Scalable Vector Graphics) to draw its elements dynamically. <a class="links" href="https://developer.mozilla.org/en-US/docs/Web/SVG">SVG</a> <br>
+The first step is to create an area to hold for the visualization. The div you set up for this can be selected by class or id.<br>
+<code>&lt;div class="canvas"&gt;&lt;div&gt;</code></p>
+</div>
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<h4 class="margin step" id="step-2">Step 2: Declare SVG</h4>
+
+<h5 class="margin sub-step">Define the canvas.</h5>
+
+<p>This can be done with the following statement:</p>
+
+<pre><code>var svg = d3.select('div.canvas').append('svg').attr('width', '648px').attr('height', '452px');
+</code></pre>
+
+<p>This takes advantage of D3’s chaining. Breaking the statement down: <br>
+1. Select the canvas. <code>var svg = d3.select('div.class')</code> <br>
+2. Append the svg. <code>.append('svg')</code> <br>
+3. Set width and height. <code>.attr('width', '648px')</code> <code>.attr('height', '452px')</code></p>
+</div>
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="step-3">Step 3: selectAll() Statement</h4>
+
+<p>selectAll() declares a more specific group where you will be adding elements</p>
+
+
+
+<h5 class="margin sub-step">What It Does</h5>
+
+<p>selectAll() creates an empty set that will later be filled with elements. It is technically infinite, but we will portray it as finite for the sake of visualizing it.</p>
+
+
+</div>
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<h4 class="margin step" id="step-4">Step 4: selectAll() in action</h4>
+
+
+
+<h5 class="margin sub-step" id="how-to-use-selectall">How to use selectAll()</h5>
+
+<p><code>svg.selectAll('rect.colorBar')</code></p>
+
+<p>This statement looks for all rect elements (from SVG specification) with class 'colorBar'. If there are none, it creates an empty set.</p>
+
+
+</div>
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="step-5">Step 5: data() Statement</h4>
+
+<p>data() declares the object or array you will use for the visualization</p>
+
+
+
+<h5 class="margin sub-step" id="what-it-does-1">What It Does</h5>
+
+<p>data() determines the data that you will then iterate through in order to create a series of elements</p>
+
+
+</div>
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<h4 class="margin step" id="step-6">Step 6: Add data()</h4>
+
+<p>Check out the properties</p>
+
+<pre><code>var tomatoes = [
+{"width":25,"height":86,"color":"red"},
+{"width":25,"height":84,"color":"red"},
+{"width":25,"height":98,"color":"red"},
+{"width":25,"height":93,"color":"red"},
+{"width":25,"height":68,"color":"red"},
+{"width":25,"height":70,"color":"red"},
+{"width":25,"height":76,"color":"red"},
+{"width":25,"height":77,"color":"red"},
+{"width":25,"height":95,"color":"red"},
+{"width":25,"height":100,"color":"red"},
+{"width":25,"height":90,"color":"red"},
+{"width":25,"height":75,"color":"red"},
+{"width":25,"height":65,"color":"red"},
+{"width":25,"height":80,"color":"red"},
+{"width":25,"height":78,"color":"red"},
+{"width":25,"height":76,"color":"red"},
+{"width":25,"height":94,"color":"red"},
+{"width":25,"height":78,"color":"red"},
+{"width":25,"height":69,"color":"red"},
+{"width":25,"height":93,"color":"red"},
+]
+</code></pre>
+
+
+
+<h5 class="margin sub-step" id="how-to-use-data">How to use data()</h5>
+
+<pre><code>svg.selectAll('rect.colorBar').data(tomatoes)
+</code></pre>
+
+<p>Data() declares the object or array you will be iterating through. Pretty straightforward.</p>
+</div>
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="step-713-enter-the-data">Step 7: enter() the data</h4>
+
+<p>Enter() performs the data join</p>
+
+<pre><code> svg.selectAll('rect.colorBar').data(tomatoes).enter() 
+</code></pre>
+
+
+
+<h5 class="margin sub-step" id="what-it-does-2">What It Does</h5>
+
+<p>enter() combines your data with the empty set from selectAll() and creates a set of elements that can then be accessed one by one in D3</p>
+
+
+</div>
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<h4 class="margin step" id="step-813-append-the-element">Step 8: append() the element</h4>
+
+<p>Append() determines the type of visualization</p>
+
+
+
+<h5 class="margin sub-step" id="what-it-does-3">What It Does</h5>
+
+<p>Append() allows you to choose from the 7 basic SVG elements or a ‘g’ element. In this case, we want a ‘rect’ element to build a bar graph.</p>
+
+<pre><code> svg.selectAll('rect.colorBar').data(tomatoes)
+.enter().append('rect') 
+</code></pre>
+</div>
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="step-9">Step 9: Quick Review</h4>
+
+<p>We are close to building a bar graph!</p>
+
+<pre><code>var tomatoes = [
+{"width":25,"height":86,"color":"red"},
+{"width":25,"height":84,"color":"red"},
+{"width":25,"height":98,"color":"red"},
+{"width":25,"height":93,"color":"red"},
+{"width":25,"height":68,"color":"red"},
+{"width":25,"height":70,"color":"red"},
+{"width":25,"height":76,"color":"red"},
+{"width":25,"height":77,"color":"red"},
+{"width":25,"height":95,"color":"red"},
+{"width":25,"height":100,"color":"red"},
+{"width":25,"height":90,"color":"red"},
+{"width":25,"height":75,"color":"red"},
+{"width":25,"height":65,"color":"red"},
+{"width":25,"height":80,"color":"red"},
+{"width":25,"height":78,"color":"red"},
+{"width":25,"height":76,"color":"red"},
+{"width":25,"height":94,"color":"red"},
+{"width":25,"height":78,"color":"red"},
+{"width":25,"height":69,"color":"red"},
+{"width":25,"height":93,"color":"red"},
+]
+</code></pre>
+
+<h5 class="margin sub-step" id="how-to-define-each-bar">How to define each bar</h5>
+
+<pre><code> svg.selectAll('rect.bar').data(data)
+.enter().append('rect') 
+</code></pre>
+
+<p><code>svg.selectAll('rect.bar')</code> = Creates an empty set of rect elements with class ‘bar’ <br>
+<code>.data(data)</code> = Adds object or array of data to be turned into elements in the DOM <br>
+<code>.enter()</code> = Join your data with the empty set defined in selectAll, can iterate through this set <br>
+<code>.append('rect')</code> = Append a ‘rect’ element for every item in data</p>
+
+
+</div>
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<h4 class="margin step" id="step-10">Step 10: Define Bar Width</h4>
+
+<p>Attr() statements define the properties of each bar</p>
+
+
+
+<h5 class="margin sub-step" id="what-it-does-4">What It Does</h5>
+
+<pre><code> .attr('width' , function (d,i) { return d.width }) 
+</code></pre>
+
+<p>Attr() statements define what you want your bars to look like. Most importantly, they can use properties from each item in data.</p>
+
+
+</div>
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="step-11">Step 11: Define Bar Height</h4>
+
+<p>Define each element’s attributes</p>
+
+
+
+<h5 class="margin sub-step" id="what-it-does-5">What It Does</h5>
+
+<p>.attr(‘height’ , function (d,i) { return d.height })  <br>
+In the statement ‘function(d,i)’, d stands for each item in data while i is the index, beginning at 0 for the first element</p>
+
+
+</div>
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<h4 class="margin step" id="step-12">Step 12: Put Bars In A Row</h4>
+
+<p>Separate bars from each other</p>
+
+
+
+<h5 class="margin sub-step" id="what-it-does-6">What It Does</h5>
+
+<pre><code> .attr('x' , function (d,i) { return i * d.width }) 
+</code></pre>
+
+<p>In last statement we ended up with… a bunch of plants stacked on top of one another. That was disappointing. We also need to define x values for each bar so that they do not stack on top of each other, like they did in the last step. <br>
+Using the index of each bar, we can move them right to spread them out. We can multiply this index by the width of each bar to spread them out.</p>
+
+
+</div>
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="step-1313-bar-orientation">Step 13: Bar Orientation</h4>
+
+<p>The origin is the top left corner… which means your bars may be pointing the wrong direction!</p>
+
+<h5 class="margin sub-step" id="what-it-does-7">What It Does</h5>
+
+<pre><code> .attr('y' , function (d,i) { return divHeight - d.height }) 
+</code></pre>
+
+<p>The origin i.e. start point for D3 is the top left corner of the div. This means that when you set the height of a bar… it is growing downwards from the top left! Not good. So, we need to reverse this. <br>
+We need to set a new start point for the bar to grow from. We subtract the bar height from the overall height of the div. We start from the bottom of the containing div, and draw the bar starting from there!</p>
+
+
+</div>
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<h4 class="margin step" id="done-final-code">Done! Final Code</h4>
+
+<pre><code>var w= 535;
+var h= 250;
+var svg= d3.select('.gardenDiv')
+    .append('svg')
+    .attr('width', w)
+    .attr('height', h);
+
+svg.selectAll('rect.colorBar')
+    .data(data)
+    .enter()
+    .append('rect')
+    .attr('width', function(d,i){
+        return d.width
+    })
+    .attr('height', function(d,i){
+        return d.height*2
+    })
+    .attr('x', function(d,i){
+        return i * (d.width+2)
+    })
+    .attr('y', function(d,i){
+        return h - d.height*2
+    })
+    .attr('fill', 'white')
+</code></pre>
+
+<h3 id="add-x-and-y-axis">Add X and Y Axis</h3>
+</div>
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="step-1420-scale-on-x-axis">Step 14: Scale on X Axis</h4>
+
+<p>Before we add an axis to the graph, we need to define the start and end point.</p>
+
+
+
+<h5 class="margin sub-step" id="how-to-define-a-scale">How to define a scale</h5>
+
+<pre><code>var xScale = d3.scale.linear()
+.domain( [0, data.length] )
+.range( [0, width] ); 
+</code></pre>
+
+<p><code>d3.scale.linear()</code> = Indicates your scale will be linear across the range you specify, as opposed to exponential etc. <br>
+<code>.domain( [0, data.length] )</code> = Specifies that the scale ranges from 0 to the count of total number of items in the array <br>
+<code>.range( [0, width] )</code> = Maps the specified domain to corresponding spots on the SVG. In this case, extends the full width of the SVG.</p>
+</div>
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<h4 class="margin step" id="step-1520-scale-on-y-axis">Step 15: Scale on Y Axis</h4>
+
+<p>Before we add an axis to the graph, we need to define the start and end point.</p>
+
+
+
+<h5 class="margin sub-step" id="how-to-define-a-scale-1">How to define a scale</h5>
+
+<pre><code> var yScale = d3.scale.linear()
+.domain( [0, d3.max(data, function(d) { return d.height; })] )
+.range( [0, height] ); 
+</code></pre>
+
+<p><code>d3.scale.linear()</code> = Indicates your scale will be linear across the range you specify, as opposed to exponential etc. <br>
+<code>.domain( [0, d3.max(data, function(d) { return d.height; })] )</code> = Specifies that the scale ranges from 0 to the tallest bar, which d3.max will find based on the height attribute <br>
+<code>.range( [0, height] )</code> = Maps the specified domain to corresponding spots on the SVG. In this case, extends the full height of the SVG.</p>
+</div>
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="step-1620-create-x-axis-pt-1">Step 16: Create X Axis, Pt 1</h4>
+
+<p>Now that we have scales, we can turn them into elements in the DOM</p>
+
+
+
+<h5 class="margin sub-step" id="how-to-define-an-axis">How to define an axis</h5>
+
+<pre><code> var xAxis = d3.svg.axis().scale(xScale) 
+</code></pre>
+
+<p><code>d3.svg.axis()</code> = Indicates that we want to create an element with the characteristics of an axis i.e. can have labels and tick marks <br>
+<code>.scale(xScale)</code> = Specifies that we want to use the xScale we already specified</p>
+
+
+</div>
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<h4 class="margin step" id="step-1720-create-x-axis-pt-2">Step 17: Create X Axis, Pt 2</h4>
+
+<p>Now we can use an append statement to get this axis on the graph</p>
+
+
+
+<h5 class="margin sub-step" id="how-to-append-an-axis">How to append an axis</h5>
+
+<pre><code> svg.append("g").call(xAxis); 
+</code></pre>
+
+<p><code>.append("g")</code> = An axis is not just a line. It can also include ticks and labels. So we will need a “g” element, not a path. <br>
+<code>.call(xAxis)</code> = The characteristics of this axis will be based on the axis we defined</p>
+
+
+</div>
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="step-1820-create-y-axis-pt-1">Step 18: Create Y Axis, Pt 1</h4>
+
+<p>Now that we have scales, we can turn them into elements in the DOM</p>
+
+
+
+<h5 class="margin sub-step" id="how-to-define-an-axis-1">How to define an axis</h5>
+
+<pre><code> var yAxis = d3.svg.axis().scale(yScale)
+.orient("left") 
+</code></pre>
+
+<p><code>d3.svg.axis()</code> = Indicates that we want to create an element with the characteristics of an axis i.e. can have labels and tick marks <br>
+<code>.scale(yScale)</code> = Specifies that twe wantto use the xScale we already specified <br>
+<code>.orient("left")</code> = Specifies that this will be a vertical axis, from bottom to top</p>
+
+
+</div>
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<h4 class="margin step" id="step-1920-create-y-axis-pt-2">Step 19: Create Y Axis, Pt 2</h4>
+
+<p>Now we can use an append statement to get this axis on the graph</p>
+
+
+
+<h5 class="margin sub-step" id="how-to-append-an-axis-1">How to append an axis</h5>
+
+<pre><code> svg.append("g").call(yAxis); 
+</code></pre>
+
+<p><code>.append("g")</code> = An axis is not just a line. It can also include ticks and labels. So we will need a “g” element, not a path. <br>
+<code>.call(yAxis)</code> = The characteristics of this axis will be based on the axis we defined</p>
+</div>
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="links">Links</h4>
+
+<p><a class="links" href="http://alignedleft.com/tutorials/d3/axes">http://alignedleft.com/tutorials/d3/axes</a> <br>
+<a class="links" href="http://alignedleft.com/tutorials/d3">http://alignedleft.com/tutorials/d3</a></p>
+</div>
+
+<!-- About This Site -->
+<div class="container-fluid bg-about padding-sides text-center">    
+  <!--<h3 class="margin">About</h3><br>-->
+  <div class="row">
+    <div class="col-sm-8">
+  	  <h4 class="margin"> Why do I care about D3?</h4>
+      <p class="margin">This guide was written as an assignment for Oregon State's CS 290 course. I selected 
+  	  this topic because I am a business intelligence developer working with SAP's platforms 
+  	  including BOBJ (BusinessObjects). My team is fairly new within the company and 
+  	  we are quickly learning our limitations for graphical representations. I plan to 
+  	  leverage what I learned from researching and writing this in development of 
+  	  extensions for use with Design Studio. For those who are unfamiliar, Design Studio makes
+  	  heavy use of CSS and JavaScript.</p>
+    </div>
+    <div class="col-sm-4"> 
+  	  <!--<h4> Who am I?</h4>-->
+      <p>
+        <img src="img/me.jpg" class="img-responsive img-circle" style="display:inline" alt="Image">
+      </p>
+      <p>
+  	    <a href="mailto:maass@oregonstate.edu"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i><i></a></i>
+        <a href="https://github.com/sarahmaas"><i class="fa fa-github fa-2x" aria-hidden="true"></i><i></a></i>
+        <a href="https://www.linkedin.com/in/sarah-maas-54551027/"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i><i></a></i>
+  		</p>
+  	</div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="container-fluid bg-footer text-center">
+  <p>Page built with: HTML5, Bootstrap, D3</p>
+</footer>
+
+</body>
+</html>
