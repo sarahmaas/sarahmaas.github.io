@@ -171,11 +171,105 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
 
 <!-- Fourth Container -->
 <div class="container-fluid bg-topic-odd text-center">
+  <h3 class="margin">Data Binding</h3>
+  <p>The other major feature of D3 to preview is how to bind data. This is a full example
+  from <a class="links" href="https://en.wikipedia.org/wiki/D3.js">Wikipedia</a>.
+   Let's take a closer look at what's happening in the code.</p>
+  <pre><code>
+  // Data
+  var data = [
+     { name:"Ireland",  income:53000, life: 78, pop:6378, color: "green"},
+     { name:"Norway",   income:73000, life: 87, pop:5084, color: "blue" },
+     { name:"Tanzania", income:27000, life: 50, pop:3407, color: "grey" }
+  ];
+// Create SVG container
+  var svg = d3.select("#hook").append("svg")
+        .attr("width", 120)
+        .attr("height", 120)
+        .style("background-color", "#D0D0D0");
+// Create SVG elements from data 
+    svg.selectAll("circle")                  // create virtual circle template
+      .data(data)                            // bind data
+    .enter()                                 // for each row in data...
+      .append("circle")                      // bind circle & data row such that... 
+        .attr("id", function(d) { return d.name })           // set the circle's id according to the country name
+        .attr("cx", function(d) { return d.income /1000  })  // set the circle's horizontal position according to income 
+        .attr("cy", function(d) { return d.life })           // set the circle's vertical position according to life expectancy 
+        .attr("r",  function(d) { return d.pop /1000 *2 })   // set the circle's radius according to country's population 
+        .attr("fill",function(d){ return d.color });         // set the circle's color according to country's color
+  </code></pre>
+  <h4 class="margin">Include Data</h4>
+  <p>Here we have data defined with 5 different attributes per item:</p>
+    <pre><code>
+  // Data
+  var data = [
+     { name:"Ireland",  income:53000, life: 78, pop:6378, color: "green"},
+     { name:"Norway",   income:73000, life: 87, pop:5084, color: "blue" },
+     { name:"Tanzania", income:27000, life: 50, pop:3407, color: "grey" }
+  ];
+  </code></pre>
+   <h4 class="margin">Create SVG Container</h4>
+  <p>Using what we learned about selections earlier, you would select the HTML element onto which 
+  you'd like to append. This snippet utilizes chaining. <br>
+  <code>d3.select("#hook").append("svg")</code>
+  selects the HTML element with id hook and appends an svg element to it.<br>
+  <code>.attr("width", 120)</code> This sets the width attribute of the svg to 120.<br>
+  <code>.attr("height", 120)</code> This sets the height attribute of the svg to 120.<br>
+  <code>.style("background-color", "#D0D0D0");</code> This sets the background-color of the svg.
+  </p>
+    <pre><code>
+// Create SVG container
+  var svg = d3.select("#hook").append("svg")
+        .attr("width", 120)
+        .attr("height", 120)
+        .style("background-color", "#D0D0D0");
+  </code></pre> 
+    <h4 class="margin">Create SVG Elements</h4>
+  <p>Order matters. This selects the empty set of circles and creates data circles for each
+  data point. <!--WHAT IS THAT LINK FROM THE DUDE THAT WROTE THIS LIBRARY? FIND IT.--></p>
+    <pre><code>
+// Create SVG elements from data 
+    svg.selectAll("circle")                  // create virtual circle template
+      .data(data)                            // bind data
+    .enter()                                 // for each row in data...
+      .append("circle")                      // bind circle & data row such that... 
+        .attr("id", function(d) { return d.name })           // set the circle's id according to the country name
+        .attr("cx", function(d) { return d.income /1000  })  // set the circle's horizontal position according to income 
+        .attr("cy", function(d) { return d.life })           // set the circle's vertical position according to life expectancy 
+        .attr("r",  function(d) { return d.pop /1000 *2 })   // set the circle's radius according to country's population 
+        .attr("fill",function(d){ return d.color });         // set the circle's color according to country's color
+  </code></pre>
+</div>
+
+
+<!-- Fourth Container -->
+<div class="container-fluid bg-topic-even text-center">
+  <h3 class="margin">Inclusion of Data Types</h3>
+
+</div>
+
+<!-- Fourth Container -->
+<div class="container-fluid bg-topic-odd text-center">
   <h3 class="margin">Debugging</h3>
   <p>The console is extremely helpful for testing out D3 functions. Keep in mind that you can
    call functions by typing them into the console. </p>
    <p>If your graphs are not rendering, check the version of D3 you're including and try moving
    the script call to the body. These are things I ran into when creating the demos.</p>
+
+</div>
+
+<!-- Fourth Container -->
+<div class="container-fluid bg-topic-odd text-center">
+  <h3 class="margin">Code Sharing</h3>
+  <p>You'll see that a number of the examples on the example page are hosted at bl.ocks.org. To
+  host your code there, you actually use 
+  <a class="links" href="https://gist.github.com/">Gist.</a></p>
+   <p>Add all of your relevant files: html, js, and data. Your gist will be assigned a URL.
+   From that URL, replace <a class="links" href="gist.github.com">gist.github.com</a>
+   with <a class="links" href="bl.ocks.org">bl.ocks.org</a> to get the rendered page.</p>
+   <p>I tried this, copying another existing project.
+   https://gist.github.com/sarahmaas/d2cb92ad058330fa9f93f232d2ba161b
+   
 
 </div>
 
