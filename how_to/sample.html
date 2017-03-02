@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://use.fontawesome.com/147d8defdd.js"></script>
 <!--  <link rel="stylesheet" href="//cdn.jsdelivr.net/highlight.js/9.9.0/styles/default.min.css">
   <script src="//cdn.jsdelivr.net/highlight.js/9.9.0/highlight.min.js"></script>
@@ -72,15 +73,15 @@
   <img src="img/D3_logo.svg" class="img-responsive img-circle margin" style="display:inline" alt="D3 logo" width="350" height="350">
   <h3>I'm an adventurer</h3>
   -->
-  <h3 class="bg-page-title">Sources</h3>
+  <h3 class="bg-page-title">Bar Graph</h3>
 </div>
 
 <!-- Second Container -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
-<blockquote>
+<div id="bar-graph"></div>
+<script async src="scripts/bar_graph.js"></script>
   <p>Written with <a href="https://stackedit.io/">StackEdit</a>. <br>
   Tutorial Steps from <a href="https://www.rtfmanual.io/d3garden">https://www.rtfmanual.io/d3garden</a></p>
-</blockquote>
 
 <h4 class="margin step" id="step-1">Step 1/13: The SVG Canvas</h4>
 
@@ -470,11 +471,11 @@ svg.selectAll('rect.colorBar')
 	-->
   </div>
 </div>
-
+<script src="http://d3js.org/d3.v3.min.js"></script>
 <!-- Footer -->
 <footer class="container-fluid bg-footer text-center">
        <p>Page built with: HTML5, Bootstrap, D3, Prism</p>
 </footer>
-
-</body>
+<!--<script src="https://gist.github.com/sarahmaas/d2cb92ad058330fa9f93f232d2ba161b.js"></script>
+--></body>
 </html>
