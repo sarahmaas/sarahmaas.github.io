@@ -67,7 +67,7 @@
 </div>
 
 
-<!-- First Topic Container -->
+<!-- Basics of SVG -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin">SVG</h3>
   <p>SVG, or Scalable Vector Graphic, is an XML language used to draw graphics. Typically Adobe 
@@ -213,7 +213,7 @@ Browser Compatibility: <a class="links" href="http://caniuse.com/#feat=svg">http
 Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element">https://developer.mozilla.org/en-US/docs/Web/SVG/Element</a></p>
 </div>
 
-<!-- Second Topic Container -->
+<!-- Selections in D3 -->
 <div class="container-fluid bg-topic-even text-center">
   <h3 class="margin">Selections in D3</h3>
   <p>This works similarly to jQuery collections of elements.D3 traverses the nodes in the DOM 
@@ -238,7 +238,7 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
 
 </div>
 
-<!-- Fourth Container -->
+<!-- Data Binding in D3 -->
 <div class="container-fluid bg-topic-odd text-center">
   <h3 class="margin">Data Binding in D3</h3>
   <p>AAnother major feature of D3 to preview is how to bind data. This is a full example
@@ -295,7 +295,18 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
   </code></pre> 
     <h4 class="margin">Create SVG Elements</h4>
   <p>Order matters. This selects the empty set of circles and creates data circles for each
-  data point. <!--WHAT IS THAT LINK FROM THE DUDE THAT WROTE THIS LIBRARY? FIND IT.--></p>
+  data point. There is some good information on this 
+  <a class="links" href="http://help-legacy.sap.com/saphelp_hanaplatform/helpdata/en/67/d48b64f0d048bfb028767cb377fbb2/content.htm">
+    here</a> from one of the authors of the D3 library.</p>
+  <p>
+    <code>svg.selectAll("circle")</code> circle is an empty set, but it says that you want circles. <br>
+    <code>.data(data)</code> binds, or joins, the data to your selection.<br>
+    <code>.enter()</code> returns an empty placeholder for each new data element that's not yet in the DOM. <br>
+    <code>.append("circle")</code> appends a new circle for each new data element in the selection from <code>enter</code>.<br>
+    The rest of the lines assign specific attributes of the data points to the circles.
+    
+  </p>
+  <p>
     <pre><code>
 // Create SVG elements from data 
     svg.selectAll("circle")                  // create virtual circle template
@@ -308,16 +319,54 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
         .attr("r",  function(d) { return d.pop /1000 *2 })   // set the circle's radius according to country's population 
         .attr("fill",function(d){ return d.color });         // set the circle's color according to country's color
   </code></pre>
+  </p>
+  <p>Inclusion of <code>update</code> and <code>exit</code> will allow for dynamic visualizations. An example of this from Mike's data joins
+  article linked above:</p>
+  <p>
+  <pre><code>
+    var circle = svg.selectAll("circle")
+      .data(data);
+    
+    circle.exit().remove();
+    
+    circle.enter().append("circle")
+        .attr("r", 2.5)
+      .merge(circle)
+        .attr("cx", function(d) { return d.x; })
+        .attr("cy", function(d) { return d.y; });
+  </code></pre>
+  </p>
+  <p>He has written other examples with <code>update</code> <a class="links" href="https://bl.ocks.org/mbostock/3808218">here</a>.
+  </p>
 </div>
 
 
-<!-- Fourth Container -->
+<!-- Inclusions of Data Types in D3 -->
 <div class="container-fluid bg-topic-even text-center">
   <h3 class="margin">Inclusion of Data Types in D3</h3>
   <!-- Code snippets for this in treehouse? -->
+  <p>This doesn't cover all types, but here are some you're likely to see.</p>
+  <h4 class="margin">JSON</h4>
+  <p></p>
+  <p><pre><code> 
+  d3.json('phones.json', function(error, data) {
+    // do something with the data here
+    console.log(error);
+    console.log(data);
+   });
+  </code></pre></p>
+  
+    <h4 class="margin">CSV</h4>
+  <p></p>
+  <p><pre><code> 
+   d3.csv('climate_data.csv', function(data) {
+      debugger;
+   });
+  </code></pre></p>
+  
 </div>
 
-<!-- Fourth Container -->
+<!-- Debugging -->
 <div class="container-fluid bg-topic-odd text-center">
   <h3 class="margin">Debugging</h3>
   <p>The console is extremely helpful for testing out D3 functions. Keep in mind that you can
@@ -327,7 +376,7 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
 
 </div>
 
-<!-- Fourth Container -->
+<!-- Code Sharing -->
 <div class="container-fluid bg-topic-even text-center">
   <h3 class="margin">Code Sharing</h3>
   <p>You'll see that a number of the examples on the example page are hosted at bl.ocks.org. To
