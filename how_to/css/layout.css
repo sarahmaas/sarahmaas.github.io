@@ -61,3 +61,17 @@
 	  color: #b5b8be;
 	  text-decoration: underline;
   }
+  
+  pre code {
+	  word-wrap: normal;
+	  white-space: pre;
+	  text-align: left;
+
+  }
+  
+  pre {
+	  min-width: 300px;
+	  max-width: 75%;
+	  margin: auto;
+	  text-align: left;
+  }
