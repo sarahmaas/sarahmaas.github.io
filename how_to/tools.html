@@ -10,6 +10,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://use.fontawesome.com/147d8defdd.js"></script>
 
 </head>
 <body>
@@ -23,18 +24,20 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>                        
       </button>
-      <a class="navbar-brand" href="#">Visualizations in D3</a>
+      <a class="navbar-brand" href="index.html">Visualizations in D3</a>
     </div>
     <div class="collapse navbar-collapse" id="myNavbar">
       <ul class="nav navbar-nav navbar-right">
         <li><a href="index.html">WHAT</a></li>
-        <li><a href="#">TOOLS</a></li>
-		<li><a href="#">BUILD</a></li>
-        <li><a href="#">EXAMPLES</a></li>
+        <li><a href="tools.html">TOOLS</a></li>
+		<li><a href="build.html">BUILD</a></li>
+        <li><a href="examples.html">EXAMPLES</a></li>
+		<li><a href="sources.html">SOURCES</a></li>
       </ul>
     </div>
   </div>
 </nav>
+
 
 <!-- First Container -->
 <div class="container-fluid bg-heading text-center">
@@ -67,68 +70,71 @@
   <img src="img/D3_logo.svg" class="img-responsive img-circle margin" style="display:inline" alt="D3 logo" width="350" height="350">
   <h3>I'm an adventurer</h3>
   -->
-  <h3>Basic Tools You'll Need</h3>
+  <h3 class="bg-page-title">Basic Tools You'll Need</h3>
 </div>
 
 
-<!-- Second Container -->
-<div class="container-fluid bg-2 text-center">
+<!-- Second Container --><!--
+<div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin">What is D3?</h3>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
   <a href="#" class="btn btn-default btn-lg">
     <span class="glyphicon glyphicon-search"></span> Search
   </a>
 </div>
+-->
 
-
-<!-- Third Container -->
-<div class="container-fluid bg-2 text-center">
+<!-- Third Container --><!--
+<div class="container-fluid bg-topic-even text-center">
   <h3 class="margin">What makes D3 unique?</h3>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
 
 </div>
-
-<!-- Fourth Container -->
-<div class="container-fluid bg-2 text-center">
+-->
+<!-- Fourth Container --><!--
+<div class="container-fluid bg-topic-odd text-center">
   <h3 class="margin">What makes D3 unique?</h3>
   <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
 
 </div>
-
+-->
 <!-- Third Container (Grid) -->
-<div class="container-fluid bg-3 text-center">    
-  <h3 class="margin">About</h3><br>
+<div class="container-fluid bg-about text-center">    
+  <!--<h3 class="margin">About</h3><br>-->
   <div class="row">
-    <div class="col-sm-4">
-	  <h4> Why D3?</h4>
-      <p>This guide was written for Oregon State's CS 290 course. I selected 
-	  this topic because I am a business intelligence developer working with 
-	  SAP's platforms including BOBJ. I plan to leverage what I learned from 
-	  writing this in development of extensions for use with Design Studio. </p>
-      <img src="birds1.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-    </div>
+    <div class="col-sm-8">
+	  <h4 class="margin"> Why do I care about D3?</h4>
+      <p class="margin">This guide was written as an assignment for Oregon State's CS 290 course. I selected 
+	  this topic because I am a business intelligence developer working with SAP's platforms 
+	  including BOBJ (BusinessObjects). My team is fairly new within the company and 
+	  we are quickly learning our limitations for graphical representations. I plan to 
+	  leverage what I learned from researching and writing this in development of 
+	  extensions for use with Design Studio. For those who are unfamiliar, Design Studio makes
+	  heavy use of CSS and JavaScript.</p>
+  </div>
     <div class="col-sm-4"> 
-	  <h4> Who am I?</h4>
-      <img src="img/me.jpg" class="img-responsive img-circle margin" style="display:inline" alt="Image">
-
-      <p>pic should go here
-	  incididunt ut labore et dolore magna aliqua.</p>
-	  <p> links to social media should go here </p>
-      <img src="birds2.jpg" class="img-responsive margin" style="width:100%" alt="Image">
-    </div>
-    <div class="col-sm-4"> 
+	  <!--<h4> Who am I?</h4>-->
+      <img src="img/me.jpg" class="img-responsive img-circle" style="display:inline" alt="Image">
+      <p>
+	  <a href="mailto:maass@oregonstate.edu"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i><i></a></i>
+      <a href="https://github.com/sarahmaas"><i class="fa fa-github fa-2x" aria-hidden="true"></i><i></a></i>
+      <a href="https://www.linkedin.com/in/sarah-maas-54551027/"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i><i></a></i>
+		</p>
+	</div>
+<!--    <div class="col-sm-4"> 
 	  <h4> What did I use?</h4>
       <p>Page built with: (to insert...logos here) <br>
 	  <ul><li>Bootstrap <li>HTML5<li>D3
 	  </ul></p>
       <img src="birds3.jpg" class="img-responsive img-circle margin" style="width:100%" alt="Image">
-    </div>
+    </div
+	-->
   </div>
 </div>
 
 <!-- Footer -->
-<footer class="container-fluid bg-4 text-center">
-  <p>Bootstrap Theme Made By <a href="https://www.w3schools.com">www.w3schools.com</a></p> 
+<footer class="container-fluid bg-footer text-center">
+       <p>Page built with: HTML5, Bootstrap, D3</p>
 </footer>
 
 </body>
