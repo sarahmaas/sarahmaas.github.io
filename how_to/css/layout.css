@@ -4,6 +4,7 @@
       color: #f5f6f7;
   }
   p {font-size: 16px;}
+  h4.margin {margin-bottom: 45px; margin-top: 45px; }
   .margin {margin-bottom: 45px;}
   
   .padding-sides {
@@ -13,7 +14,6 @@
   .bg-heading { 
       //background-color: #1abc9c; /* Green */
 	  background-color: lightsteelblue;
-      //color: #ffffff;
 	  color: #2f2f2f; /* Black Gray */
   }
   .bg-page-title {
