@@ -85,6 +85,82 @@
   <a class="links" href="http://vector-conversions.com/vectorizing/raster_vs_vector.html">here</a>.</p>
 <h4 class="margin">Most commonly Used Elements</h4>
 <p>These are relevant to D3 because they're what's used to draw visualizations: lines, circles, rectangles. </p>
+
+<!-- Line Table -->
+<div class="table-responsive">   
+  <table class="svg-attribute table-bordered">
+    <caption class="text-center"><code>line</code> element</caption>
+    <thead>
+      <tr><th>Attribute</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>x1</td><td>x-axis coordinate of the start of the line</td></tr>
+      <tr><td>y1</td><td>y-axis coordinate of the start of the line</td></tr>
+      <tr><td>x2</td><td>x-axis coordinate of the end of the line</td></tr>
+      <tr><td>y2</td><td>y-axis coordinate of the end of the line</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Circle Table -->
+<div class="table-responsive">   
+  <table class="svg-attribute table-bordered">
+    <caption class="text-center"><code>circle</code> element</caption>
+    <thead>
+      <tr><th>Attribute</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>cx</td><td>x-axis coordinate of the center</td></tr>
+      <tr><td>cy</td><td>y-axis coordinate of the center</td></tr>
+      <tr><td>r</td><td>radius of the element</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- Rect Table -->
+<div class="table-responsive">   
+  <table class="svg-attribute table-bordered">
+    <caption class="text-center"><code>rect</code> element</caption>
+    <thead>
+      <tr><th>Attribute</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>x</td><td>x-axis coordinate</td></tr>
+      <tr><td>y</td><td>y-axis coordinate</td></tr>
+      <tr><td>width</td><td>horizontal length</td></tr>
+      <tr><td>height</td><td>vertical length</td></tr>
+      <tr><td>rx</td><td>x-axis radius of the ellipse used to round off the corners of the rectangle</td></tr>
+      <tr><td>ry</td><td>y-axis radius of the ellipse used to round off the corners of the rectangle</td></tr>
+    </tbody>
+  </table>
+</div>
+<!-- Stroke Element --> 
+<h5 class="margin"><code>stroke</code> element</h5>
+<p>Code examples from
+  <a class="links" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke">https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke</a>
+</p>
+<p>Stroke is a presentation element, so it's most often used to style the other attributes.</p>
+<p>For a colored line:</p>
+<pre><code>&lt;svg height="50" width="300"&gt;
+    &lt;path stroke="orange" d="M5 20 1215 0" /&gt;
+&lt;/svg&gt;
+</code></pre>
+<svg height="50" width="300">
+    <path stroke="orange" d="M5 20 1215 0" />
+</svg>
+<p>To create a circle with a border, you would do something like this:<br>
+<pre><code>&lt;svg height="50" width="300"&gt;
+    &lt;path stroke="orange" d="M5 20 1215 0" /&gt;
+&lt;/svg&gt;
+&lt;svg height="100" width="100"&gt;
+    &lt;circle cx="50" cy="50" r="40" stroke="blue" stroke-width="2" fill="black" /&gt;
+&lt;/svg&gt;
+</code></pre></p>
+<svg height="100" width="100" hover="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke">
+    <circle cx="50" cy="50" r="40" stroke="blue" stroke-width="2" fill="black" />
+</svg>
+<p>This is an especially useful feature for charts when you want borders on the items.</p>
+
 <h4 class="margin">Example</h4>
 <p>The D3 graphic above is actually an embedded SVG. </p>
 <!--
@@ -171,8 +247,8 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
 
 <!-- Fourth Container -->
 <div class="container-fluid bg-topic-odd text-center">
-  <h3 class="margin">Data Binding</h3>
-  <p>The other major feature of D3 to preview is how to bind data. This is a full example
+  <h3 class="margin">Data Binding in D3</h3>
+  <p>AAnother major feature of D3 to preview is how to bind data. This is a full example
   from <a class="links" href="https://en.wikipedia.org/wiki/D3.js">Wikipedia</a>.
    Let's take a closer look at what's happening in the code.</p>
   <pre><code>
@@ -244,7 +320,7 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
 
 <!-- Fourth Container -->
 <div class="container-fluid bg-topic-even text-center">
-  <h3 class="margin">Inclusion of Data Types</h3>
+  <h3 class="margin">Inclusion of Data Types in D3</h3>
   <!-- Code snippets for this in treehouse? -->
 </div>
 
@@ -273,43 +349,37 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
 
 </div>
 
-<!-- Third Container (Grid) -->
-<div class="container-fluid bg-about text-center">    
+<!-- About This Site -->
+<div class="container-fluid bg-about padding-sides text-center">    
   <!--<h3 class="margin">About</h3><br>-->
   <div class="row">
     <div class="col-sm-8">
-	  <h4 class="margin"> Why do I care about D3?</h4>
+  	  <h4 class="margin"> Why do I care about D3?</h4>
       <p class="margin">This guide was written as an assignment for Oregon State's CS 290 course. I selected 
-	  this topic because I am a business intelligence developer working with SAP's platforms 
-	  including BOBJ (BusinessObjects). My team is fairly new within the company and 
-	  we are quickly learning our limitations for graphical representations. I plan to 
-	  leverage what I learned from researching and writing this in development of 
-	  extensions for use with Design Studio. For those who are unfamiliar, Design Studio makes
-	  heavy use of CSS and JavaScript.</p>
-  </div>
+  	  this topic because I am a business intelligence developer working with SAP's platforms 
+  	  including BOBJ (BusinessObjects). My team is fairly new within the company and 
+  	  we are quickly learning our limitations for graphical representations. I plan to 
+  	  leverage what I learned from researching and writing this in development of 
+  	  extensions for use with Design Studio. For those who are unfamiliar, Design Studio makes
+  	  heavy use of CSS and JavaScript.</p>
+    </div>
     <div class="col-sm-4"> 
-	  <!--<h4> Who am I?</h4>-->
-      <img src="img/me.jpg" class="img-responsive img-circle" style="display:inline" alt="Image">
+  	  <!--<h4> Who am I?</h4>-->
       <p>
-	  <a href="mailto:maass@oregonstate.edu"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i><i></a></i>
-      <a href="https://github.com/sarahmaas"><i class="fa fa-github fa-2x" aria-hidden="true"></i><i></a></i>
-      <a href="https://www.linkedin.com/in/sarah-maas-54551027/"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i><i></a></i>
-		</p>
-	</div>
-<!--    <div class="col-sm-4"> 
-	  <h4> What did I use?</h4>
-      <p>Page built with: (to insert...logos here) <br>
-	  <ul><li>Bootstrap <li>HTML5<li>D3
-	  </ul></p>
-      <img src="birds3.jpg" class="img-responsive img-circle margin" style="width:100%" alt="Image">
-    </div
-	-->
+        <img src="img/me.jpg" class="img-responsive img-circle" style="display:inline" alt="Image">
+      </p>
+      <p>
+  	    <a href="mailto:maass@oregonstate.edu"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i><i></a></i>
+        <a href="https://github.com/sarahmaas"><i class="fa fa-github fa-2x" aria-hidden="true"></i><i></a></i>
+        <a href="https://www.linkedin.com/in/sarah-maas-54551027/"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i><i></a></i>
+  		</p>
+  	</div>
   </div>
 </div>
 
 <!-- Footer -->
 <footer class="container-fluid bg-footer text-center">
-       <p>Page built with: HTML5, Bootstrap, D3</p>
+  <p>Page built with: HTML5, Bootstrap, D3</p>
 </footer>
 
 </body>
