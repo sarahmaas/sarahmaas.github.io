@@ -84,9 +84,10 @@
   and out, they scale and do not get pixellated.  For more info on the difference, you can go 
   <a class="links" href="http://vector-conversions.com/vectorizing/raster_vs_vector.html">here</a>.</p>
 <h4 class="margin">Most commonly Used Elements</h4>
-<p>These are relevant to D3 because they’re what’s used to draw visualizations: lines, circles, rectangles. </p>
+<p>These are relevant to D3 because they're what's used to draw visualizations: lines, circles, rectangles. </p>
 <h4 class="margin">Example</h4>
 <p>The D3 graphic above is actually an embedded SVG. </p>
+<!--
 <pre>
   <code>
 	<svg width="96" height="91">
@@ -113,6 +114,7 @@
 	</svg>
   </code>
 </pre>
+-->
 <pre><code class="language-XML"><span class="hljs-tag">&lt;<span class="hljs-title">svg</span> <span class="hljs-attribute">width</span>=<span class="hljs-value">"96"</span> <span class="hljs-attribute">height</span>=<span class="hljs-value">"91"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">clipPath</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"clip"</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">path</span> <span class="hljs-attribute">d</span>=<span class="hljs-value">"M0,0h7.75a45.5,45.5 0 1 1 0,91h-7.75v-20h7.75a25.5,25.5 0 1 0 0,-51h-7.75zm36.2510,0h32a27.75,27.75 0 0 1 21.331,45.5a27.75,27.75 0 0 1 -21.331,45.5h-32a53.6895,53.6895 0 0 0 18.7464,-20h13.2526a7.75,7.75 0 1 0 0,-15.5h-7.75a53.6895,53.6895 0 0 0 0,-20h7.75a7.75,7.75 0 1 0 0,-15.5h-13.2526a53.6895,53.6895 0 0 0 -18.7464,-20z"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">path</span>&gt;</span>
@@ -145,20 +147,38 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
 <!-- Second Topic Container -->
 <div class="container-fluid bg-topic-even text-center">
   <h3 class="margin">Selections in D3</h3>
-  <p>Works similarly to jQuery collections of elements</p>
-  <p>D3 traverses the nodes in the DOM to return those matching the criteria</p>
-  <p>
+  <p>This works similarly to jQuery collections of elements.D3 traverses the nodes in the DOM 
+  to return those matching the criteria</p>
+  <p>There are two primary methods: d3.select and d3.selectAll.</p>
+  <h4 class="margin">Examples</h4>
+  <p>	<code>d3.select('div');</code>
+<br>	<code>d3.selectAll('div');</code>
+<br>	<code>d3.select('#tree');</code> # is used to signify an ID.
+
+<br>
+<br>	Chaining is allowed until there's a return. 
+<br>	<code>d3.select('div').style('color', 'orange');</code>
+<br>	<code>d3.select('div').style({'color' : 'blue', 'font-size' : '40px'}).attr();</code>
+<br>	<code>d3.select('element.class');</code>
+<br>	<code>d3.select('element#id');</code>
+<br>	<code>d3.select('.class');</code>
+<br>
+<br>	<code>.classed('class');</code> returns true or false.
+</p>
 
 
 </div>
--->
-<!-- Fourth Container --><!--
+
+<!-- Fourth Container -->
 <div class="container-fluid bg-topic-odd text-center">
-  <h3 class="margin">What makes D3 unique?</h3>
-  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. </p>
+  <h3 class="margin">Debugging</h3>
+  <p>The console is extremely helpful for testing out D3 functions. Keep in mind that you can
+   call functions by typing them into the console. </p>
+   <p>If your graphs are not rendering, check the version of D3 you're including and try moving
+   the script call to the body. These are things I ran into when creating the demos.</p>
 
 </div>
--->
+
 <!-- Third Container (Grid) -->
 <div class="container-fluid bg-about text-center">    
   <!--<h3 class="margin">About</h3><br>-->

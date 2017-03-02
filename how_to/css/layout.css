@@ -4,7 +4,9 @@
       color: #f5f6f7;
   }
   p {font-size: 16px;}
-  h4.margin {margin-bottom: 45px; margin-top: 45px; }
+  h4.margin {margin-bottom: 45px; margin-top: 45px; font-weight: bold;}
+  h5.margin {margin-bottom: 45px; margin-top: 45px; font-size: 18px;}
+
   .margin {margin-bottom: 45px;}
   
   .padding-sides {
@@ -68,10 +70,15 @@
 	  text-align: left;
 
   }
+  code {
+	  	  color: #5d474e;
+
+  }
   
   pre {
 	  min-width: 300px;
 	  max-width: 75%;
 	  margin: auto;
 	  text-align: left;
+	  color: #5d474e;
   }
