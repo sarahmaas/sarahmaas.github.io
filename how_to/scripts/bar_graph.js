@@ -1,7 +1,4 @@
 /* global d3 */
-document.addEventListener('DOMContentLoaded', createBarGraph);
-
-function createBarGraph() {
 	var width = 600;
 	var height = 250;
 	var data = [
@@ -27,12 +24,12 @@ function createBarGraph() {
 	{"width":25,"height":93,"color":"red"},
 	];
 	
-	var svg= d3.select('#bar-graph')
+	var svg2= d3.select('#bar-demo')
 		.append('svg')
 		.attr('width', width)
 		.attr('height', height);
 
-	svg.selectAll('rect.colorBar')
+	svg2.selectAll('rect.colorBar')
 		.data(data)
 		.enter()
 		.append('rect')
@@ -80,5 +77,4 @@ function createBarGraph() {
 		.orient("left")
 		.ticks(10, "%");; 
 		
-	svg.append("g").call(yAxis);
-}
+	svg2.append("g").call(yAxis);
