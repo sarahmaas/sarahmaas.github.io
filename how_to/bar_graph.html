@@ -70,8 +70,9 @@
 <!-- Credits -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
 <div id="bar-graph"></div>
+  <script async src="scripts/bar_graph_other.js"></script> 
 
-  <script async src="scripts/bar_graph.js"></script> 
+<!--  <script async src="scripts/bar_graph.js"></script>  -->
  <!-- <script async src="scripts/bar_graph_new.js"></script> -->
 
   <p>  Tutorial Steps taken from interactive demo here: 
@@ -263,7 +264,7 @@ Create an area to create the visualization in.  <br>
 <!-- Bar Chart is Done -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
 <h4 class="margin step" id="done-final-code">Final Code for the Internal Portion of the Bar Graph</h4>
-<pre><code>var w= 535;
+<p><pre><code>var w= 535;
 var h= 250;
 var svg= d3.select('.gardenDiv')
     .append('svg')
@@ -287,7 +288,10 @@ svg.selectAll('rect.colorBar')
         return h - d.height*2
     })
     .attr('fill', 'white')
-</code></pre>
+</code></pre></p>
+<p>This is the code that creates the bar chart at the top of the page.</p>
+</div>
+
 <div class="container-fluid bg-topic-even padding-sides text-center">
 
 <h3 id="add-x-and-y-axis">Add X and Y Axis</h3>
@@ -431,7 +435,7 @@ svg.selectAll('rect.colorBar')
   </div>
 </div>
 
-  <script src="http://d3js.org/d3.v3.min.js"></script>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
 
 <!-- Footer -->
 <footer class="container-fluid bg-footer text-center">
