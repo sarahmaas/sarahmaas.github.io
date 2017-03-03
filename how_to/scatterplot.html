@@ -304,7 +304,7 @@ var yScale = d3.scale.linear()
 <!-- Demo 3 -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin">Demo 3</h3>
-  <p></p>
+  <p>This is the graph, now updated for dynamic scaling.</p>
   <p><pre><code>//Width and height
 var w = 500;
 var h = 100;
@@ -359,23 +359,29 @@ svg.selectAll("text")
   .attr("fill", "red");</code></pre></p>
   <div id="scatter-demo3"></div>
   <script src="scripts/scatter/demo3.js"></script>
-  	<p>The problem where the circles are extending beyond the graph has actually now gotten worse.</p>
+  	<p>Interestingly, the problem where the circles are extending beyond the graph has actually now gotten worse. This is because
+  	the range that is being calculated is being used for the center points of the circles, so you are more likely to end up
+  	running outside the svg element.</p>
 </div>
 
 <!-- Step 7: "Correct" the origin -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin">Step 7: "Correct" the origin</h3>
-  <p>This step flips the chart so that the smaller values are at the bottom instead of the top.</p>
+  <p>This step flips the chart so that the smaller values are at the bottom instead of the top. This is much simpler than the 
+  correction for a bar graph. </p>
   <p>This can be fixed by changing <code>yScale</code> from <code>.range([0, h]);</code> to <code>.range([h, 0]);</code>.</p>
-
+  <p>You can see that now the lower values are at the bottom instead of the top.</p>
   <div id="scatter-demo4"></div>
   <script src="scripts/scatter/demo4.js"></script>
-  	<p>Still need to fix the edges of the graph.</p>
+  	<p>However, we still need to fix the edges of the graph.</p>
 </div>
 
 <!-- Step 8: Build in margins -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin">Step 8: Build in margins</h3>
+  <p>To address the running out of room problem, we use margin or padding. This pushes the graph area in farther so there's extra 
+  space on the edges. It can take a bit of testing to figure out the appropriate amount of space to use and varying data can
+  affect how much is needed as well.</p>
   <p>Add in a <code>padding</code> variable: <code>var padding = 20;</code></p>
   <p>Change the ranges for <code>xScale</code> and <code>yScale</code> to now account for the padding.</p>
   <p><code>range([0, w])</code> becomes <code>.range([padding, w - padding]);</code></p>
@@ -388,7 +394,7 @@ svg.selectAll("text")
 <!-- Demo 5 -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin">Demo 5</h3>
-  <p></p>
+  <p>Now we can see the graph with padding.</p>
   <p><pre><code>//Width and height
 var w = 500;
 var h = 100;
@@ -462,20 +468,29 @@ svg.selectAll("text")
 <!-- Step 10: Axes -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin">Step 10: Axes</h3>
-  <p>Setting up axes requires creation of the axis, provision of a scale, and orientation.</p>
+  <p>Setting up axes requires creation of the axis, provision of a scale, and orientation. </p>
   <h4 class="margin">x Axis</h4>
+  <p>This code creates an axis function, assigns it a scale, and then assigns where the labels should appear. This can be a bit
+  misleading. <code>orient("bottom")</code> does not put the axis at the bottom of the chart. It only puts the labels at the 
+  bottom of the axis. The axis defaults to being created at the origin (which is the top left).</p>
   <p><pre><code>var xAxis = d3.svg.axis()
   .scale(xScale)
   .orient("bottom");</code></pre></p>
-  <p>After the axes have been created they have to be added to the</p>
-  
-  
+  <p>We can use this function to actually create an axis now.</p>
+  <p><pre><code>svg.append("g")
+  .call(xAxis);</code></pre></p>  
     <h4 class="margin">y Axis</h4>
+    <p>The same can be done for the y axis. You might notice that here there's an additional attribute, <code>ticks()</code>. This
+    is assigned automatically, but you can also override it as shown here and it determines the number of markings there are
+    along the axis.</p>
       <pre><code>//Define Y axis
 var yAxis = d3.svg.axis()
   .scale(yScale)
   .orient("left")
   .ticks(5);</code></pre>
+  <p>This example also shows some additions compare to the sample from the x axis. This assigns the class "axis" to the axis so
+  that it can be styled with CSS. The ability to style with CSS is one of the many great features of SVG/D3. You can also see
+  the transform that moves the axis to its desired location. </p>
 <pre><code>//Create Y axis
 svg.append("g")
   .attr("class", "axis")
