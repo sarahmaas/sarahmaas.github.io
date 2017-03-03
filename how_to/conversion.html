@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Theme Made By www.w3schools.com - No Copyright -->
+  <!-- Really just used the theme to set up the nav and original divs -->
+  <title>Visualizations in D3: A How To Guide by Sarah Maas</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="css/layout.css">
+  <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://use.fontawesome.com/147d8defdd.js"></script>
+</head>
+<body>
+
+<!-- Navbar -->
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>                        
+      </button>
+      <a class="navbar-brand" href="index.html">Visualizations in D3</a>
+    </div>
+    <div class="collapse navbar-collapse" id="myNavbar">
+      <ul class="nav navbar-nav navbar-right">
+        <li><a href="index.html">WHAT</a></li>
+        <li><a href="tools.html">TOOLS</a></li>
+		<li><a href="build.html">BUILD</a></li>
+        <li><a href="examples.html">EXAMPLES</a></li>
+		<li><a href="sources.html">SOURCES</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Page Heading -->
+<div class="container-fluid bg-heading text-center">
+  <h2 class="margin">How To Guide: <br>Intro to Visualizations</h2>
+<svg width="96" height="91">
+    <clipPath id="clip">
+      <path d="M0,0h7.75a45.5,45.5 0 1 1 0,91h-7.75v-20h7.75a25.5,25.5 0 1 0 0,-51h-7.75zm36.2510,0h32a27.75,27.75 0 0 1 21.331,45.5a27.75,27.75 0 0 1 -21.331,45.5h-32a53.6895,53.6895 0 0 0 18.7464,-20h13.2526a7.75,7.75 0 1 0 0,-15.5h-7.75a53.6895,53.6895 0 0 0 0,-20h7.75a7.75,7.75 0 1 0 0,-15.5h-13.2526a53.6895,53.6895 0 0 0 -18.7464,-20z"></path>
+    </clipPath>
+    <linearGradient id="gradient-1" gradientUnits="userSpaceOnUse" x1="7" y1="64" x2="50" y2="107">
+      <stop offset="0" stop-color="#f9a03c"></stop>
+      <stop offset="1" stop-color="#f7974e"></stop>
+    </linearGradient>
+    <linearGradient id="gradient-2" gradientUnits="userSpaceOnUse" x1="2" y1="-2" x2="87" y2="84">
+      <stop offset="0" stop-color="#f26d58"></stop>
+      <stop offset="1" stop-color="#f9a03c"></stop>
+    </linearGradient>
+    <linearGradient id="gradient-3" gradientUnits="userSpaceOnUse" x1="45" y1="-10" x2="108" y2="53">
+      <stop offset="0" stop-color="#b84e51"></stop>
+      <stop offset="1" stop-color="#f68e48"></stop>
+    </linearGradient>
+    <g clip-path="url(#clip)">
+      <path d="M-100,-102m-27,0v300h300z" fill="url(#gradient-1)"></path>
+      <path d="M-100,-102m27,0h300v300z" fill="url(#gradient-3)"></path>
+      <path d="M-100,-102l300,300" fill="none" stroke="url(#gradient-2)" stroke-width="40"></path>
+    </g>
+  </svg> 
+  <h3 class="bg-page-title">Conversion from Browser D3 to Design Studio D3</h3>
+</div>
+
+<!-- Get Ready -->
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<h3 class="margin" id="setup">Get Ready</h3>
+  <p>There are a ton of great D3 visualizations out there and there are some great free extensions as part of the SCN community. 
+  However, there really isn't much crossover. This guide works through the example provided by SAP and notes the differences 
+  between the standard browser script and the script in a Design Studio extension.</p>
+  <p>SAP does provide some standard visualizations, but rather than try to keep up with a ton of options, they have the SDK for 
+  Design Studio. This allows you to add anything you could render in a browser with HTML/CSS/JavaScript in Design Studio dashboards.</p>
+  <p> My content outline follows along with this one: <a class="links" href="https://blogs.sap.com/2015/09/21/your-first-extension-master-page/">
+    SAP Tutorial on Creating an Extension with D3 - Gauges
+    </a>
+  </p>
+    <h4 class="margin">Prep</h4>
+    <p>If you would like to follow along, you need to have Design Studio and Eclipse installed. If you don't have access to this, you should stop now.</p>
+</div>
+
+<!-- Setup -->
+<div class="container-fluid bg-topic-even padding-sides text-center">
+  <h3 class="margin" id="setup">Setup</h3>
+    <h4 class="margin step" id="part-0-setting-up-eclipse">Part 0 – Setting Up Eclipse</h4>
+    <p>This section goes through some basic settings in the program and it should only need to be done once for your workspace. 
+    These include defining a "Target Platform" of Design Studio and an "XML Catalog". The target platform assigns the testing
+    instance that will be opened and the XML Catalog works a bit like Intellisense for Visual Studio and warns you of conformance 
+    errors in your XML markup.<br>
+    The next part of this is importing existing projects. There are many open source extensions out there provided by SAP and SCN.
+    Projects should be imported and then cleaned to remove any metadata that is no longer relevant (Project-->Clean). </p>
+    <h4 class="margin step" id="part-1-project-creation">Part 1 – Project Creation</h4>
+    <p>They recommend not creating a project from scratch and instead copying an existing project to edit the setup. Configuration
+    of a new project is very complex and there isn't a wizard that exists for it.</p>
+</div>
+
+<!-- Introduction to D3 and Components -->
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+  <h3 class="margin" id="introduction-to-d3-and-components">Introduction to D3 and Components</h3>
+
+    <h4 class="margin step" id="part-2a-your-first-steps-with-d3">Part 2a – Your first Steps with D3</h4>
+    <p>The first part of this process is to start drawing your graphics using SVG. D3 is already built into Design Studio's SDK framework.</p>
+    <p>This is a basic HTML file to use as a template. You can see D3 has been included here.</p>
+    <pre><code>    &lt;!DOCTYPE html&gt;
+    &lt;html&gt;
+      &lt;head&gt;
+      &lt;title&gt;My First D3 Chart&lt;/title&gt;
+      &lt;script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"&gt;&lt;/script&gt;
+      &lt;/head&gt;
+      &lt;body&gt;
+      &lt;div id='content'&gt;&lt;/div&gt;
+      &lt;script&gt;
+      &lt;/script&gt;
+      &lt;/body&gt;
+    &lt;/html&gt;</code></pre><br>
+    <p>Here is the arc in the browser and the script that generates it. Since we have no data, the arc's height and width are 
+    explicitly defined so that it will appear.</p>
+    <img class="img-responsive center-block" src="img/basic_arc/D3_arc.png">
+    <h4 class="margin step" id="part-2b-getting-your-arc-into-a-component">Part 2b – Getting your Arc into a Component</h4>
+    <p>Here is the script for the Design Studio extension and the arc as rendered in Design Studio. The height and width are still
+    explicitly defined.
+    <img class="img-responsive center-block" src="img/basic_arc/DS_arc_code.png">
+    <br><br>
+    <img class="img-responsive center-block" src="img/basic_arc/DS_arc.png">
+
+    <h4 class="margin step">Differences</h4>
+    <p>You can see from looking at the code for both that the differences are fairly minor, since we are not yet binding any data
+    to the arc. The real change is that in Design Studio it is nested inside functions and the 'div' it's assigned to is called
+    a little differently than normal. <code>var that = this;</code> gives us a bound reference to <code>this</code> as it refers
+    to the component itself, which may no longer be the scope of <code>this</code> as the code executes.</p>
+</div>
+
+<!-- Properties -->
+<div class="container-fluid bg-topic-even padding-sides text-center">
+  <h3 class="margin" id="properties">Properties</h3>
+    <h4 class="margin step" id="part-3a-making-your-arc-configurable">Part 3a – Making your Arc Configurable</h4>
+
+    <h4 class="margin step" id="part-3b-adding-properties-to-the-properties-pane">Part 3b – Adding Properties to the Properties Pane</h4>
+
+    <h4 class="margin step" id="part3c-the-dark-art-of-property-synchronization">Part3c – The Dark Art of Property Synchronization</h4>
+
+    <h4 class="margin step" id="part-3d-bringing-your-properties-to-life">Part 3d – Bringing Your Properties to Life</h4>
+
+</div>
+
+<!-- Additional Properties Sheet -->
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+  <h3 class="margin" id="additional-properties-sheet">Additional Properties Sheet</h3>
+
+    <h4 class="margin step" id="part-4a-introducing-the-additional-properties-sheet">Part 4a – Introducing the Additional Properties Sheet</h4>
+
+    <h4 class="margin step" id="part-4b-the-positioning-visualizer">Part 4b – The Positioning Visualizer</h4>
+
+    <h4 class="margin step" id="part-4c-putting-the-positioning-visualizer-into-the-additional-properties-sheet">Part 4c – Putting the Positioning Visualizer into the Additional Properties Sheet</h4>
+
+    <h4 class="margin step" id="part-4d-the-aps-interacting-with-the-canvas">Part 4d – The APS Interacting with the Canvas</h4>
+
+</div>
+
+<!-- Scripting API -->
+<div class="container-fluid bg-topic-even padding-sides text-center">
+  <h3 class="margin" id="scripting-api">Scripting API</h3>
+
+    <h4 class="margin step" id="part-5-making-your-component-scriptable">Part 5 – Making your Component Scriptable</h4>
+
+</div>
+
+<!-- Data Binding -->
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+  <h3 class="margin" id="data-binding">Data Binding</h3>
+
+    <h4 class="margin step" id="part-6a-adding-property-binding-preparation">Part 6a – Adding Property Binding: Preparation</h4>
+
+    <h4 class="margin step" id="part-6b-adding-property-binding">Part 6b – Adding Property Binding</h4>
+
+</div>
+
+<!-- Advanced Property Types Introduced in 1.6 -->
+<div class="container-fluid bg-topic-even padding-sides text-center">
+  <h3 class="margin" id="advanced-property-types-introduced-in-16">Advanced Property Types Introduced in 1.6</h3>
+
+    <h4 class="margin step" id="part-7a-property-arrays-and-complex-properties">Part 7a – Property Arrays and Complex Properties</h4>
+
+    <h4 class="margin step" id="part-7b-using-an-object-array-to-create-conditional-formatting">Part 7b – Using an Object Array to Create Conditional Formatting</h4>
+
+</div>
+
+<!-- Advanced Polish: Guide Lines and Arcs -->
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+  <h3 class="margin" id="advanced-polish-guide-lines-and-arcs">Advanced Polish: Guide Lines and Arcs</h3>
+
+    <h4 class="margin step" id="part-8a-drawing-radial-guide-lines-and-arcs-with-d3">Part 8a – Drawing Radial Guide Lines and Arcs with D3</h4>
+
+    <h4 class="margin step" id="part-8b-adding-radial-guide-lines-and-arcs-to-the-gauge-component">Part 8b – Adding Radial Guide Lines and Arcs to the Gauge Component</h4>
+
+</div>
+
+<!-- Advanced Polish: Adding an Indicator Needle -->
+<div class="container-fluid bg-topic-even padding-sides text-center">
+  <h3 class="margin" id="advanced-polish-adding-an-indicator-needle">Advanced Polish: Adding an Indicator Needle</h3>
+
+    <h4 class="margin step" id="part-9a-drawing-an-indicator-needle-d3">Part 9a – Drawing an Indicator Needle (D3)</h4>
+
+    <h4 class="margin step" id="part-9b-drawing-an-indicator-needle-in-the-component">Part 9b – Drawing an Indicator Needle in the Component</h4>
+
+</div>
+
+<!-- Advanced Polish: Animations -->
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+  <h3 class="margin" id="advanced-polish-animations">Advanced Polish: Animations</h3>
+
+    <h4 class="margin step" id="part-10a-the-data-in-data-driven-documents">Part 10a – The “data” in Data Driven Documents</h4>
+
+    <h4 class="margin step" id="part-10b-transitions-in-d3">Part 10b – Transitions in D3</h4>
+
+    <h4 class="margin step" id="part-10c-transitions-in-the-component">Part 10c – Transitions in the Component</h4>
+
+</div>
+
+<!-- Advanced Polish: Dynamic Text Callouts -->
+<div class="container-fluid bg-topic-even padding-sides text-center">
+  <h3 class="margin" id="advanced-polish-dynamic-text-callouts">Advanced Polish: Dynamic Text Callouts</h3>
+
+    <h4 class="margin step" id="part-11a-d3-and-the-svg-text-element">Part 11a – D3 and the SVG Text Element</h4>
+
+    <h4 class="margin step" id="part-11b-dynamic-text-positioning-with-d3">Part 11b – Dynamic Text Positioning with D3</h4>
+
+    <h4 class="margin step" id="part-11c-text-callouts-in-the-component">Part 11c – Text callouts in the Component</h4>
+
+</div>
+
+<!-- Advanced Polish: Custom Component CSS Styling -->
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+  <h3 class="margin" id="advanced-polish-custom-component-css-styling">Advanced Polish: Custom Component CSS Styling</h3>
+
+    <h4 class="margin step" id="part-12-cascading-stylesheets-in-custom-components">Part 12 – Cascading Stylesheets in Custom Components</h4>
+
+</div>
+
+<!-- Infrastructure: RequireJS -->
+<div class="container-fluid bg-topic-even padding-sides text-center">
+  <h3 class="margin" id="infrastructure-requirejs">Infrastructure: RequireJS</h3>
+
+    <h4 class="margin step" id="part-13-requirejs">Part 13 – RequireJS</h4>
+
+</div>
+
+<!-- Creating an Installer Zip File -->
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+  <h3 class="margin" id="creating-an-installer-zip-file">Creating an Installer Zip File</h3>
+
+    <h4 class="margin step" id="part-14-zipit-n-shipit">Part 14 – Zipit ‘n Shipit</h4>
+</div>
+ 
+<!-- About This Site -->
+<div class="container-fluid bg-about padding-sides text-center">    
+  <!--<h3 class="margin">About</h3><br>-->
+  <div class="row">
+    <div class="col-sm-8">
+  	  <h4 class="margin"> Why do I care about D3?</h4>
+      <p class="margin">This guide was written as an assignment for Oregon State's CS 290 course. I selected 
+  	  this topic because I am a business intelligence developer working with SAP's platforms 
+  	  including BOBJ (BusinessObjects). My team is fairly new within the company and 
+  	  we are quickly learning our limitations for graphical representations. I plan to 
+  	  leverage what I learned from researching and writing this in development of 
+  	  extensions for use with Design Studio. For those who are unfamiliar, Design Studio makes
+  	  heavy use of CSS and JavaScript.</p>
+    </div>
+    <div class="col-sm-4"> 
+  	  <!--<h4> Who am I?</h4>-->
+      <p>
+        <img src="img/me.jpg" class="img-responsive img-circle" style="display:inline" alt="Image">
+      </p>
+      <p>
+  	    <a href="mailto:maass@oregonstate.edu"><i class="fa fa-envelope fa-2x" aria-hidden="true"></i><i></a></i>
+        <a href="https://github.com/sarahmaas"><i class="fa fa-github fa-2x" aria-hidden="true"></i><i></a></i>
+        <a href="https://www.linkedin.com/in/sarah-maas-54551027/"><i class="fa fa-linkedin fa-2x" aria-hidden="true"></i><i></a></i>
+  		</p>
+  	</div>
+  </div>
+</div>
+
+<!-- Footer -->
+<footer class="container-fluid bg-footer text-center">
+  <p>Page built with: HTML5, Bootstrap, D3</p>
+</footer>
+
+</body>
+</html>
