@@ -299,13 +299,13 @@ svg.selectAll('rect.colorBar')
 
 <div class="container-fluid bg-topic-odd padding-sides text-center">
 <h4 class="margin step" id="step-14">Step 14: Scale on X Axis</h4>
-<p>Before we add an axis to the graph, we need to define the start and end point.</p>
+<p>Before we add an axis to the graph, we need to define the start and end point of the graph.</p>
 <h5 class="margin sub-step" id="how-to-define-a-scale">How to define a scale</h5>
 <pre><code>var xScale = d3.scale.linear()
 .domain( [0, data.length] )
 .range( [0, width] ); 
 </code></pre>
-<p><code>d3.scale.linear()</code> = Indicates your scale will be linear across the range you specify, as opposed to exponential etc. <br>
+<p><code>d3.scale.linear()</code> = Indicates your scale will be linear across the range specified, as opposed to exponential etc. <br>
 <code>.domain( [0, data.length] )</code> = Specifies that the scale ranges from 0 to the count of total number of items in the array <br>
 <code>.range( [0, width] )</code> = Maps the specified domain to corresponding spots on the SVG. In this case, extends the full width of the SVG.</p>
 </div>
@@ -324,14 +324,14 @@ svg.selectAll('rect.colorBar')
 .range( [0, height] ); 
 </code></pre>
 
-<p><code>d3.scale.linear()</code> = Indicates your scale will be linear across the range you specify, as opposed to exponential etc. <br>
+<p><code>d3.scale.linear()</code> = Indicates your scale will be linear across the range specified, as opposed to exponential etc. <br>
 <code>.domain( [0, d3.max(data, function(d) { return d.height; })] )</code> = Specifies that the scale ranges from 0 to the tallest bar, which d3.max will find based on the height attribute <br>
 <code>.range( [0, height] )</code> = Maps the specified domain to corresponding spots on the SVG. In this case, extends the full height of the SVG.</p>
 </div>
 <div class="container-fluid bg-topic-odd padding-sides text-center">
 <h4 class="margin step" id="step-1620-create-x-axis-pt-1">Step 16: Create X Axis, Pt 1</h4>
 
-<p>Now that we have scales, we can turn them into elements in the DOM</p>
+<p>Now that we have scales, we can <code>append()</code> them as elements in the DOM.</p>
 
 
 
@@ -340,15 +340,15 @@ svg.selectAll('rect.colorBar')
 <pre><code> var xAxis = d3.svg.axis().scale(xScale) 
 </code></pre>
 
-<p><code>d3.svg.axis()</code> = Indicates that we want to create an element with the characteristics of an axis i.e. can have labels and tick marks <br>
-<code>.scale(xScale)</code> = Specifies that we want to use the xScale we already specified</p>
+<p><code>d3.svg.axis()</code> = Indicates that we want to create an element with the characteristics of an axis i.e. can have labels and tick marks. <br>
+<code>.scale(xScale)</code> = Specifies that we want to use the xScale we already specified.</p>
 
 
 </div>
 <div class="container-fluid bg-topic-even padding-sides text-center">
 <h4 class="margin step" id="step-17">Step 17: Create X Axis, Pt 2</h4>
 
-<p>Now we can use an append statement to get this axis on the graph</p>
+<p>Now we can use an <code>append()</code> statement to get this axis on the graph.</p>
 
 
 
@@ -357,15 +357,16 @@ svg.selectAll('rect.colorBar')
 <pre><code> svg.append("g").call(xAxis); 
 </code></pre>
 
-<p><code>.append("g")</code> = An axis is not just a line. It can also include ticks and labels. So we will need a “g” element, not a path. <br>
-<code>.call(xAxis)</code> = The characteristics of this axis will be based on the axis we defined</p>
+<p><code>.append("g")</code> = An axis isn't just a line; it can also have text for labels and tick marks. Since it has multiple
+elements to it, this would be a 'g' element in SVG. <br>
+<code>.call(xAxis)</code> = This will define the axis based on what's in the xAxis function.</p>
 
 
 </div>
 <div class="container-fluid bg-topic-odd padding-sides text-center">
 <h4 class="margin step" id="step-1820-create-y-axis-pt-1">Step 18: Create Y Axis, Pt 1</h4>
 
-<p>Now that we have scales, we can turn them into elements in the DOM</p>
+<p>Now that we have scales, we can turn them into elements in the DOM.</p>
 
 
 
@@ -375,8 +376,8 @@ svg.selectAll('rect.colorBar')
 .orient("left") 
 </code></pre>
 
-<p><code>d3.svg.axis()</code> = Indicates that we want to create an element with the characteristics of an axis i.e. can have labels and tick marks <br>
-<code>.scale(yScale)</code> = Specifies that twe wantto use the xScale we already specified <br>
+<p><code>d3.svg.axis()</code> = Indicates that we want to create an element with the characteristics of an axis i.e. can have labels and tick marks. <br>
+<code>.scale(yScale)</code> = Specifies that we want to use the xScale we already specified <br>
 <code>.orient("left")</code> = Specifies that this will be a vertical axis, from bottom to top</p>
 
 
@@ -384,7 +385,7 @@ svg.selectAll('rect.colorBar')
 <div class="container-fluid bg-topic-even padding-sides text-center">
 <h4 class="margin step" id="step-1920-create-y-axis-pt-2">Step 19: Create Y Axis, Pt 2</h4>
 
-<p>Now we can use an append statement to get this axis on the graph</p>
+<p>Now we can use an <code>append()</code> statement to get this axis on the graph</p>
 
 
 
@@ -393,12 +394,13 @@ svg.selectAll('rect.colorBar')
 <pre><code> svg.append("g").call(yAxis); 
 </code></pre>
 
-<p><code>.append("g")</code> = An axis is not just a line. It can also include ticks and labels. So we will need a “g” element, not a path. <br>
-<code>.call(yAxis)</code> = The characteristics of this axis will be based on the axis we defined</p>
+<p><code>.append("g")</code> = An axis isn't just a line; it can also have text for labels and tick marks. Since it has multiple
+elements to it, this would be a 'g' element in SVG. <br>
+<code>.call(yAxis)</code> = This will define the axis based on what's in the xAxis function.</p>
 </div>
 <div class="container-fluid bg-topic-odd padding-sides text-center">
-<h4 class="margin step" id="links">Links</h4>
-
+<h4 class="margin step" id="links">Helpful Links</h4>
+<p>More information about axes, graphs, and D3 in general:</p>
 <p><a class="links" href="http://alignedleft.com/tutorials/d3/axes">http://alignedleft.com/tutorials/d3/axes</a> <br>
 <a class="links" href="http://alignedleft.com/tutorials/d3">http://alignedleft.com/tutorials/d3</a></p>
 </div>
