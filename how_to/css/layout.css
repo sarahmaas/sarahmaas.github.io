@@ -8,39 +8,44 @@
   p {font-size: 16px;}
   h4.margin {margin-bottom: 45px; margin-top: 45px; font-weight: bold;}
   h5.margin {margin-bottom: 45px; margin-top: 45px; font-size: 18px;}
-
+  
   .margin {margin-bottom: 45px;}
   
   .padding-sides {
-	  padding-left: 90px;
-	  padding-right: 90px;
+    padding-left: 90px;
+    padding-right: 90px;
   }
+  
   .bg-heading { 
-	  background-color: lightsteelblue;
-	  color: #2f2f2f; /* Black Gray */
+    background-color: lightsteelblue;
+    color: #2f2f2f; /* Black Gray */
   }
+  
   .bg-page-title {
     color: #2f2f2f; /* Black Gray */
-	  font-style: italic;
+    font-style: italic;
   }
+  
   .bg-topic-odd { 
     background-color: #474e5d; /* Dark Blue */
     color: #ffffff;
   }
+  
   .bg-topic-even { 
     background-color: #47595d; /* Dark Blue */
     color: #ffffff;
-
   }
+  
   .bg-about { 
     background-color: #ffffff; /* White */
-	  color: #555555;
-
+    color: #555555;
   }
+  
   .bg-footer { 
     background-color: #2f2f2f; /* Black Gray */
     color: #fff;
   }
+  
   .container-fluid {
       padding-top: 70px;
       padding-bottom: 70px;
@@ -60,32 +65,31 @@
   }
   
   .links {
-	  color: #b5b8be;
-
-	  text-decoration: underline;
-	  /*display: block; */
-	  /*overflow: hidden;
+    color: #b5b8be;
+    text-decoration: underline;
+    /*display: block; */
+    /*overflow: hidden;
     white-space: nowrap; 
     text-overflow: ellipsis; */
   }
   
   pre code {
-	  word-wrap: normal;
-	  white-space: pre;
-	  text-align: left;
-
+    word-wrap: normal;
+    white-space: pre;
+    text-align: left;
+  
   }
   code {
-	  	  color: #5d474e;
-
+    	  color: #5d474e;
+  
   }
   
   pre {
-	  min-width: 300px;
-	  max-width: 75%;
-	  margin: auto;
-	  text-align: left;
-	  color: #5d474e;
+    min-width: 300px;
+    max-width: 75%;
+    margin: auto;
+    text-align: left;
+    color: #5d474e;
   }
   
   table.svg-attribute {
@@ -109,9 +113,9 @@
   }
   
   tbody>tr>td:nth-of-type(1) {
-	  font-weight: bold;
-}
-
+    font-weight: bold;
+  }
+  
   .inline-svg {
     background-color:  #ecedee;
   }
@@ -122,5 +126,17 @@
     margin: 0 auto;
     font-size: 16px;
     text-align: left;
-
+  
+  }
+  
+  .bar {
+    fill: steelblue;
+  }
+  
+  .bar:hover {
+    fill: brown;
+  }
+  
+  .axis--x path {
+    display: none;
   }

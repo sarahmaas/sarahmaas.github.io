@@ -1,3 +1,4 @@
+/* global d3 */
 document.addEventListener('DOMContentLoaded', createBarGraph);
 
 function createBarGraph() {
@@ -36,19 +37,29 @@ function createBarGraph() {
 		.enter()
 		.append('rect')
 		.attr('width', function(d,i){
-			return d.width
+			return d.width;
 		})
 		.attr('height', function(d,i){
-			return d.height*2
+			return d.height*2;
 		})
 		.attr('x', function(d,i){
-			return i * (d.width+2)
+			return i * (d.width+2);
 		})
 		.attr('y', function(d,i){
-			return height - d.height*2
+			return height - d.height*2;
 		})
 		.attr('fill', 'white');
 		
+	var margin = {top: 20, right: 30, bottom: 30, left: 40},
+	    width = 960 - margin.left - margin.right,
+	    height = 500 - margin.top - margin.bottom;
+	
+	var chart = d3.select("#bar-graph")
+	    .attr("width", width + margin.left + margin.right)
+	    .attr("height", height + margin.top + margin.bottom)
+	  .append("g")
+	    .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+    
 	var xScale = d3.scale.linear()
 		.domain( [0, data.length] )
 		.range( [0, width] ); 
@@ -57,13 +68,17 @@ function createBarGraph() {
 		.domain( [0, d3.max(data, function(d) { return d.height; })] )
 		.range( [0, height] ); 
 
-	var xAxis = d3.svg.axis().scale(xScale)
+	var xAxis = d3.svg.axis()
+	    .scale(xScale)
 		.orient("bottom");
 	
-	svg.append("g").call(xAxis); 
+	chart.append("g").attr("class", "x axis")
+    .attr("transform", "translate(0," + height + ")").call(xAxis); 
 	
-	var yAxis = d3.svg.axis().scale(yScale)
-		.orient("left"); 
+	var yAxis = d3.svg.axis()
+	    .scale(yScale)
+		.orient("left")
+		.ticks(10, "%");; 
 		
 	svg.append("g").call(yAxis);
 }

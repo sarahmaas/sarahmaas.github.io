@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://use.fontawesome.com/147d8defdd.js"></script>
 </head>
 <body>
@@ -69,7 +70,10 @@
 <!-- Credits -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
 <div id="bar-graph"></div>
-<script async src="scripts/bar_graph.js"></script>
+
+  <script async src="scripts/bar_graph.js"></script> 
+ <!-- <script async src="scripts/bar_graph_new.js"></script> -->
+
   <p>  Tutorial Steps taken from interactive demo here: 
   <a class="links" href="https://www.rtfmanual.io/d3garden">https://www.rtfmanual.io/d3garden</a></p>
 </div>
@@ -226,7 +230,7 @@ Create an area to create the visualization in.  <br>
 <!-- Step 11: Define Bar Height -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h4 class="margin step" id="step-11">Step 11: Define Bar Height</h4>
-  <p>Define each element’s attributes</p>
+  <p>Continue defining each element’s attributes with height.</p>
     <h5 class="margin sub-step" id="what-it-does-5">What It Does</h5>
     <p><pre><code>.attr(‘height’ , function (d,i) { return d.height })</code></pre></p>
     <p>In the statement <code>function(d,i)</code>, <code>d</code> represents items in the data and <code>i</code> is the index of 
@@ -235,34 +239,30 @@ Create an area to create the visualization in.  <br>
 
 <!-- Step 12: Put Bars In A Row -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
-<h4 class="margin step" id="step-12">Step 12: Put Bars In A Row</h4>
-<p>Separate bars from each other. When new bars are created from a dataset they are set to coordinates of (0, 0) so we have to 
-set some attributes to separate them. You will likely want your bar graph data already ordered by your x-axis values.</p>
-<h5 class="margin sub-step" id="what-it-does-6">What It Does</h5>
-<pre><code> .attr('x' , function (d,i) { return i * d.width }) </code></pre>
-<p>In last statement we ended up with… a bunch of plants stacked on top of one another. That was disappointing. We also need to 
-define x values for each bar so that they do not stack on top of each other, like they did in the last step. <br>
-Using the index of each bar, we can move them right to spread them out. We can multiply this index by the width of each bar to spread them out.</p>
+  <h4 class="margin step" id="step-12">Step 12: Put Bars In A Row</h4>
+  <p>Separate bars from each other. When new bars are created from a dataset they are set to coordinates of (0, 0) so we have to 
+  set some attributes to separate them. You will likely want your bar graph data already ordered by your x-axis values.</p>
+    <h5 class="margin sub-step" id="what-it-does-6">What It Does</h5>
+    <p><pre><code> .attr('x' , function (d,i) { return i * d.width }) </code></pre></p>
+    <p>The last statement created a bunch of bars stacked on top of each other. This is because of the default values for the attributes.
+    We have to define x values for this type of bar chart for them to be spaced out appropriately. 
+    To space them out we can multiply the index of each bar by the width of the bars to spread them out.</p>
 </div>
 
+<!-- Step 13: Bar Orientation -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
-<h4 class="margin step" id="step-1313-bar-orientation">Step 13: Bar Orientation</h4>
-
-<p>The origin is the top left corner… which means your bars may be pointing the wrong direction!</p>
-
-<h5 class="margin sub-step" id="what-it-does-7">What It Does</h5>
-
-<pre><code> .attr('y' , function (d,i) { return divHeight - d.height }) 
-</code></pre>
-
-<p>The origin i.e. start point for D3 is the top left corner of the div. This means that when you set the height of a bar… it is growing downwards from the top left! Not good. So, we need to reverse this. <br>
-We need to set a new start point for the bar to grow from. We subtract the bar height from the overall height of the div. We start from the bottom of the containing div, and draw the bar starting from there!</p>
-
-
+  <h4 class="margin step" id="step-13">Step 13: Bar Orientation</h4>
+  <p>The origin is the top left corner so the bars are likely upside down. </p>
+    <h5 class="margin sub-step" id="what-it-does-7">What It Does</h5>
+    <p><pre><code> .attr('y' , function (d,i) { return divHeight - d.height }) </code></pre></p>
+    <p>Since the start point (origin) for D3 is the top left corner of the div, bar charts will come down from the top of the div. 
+    So, how do we fix this? <br>
+    We need to set a new starting point. To do this, we subtract the bar height from the overall height. This fixes the problem!</p>
 </div>
-<div class="container-fluid bg-topic-odd padding-sides text-center">
-<h4 class="margin step" id="done-final-code">Done! Final Code</h4>
 
+<!-- Bar Chart is Done -->
+<div class="container-fluid bg-topic-odd padding-sides text-center">
+<h4 class="margin step" id="done-final-code">Final Code for the Internal Portion of the Bar Graph</h4>
 <pre><code>var w= 535;
 var h= 250;
 var svg= d3.select('.gardenDiv')
@@ -288,10 +288,11 @@ svg.selectAll('rect.colorBar')
     })
     .attr('fill', 'white')
 </code></pre>
+<div class="container-fluid bg-topic-even padding-sides text-center">
 
 <h3 id="add-x-and-y-axis">Add X and Y Axis</h3>
 </div>
-<div class="container-fluid bg-topic-even padding-sides text-center">
+<div class="container-fluid bg-topic-odd padding-sides text-center">
 <h4 class="margin step" id="step-1420-scale-on-x-axis">Step 14: Scale on X Axis</h4>
 
 <p>Before we add an axis to the graph, we need to define the start and end point.</p>
@@ -429,6 +430,8 @@ svg.selectAll('rect.colorBar')
   	</div>
   </div>
 </div>
+
+  <script src="http://d3js.org/d3.v3.min.js"></script>
 
 <!-- Footer -->
 <footer class="container-fluid bg-footer text-center">
