@@ -503,17 +503,28 @@ svg.append("g")
 <!-- Step 11: Adjust visuals -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin">Step 11: Adjust visuals</h3>
-  <p>Clean up tick marks if desired, add CSS for styling, and update padding as needed to account for the addition of the axes.</p>
-  <p><pre><code>var xAxis = d3.svg.axis()
-  .scale(xScale)
-  .orient("bottom");</code></pre></p>
-  <p>After the axes have been created they have to be added to the</p>
+  <p>Clean up tick marks if desired, add CSS for styling, and update padding as needed to account for the addition of the axes.<br>
+  For more details on how to handle tick marks, see the link at the top of the page.</p>
+  <p><pre><code>.axis path,
+.axis line {
+    fill: none;
+    stroke: black;
+    shape-rendering: crispEdges;
+}
+
+.axis text {
+    font-family: sans-serif;
+    font-size: 11px;
+}</code></pre></p>
+  <p>This CSS styling cleans up the graph a bit and helps ensure that it's crisp and easy to read.</p>
 </div>
 
 <!-- Demo 6 and 7-->
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin">Demo 6 and 7</h3>
-  <p></p>
+  <p>This demo includes all of the new changes - including adjustments to ticks and transforms for the x axis. It is also now
+  generating a dynamic data set. This shows how this code could be used for many different data sets and chart sizes and still
+  function how it should.</p>
 <p><pre><code>//Width and height
 var w = 500;
 var h = 300;
@@ -616,10 +627,12 @@ svg.append("g")
   .call(yAxis);</code></pre></p>
   <div id="scatter-demo6"></div>
   <script src="scripts/scatter/demo6.js"></script>
-  	<p>This is now a demo of a randomly generated dataset. Now without the labels: </p>
+  	<p>This is now a demo of a randomly generated dataset, so the same code with the labels deactivated generates a completely 
+  	different chart: </p>
   <div id="scatter-demo7"></div>
   <script src="scripts/scatter/demo7.js"></script>  
-  <p>It could still use some styling with CSS for the background, but that is not part of this demo.</p>
+  <p>It could still use some styling with CSS for the background, but that is not part of this demo. You would just assign a 
+  background color to the svg element. The best way to handle that would be to assign a class or id to it using <code>attr()</code>.</p>
 </div>
 
 <!-- About This Site -->
