@@ -67,7 +67,7 @@
 </div>
 
 <div class="scatterplot"></div>
-<!-- Step 1: Create the SVG element -->
+<!-- Credits -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <p>Code snippets from 
   <a class="links" href="http://alignedleft.com/tutorials/d3/making-a-scatterplot">http://alignedleft.com/tutorials/d3/making-a-scatterplot</a>. Explanations are mine.</p>
@@ -76,7 +76,7 @@
 <!-- Step 1: Create the SVG element -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin">Step 1: Create the SVG element</h3>
-  <p></p>
+  <p>This selects the HTML element 'body', attaches an 'svg' element to it, and assigns the height and width to that 'svg' element.</p>
   <p><pre><code>//Create SVG element
     var svg = d3.select("body")
       .append("svg")
@@ -87,7 +87,10 @@
 <!-- Step 2: Create the circles -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin">Step 2: Create the circles</h3>
-  <p></p>
+  <p><code>selectAll("circle")</code> selects all circles in the svg element. If there are none, it is an empty set, which is 
+  the case here. From there, the data is joined to the set with <code>data(dataset)</code>.<br><code>enter()</code> signifies the 
+  set of data points that are new to the join. <code>append("circle")</code> then creates a new circle for each of the data points,
+  assigning them the default attributes.</p>
   <p><pre><code>svg.selectAll("circle")
    .data(dataset)
    .enter()
@@ -97,20 +100,23 @@
 <!-- Step 3: Set attributes of the circles -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin">Step 3: Set attributes of the circles</h3>
-  <p></p>
-  <p><pre><code>   .attr("cx", function(d) {
-        return d[0];
-   })
-   .attr("cy", function(d) {
-        return d[1];
-   })
-   .attr("r", 5);</code></pre></p>
+  <p>Next, set the attributes of the circle as desired to represent your data points. <code>r</code> is the radius and affects the
+  size of the data, while <code>cx</code> and <code>cy</code> are the coordinates of the center of the circle and would determine
+  the position of the circle on the graph.<br>You wouldn't necessarily need to use the sizing of <code>r</code>, but it is definitely
+  helpful with data representations.</p>
+  <p><pre><code>.attr("cx", function(d) {
+    return d[0];
+})
+.attr("cy", function(d) {
+    return d[1];
+})
+.attr("r", 5);</code></pre></p>
 </div>
 
 <!-- Demo 1 -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin">Demo 1</h3>
-  <p></p>
+  <p>Here is the working code so far and the chart it generates.</p>
 <p><pre><code>//Width and height
 var w = 500;
 var h = 100;
@@ -141,14 +147,17 @@ svg.selectAll("circle")
      <script src="scripts/scatter/demo1.js"></script>
 
 		
-		<p>But, this doesn't look that great. It has no background, no labels, and the dots are all the same size. It would be more
-		meaningful if we had differing circle sizes.</p>
+		<p>However, this doesn't look that great. It's just a bunch of floating dots right now.<br>
+		It has no background, no labels, and the dots are all the same size. It would be more
+		meaningful if we had differing circle sizes (and the data to represent with that).</p>
 </div>
 
 <!-- Step 4: Change the circle size -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin">Step 4: Change the circle size</h3>
-  <p></p>
+  <p>The first thing we can do is alter the size of the circles. Normally, you'd only do this when you have some data to 
+  represent with the size of the circles. It would typically be bound to them at the time they are created, but could 
+  also be updated later if needed.<br>For this example, an equation is used to generate random numbers.</p>
   <p><pre><code>.attr("r", function(d) {
     return Math.sqrt(h - d[1]);
 });</code></pre></p>
@@ -157,7 +166,8 @@ svg.selectAll("circle")
 <!-- Step 5: Add labels to circles -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin">Step 5: Add labels to circles</h3>
-  <p></p>
+  <p>Since we don't have axes to label the graph, the first option is to add text labels. This code actually labels the points
+  with their coordinates. <code>attr()</code> is used a number of times here to assign both data values and styles.</p>
   <p><pre><code>svg.selectAll("text")
   .data(dataset)
   .enter()
@@ -180,7 +190,7 @@ svg.selectAll("circle")
 <!-- Demo 2 -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin">Demo 2</h3>
-  <p></p>
+  <p>This next demo now shows the labels that were just added. </p>
   <p><pre><code>//Width and height
 var w = 500;
 var h = 100;
@@ -241,7 +251,8 @@ svg.selectAll("text")
 <!-- Step 6: Set dynamic scale -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin">Step 6: Set dynamic scale </h3>
-  <p></p>
+  <p>A dynamic scale is set based on the data input. This is ideal, especially since one of the main reasons for using D3 is to 
+  make dynamic visualizations! The code here finds the max of the entire dataset and sets the domain and range accordingly.</p>
   <p><pre><code>var xScale = d3.scale.linear()
   .domain([0, d3.max(dataset, function(d) { return d[0]; })])
   .range([0, w]);
@@ -251,6 +262,9 @@ var yScale = d3.scale.linear()
   .range([0, h]);</code></pre></p>
   
   <h4 class="margin">Alter the code where the circles were created.</h4>
+  <p>Now that the scale is dynamic, the code for creating the circles needs to be altered. It was coded to static values and
+  should now be updated to reflect the new scaling. <br>These functions don't do this, but it's possible to set the scaling functions
+  up such that you can normalize your data view a bit in extreme cases.</p>
   <p>Replace this code:</p>
   <p><pre><code>.attr("cx", function(d) {
   return d[0];
@@ -269,6 +283,8 @@ var yScale = d3.scale.linear()
 })</code></pre></p>
 
   <h4 class="margin">Alter the code where the text labels were generated.</h4>
+  <p>These also need to be updated to match the functions for the circles. If not, you could end up with text and circles in
+  different areas since they might be to a different scale.</p>
   <p>Replace this code:</p>
   <p><pre><code>.attr("x", function(d) {
   return d[0];
@@ -289,7 +305,7 @@ var yScale = d3.scale.linear()
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin">Demo 3</h3>
   <p></p>
-  <p><pre><code>			//Width and height
+  <p><pre><code>//Width and height
 var w = 500;
 var h = 100;
 
