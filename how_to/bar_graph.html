@@ -66,231 +66,185 @@
   <h3 class="bg-page-title">Bar Graph</h3>
 </div>
 
-<!-- Second Container -->
+<!-- Credits -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
 <div id="bar-graph"></div>
 <script async src="scripts/bar_graph.js"></script>
-  <p>  Tutorial Steps from <a class="links" href="https://www.rtfmanual.io/d3garden">https://www.rtfmanual.io/d3garden</a></p>
+  <p>  Tutorial Steps taken from interactive demo here: 
+  <a class="links" href="https://www.rtfmanual.io/d3garden">https://www.rtfmanual.io/d3garden</a></p>
 </div>
 <div class="container-fluid bg-topic-even padding-sides text-center">
 <h4 class="margin step" id="step-1">Step 1: The SVG Canvas</h4>
 
-<p>D3 uses SVG (Scalable Vector Graphics) to draw its elements. <a class="links" href="https://developer.mozilla.org/en-US/docs/Web/SVG">SVG</a> <br>
+<p>D3 uses <a class="links" href="https://developer.mozilla.org/en-US/docs/Web/SVG">SVG</a> (Scalable Vector Graphics) to draw its elements.  <br>
 Create an area to create the visualization in.  <br>
 <code>&lt;div class="canvas"&gt;&lt;div&gt;</code></p>
 </div>
+
+<!-- Step 2: Declare SVG -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
-<h4 class="margin step" id="step-2">Step 2: Declare SVG</h4>
-
-<h5 class="margin sub-step">Define the canvas.</h5>
-
-<p>This can be done with the following statement:</p>
-
-<pre><code>var svg = d3.select('div.canvas').append('svg').attr('width', '648px').attr('height', '452px');
-</code></pre>
-
-<p>This takes advantage of D3’s chaining. Breaking the statement down: <br>
-1. Select the canvas. <code>var svg = d3.select('div.class')</code> <br>
-2. Append the svg. <code>.append('svg')</code> <br>
-3. Set width and height. <code>.attr('width', '648px')</code> <code>.attr('height', '452px')</code></p>
+  <h4 class="margin step" id="step-2">Step 2: Declare SVG</h4>
+    <h5 class="margin sub-step">Define the canvas.</h5>
+    <p>This can be done with the following statement:</p>
+    <p><pre><code>var svg = d3.select('div.canvas').append('svg').attr('width', '648px').attr('height', '452px');</code></pre></p>
+    <p>This takes advantage of D3’s chaining. Breaking the statement down: <br>
+    1. Select the canvas. <code>var svg = d3.select('div.class')</code> <br>
+    2. Append the svg. <code>.append('svg')</code> <br>
+    3. Set width and height. <code>.attr('width', '648px')</code> <code>.attr('height', '452px')</code>
+    </p>
 </div>
+
+<!-- Step 3: selectAll() Statement -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
-<h4 class="margin step" id="step-3">Step 3: selectAll() Statement</h4>
-
-<p>selectAll() declares a more specific group where you will be adding elements</p>
-
-
-
-<h5 class="margin sub-step">What It Does</h5>
-
-<p>selectAll() creates an empty set that will later be filled with elements. It is technically infinite, but we will portray it as finite for the sake of visualizing it.</p>
-
-
+  <h4 class="margin step" id="step-3">Step 3: selectAll() Statement</h4>
+  <p><code>selectAll()</code> declares a more specific group where you will be adding elements.</p>
+    <h5 class="margin sub-step">What It Does</h5>
+    <p><code>selectAll()</code> creates an empty set that will later be filled with elements.</p>
 </div>
+
+<!-- Step 4: selectAll() in action -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
-<h4 class="margin step" id="step-4">Step 4: selectAll() in action</h4>
-
-
-
-<h5 class="margin sub-step" id="how-to-use-selectall">How to use selectAll()</h5>
-
-<p><code>svg.selectAll('rect.colorBar')</code></p>
-
-<p>This statement looks for all rect elements (from SVG specification) with class 'colorBar'. If there are none, it creates an empty set.</p>
-
-
+  <h4 class="margin step" id="step-4">Step 4: selectAll() in action</h4>
+    <h5 class="margin sub-step" id="how-to-use-selectall">How to use selectAll()</h5>
+    <p><code>svg.selectAll('rect.colorBar')</code></p>
+    <p>This statement looks for all rect elements (SVG) with class 'colorBar'. If there are none, it creates an empty set.</p>
 </div>
+
+<!-- Step 5: data() Statement -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
-<h4 class="margin step" id="step-5">Step 5: data() Statement</h4>
-
-<p>data() declares the object or array you will use for the visualization</p>
-
-
-
-<h5 class="margin sub-step" id="what-it-does-1">What It Does</h5>
-
-<p>data() determines the data that you will then iterate through in order to create a series of elements</p>
-
-
+  <h4 class="margin step" id="step-5">Step 5: data() Statement</h4>
+  <p><code>data()</code> declares the object or array you will use for the visualization. Your actual dataset is passed to it.</p>
+    <h5 class="margin sub-step" id="what-it-does-1">What It Does</h5>
+    <p><code>data()</code> and its argument sets the data that will be iterated through. This creates a series of elements, one for
+    each item in the dataset.</p>
 </div>
+
+<!-- Step 6: Add data() -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
-<h4 class="margin step" id="step-6">Step 6: Add data()</h4>
-
-<p>Check out the properties</p>
-
-<pre><code>var tomatoes = [
-{"width":25,"height":86,"color":"red"},
-{"width":25,"height":84,"color":"red"},
-{"width":25,"height":98,"color":"red"},
-{"width":25,"height":93,"color":"red"},
-{"width":25,"height":68,"color":"red"},
-{"width":25,"height":70,"color":"red"},
-{"width":25,"height":76,"color":"red"},
-{"width":25,"height":77,"color":"red"},
-{"width":25,"height":95,"color":"red"},
-{"width":25,"height":100,"color":"red"},
-{"width":25,"height":90,"color":"red"},
-{"width":25,"height":75,"color":"red"},
-{"width":25,"height":65,"color":"red"},
-{"width":25,"height":80,"color":"red"},
-{"width":25,"height":78,"color":"red"},
-{"width":25,"height":76,"color":"red"},
-{"width":25,"height":94,"color":"red"},
-{"width":25,"height":78,"color":"red"},
-{"width":25,"height":69,"color":"red"},
-{"width":25,"height":93,"color":"red"},
-]
-</code></pre>
-
-
-
-<h5 class="margin sub-step" id="how-to-use-data">How to use data()</h5>
-
-<pre><code>svg.selectAll('rect.colorBar').data(tomatoes)
-</code></pre>
-
-<p>Data() declares the object or array you will be iterating through. Pretty straightforward.</p>
+  <h4 class="margin step" id="step-6">Step 6: Add data()</h4>
+  <p>Check out the properties of each element. These are what can be assigned to attributes of the SVG elements for your graph.</p>
+  <pre><code>var tomatoes = [
+  {"width":25,"height":86,"color":"red"},
+  {"width":25,"height":84,"color":"red"},
+  {"width":25,"height":98,"color":"red"},
+  {"width":25,"height":93,"color":"red"},
+  {"width":25,"height":68,"color":"red"},
+  {"width":25,"height":70,"color":"red"},
+  {"width":25,"height":76,"color":"red"},
+  {"width":25,"height":77,"color":"red"},
+  {"width":25,"height":95,"color":"red"},
+  {"width":25,"height":100,"color":"red"},
+  {"width":25,"height":90,"color":"red"},
+  {"width":25,"height":75,"color":"red"},
+  {"width":25,"height":65,"color":"red"},
+  {"width":25,"height":80,"color":"red"},
+  {"width":25,"height":78,"color":"red"},
+  {"width":25,"height":76,"color":"red"},
+  {"width":25,"height":94,"color":"red"},
+  {"width":25,"height":78,"color":"red"},
+  {"width":25,"height":69,"color":"red"},
+  {"width":25,"height":93,"color":"red"},
+  ]</code></pre>
+    <h5 class="margin sub-step" id="how-to-use-data">How to use data()</h5>
+    <p><pre><code>svg.selectAll('rect.colorBar').data(tomatoes)</code></pre></p>
+    <p><code>data()</code> declares the object or array for iteration.</p>
 </div>
+
+<!-- Step 7: enter() the data -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
-<h4 class="margin step" id="step-713-enter-the-data">Step 7: enter() the data</h4>
-
-<p>Enter() performs the data join</p>
-
-<pre><code> svg.selectAll('rect.colorBar').data(tomatoes).enter() 
-</code></pre>
-
-
-
-<h5 class="margin sub-step" id="what-it-does-2">What It Does</h5>
-
-<p>enter() combines your data with the empty set from selectAll() and creates a set of elements that can then be accessed one by one in D3</p>
-
-
+  <h4 class="margin step" id="step-7">Step 7: enter() the data</h4>
+  <p><code>enter()</code> performs the data join and returns the subset of new entries.</p>
+  <p><pre><code> svg.selectAll('rect.colorBar').data(tomatoes).enter()  </code></pre></p>
+    <h5 class="margin sub-step" id="what-it-does-2">What It Does</h5>
+    <p><code>enter()</code> combines your data with the empty set from <code>selectAll()</code> and creates a set of elements that 
+    can then be accessed one by one in D3</p>
 </div>
+
+<!-- Step 8: append() the element -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
-<h4 class="margin step" id="step-813-append-the-element">Step 8: append() the element</h4>
-
-<p>Append() determines the type of visualization</p>
-
-
-
-<h5 class="margin sub-step" id="what-it-does-3">What It Does</h5>
-
-<p>Append() allows you to choose from the 7 basic SVG elements or a ‘g’ element. In this case, we want a ‘rect’ element to build a bar graph.</p>
-
-<pre><code> svg.selectAll('rect.colorBar').data(tomatoes)
-.enter().append('rect') 
-</code></pre>
+  <h4 class="margin step" id="step-8">Step 8: append() the element</h4>
+  <p><code>append()</code> determines the type of visualization based on what it's passed.</p>
+    <h5 class="margin sub-step" id="what-it-does-3">What It Does</h5>
+    <p><code>append()</code> allows you to choose from the 
+    <a class="links" href="https://www.w3.org/TR/SVG/shapes.html">7 basic SVG elements</a> or a 'g' element. 
+    A 'g' element groups SVG shapes together. </p><p>In this case, we want a 'rect' element to build a bar graph.</p>
+    <pre><code> svg.selectAll('rect.colorBar').data(tomatoes)
+    .enter().append('rect')   </code></pre>
 </div>
+
+<!-- Step 9: Quick Review -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
-<h4 class="margin step" id="step-9">Step 9: Quick Review</h4>
+  <h4 class="margin step" id="step-9">Step 9: Quick Review</h4>
+  
+  <p>We are close to building the bar graph! So far, we've defined data, selected the empty set of rect elements of class bar, added 
+  the dataset, joined the data with the empty set, and added a rect element for each item in the data.</p>
 
-<p>We are close to building a bar graph!</p>
+  <pre><code>var tomatoes = [
+  {"width":25,"height":86,"color":"red"},
+  {"width":25,"height":84,"color":"red"},
+  {"width":25,"height":98,"color":"red"},
+  {"width":25,"height":93,"color":"red"},
+  {"width":25,"height":68,"color":"red"},
+  {"width":25,"height":70,"color":"red"},
+  {"width":25,"height":76,"color":"red"},
+  {"width":25,"height":77,"color":"red"},
+  {"width":25,"height":95,"color":"red"},
+  {"width":25,"height":100,"color":"red"},
+  {"width":25,"height":90,"color":"red"},
+  {"width":25,"height":75,"color":"red"},
+  {"width":25,"height":65,"color":"red"},
+  {"width":25,"height":80,"color":"red"},
+  {"width":25,"height":78,"color":"red"},
+  {"width":25,"height":76,"color":"red"},
+  {"width":25,"height":94,"color":"red"},
+  {"width":25,"height":78,"color":"red"},
+  {"width":25,"height":69,"color":"red"},
+  {"width":25,"height":93,"color":"red"},
+  ]
+  </code></pre>
 
-<pre><code>var tomatoes = [
-{"width":25,"height":86,"color":"red"},
-{"width":25,"height":84,"color":"red"},
-{"width":25,"height":98,"color":"red"},
-{"width":25,"height":93,"color":"red"},
-{"width":25,"height":68,"color":"red"},
-{"width":25,"height":70,"color":"red"},
-{"width":25,"height":76,"color":"red"},
-{"width":25,"height":77,"color":"red"},
-{"width":25,"height":95,"color":"red"},
-{"width":25,"height":100,"color":"red"},
-{"width":25,"height":90,"color":"red"},
-{"width":25,"height":75,"color":"red"},
-{"width":25,"height":65,"color":"red"},
-{"width":25,"height":80,"color":"red"},
-{"width":25,"height":78,"color":"red"},
-{"width":25,"height":76,"color":"red"},
-{"width":25,"height":94,"color":"red"},
-{"width":25,"height":78,"color":"red"},
-{"width":25,"height":69,"color":"red"},
-{"width":25,"height":93,"color":"red"},
-]
-</code></pre>
-
-<h5 class="margin sub-step" id="how-to-define-each-bar">How to define each bar</h5>
-
-<pre><code> svg.selectAll('rect.bar').data(data)
-.enter().append('rect') 
-</code></pre>
-
-<p><code>svg.selectAll('rect.bar')</code> = Creates an empty set of rect elements with class ‘bar’ <br>
-<code>.data(data)</code> = Adds object or array of data to be turned into elements in the DOM <br>
-<code>.enter()</code> = Join your data with the empty set defined in selectAll, can iterate through this set <br>
-<code>.append('rect')</code> = Append a ‘rect’ element for every item in data</p>
-
-
+    <h5 class="margin sub-step" id="how-to-define-each-bar">How to define each bar</h5>
+    <pre><code> svg.selectAll('rect.bar').data(data)
+    .enter().append('rect') 
+    </code></pre>
+    <p><code>svg.selectAll('rect.bar')</code> = Creates an empty set of rect elements with class 'bar' <br>
+    <code>.data(data)</code> = Adds object or array of data to be turned into elements in the DOM <br>
+    <code>.enter()</code> = Join your data with the empty set defined in selectAll, can iterate through this set <br>
+    <code>.append('rect')</code> = Append a 'rect' element for every item in data</p>
 </div>
+
+<!-- Step 10: Define Bar Width -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
-<h4 class="margin step" id="step-10">Step 10: Define Bar Width</h4>
-
-<p>Attr() statements define the properties of each bar</p>
-
-
-
-<h5 class="margin sub-step" id="what-it-does-4">What It Does</h5>
-
-<pre><code> .attr('width' , function (d,i) { return d.width }) 
-</code></pre>
-
-<p>Attr() statements define what you want your bars to look like. Most importantly, they can use properties from each item in data.</p>
-
-
+  <h4 class="margin step" id="step-10">Step 10: Define Bar Width</h4>
+  <p><code>attr()</code> statements define the properties of each bar. The attributes specific to each type of SVG element can be 
+  reviewed <a class="links" href="http://devdocs.io/d3~3/svg-shapes.md">here</a>.</p>
+    <h5 class="margin sub-step" id="what-it-does-4">What It Does</h5>
+    <p><pre><code> .attr('width' , function (d,i) { return d.width }) </code></pre></p>
+    <p><code>attr()</code> statements define how you want your bars to appear. Specifically, they can be assigned properties of data points.</p>
 </div>
+
+<!-- Step 11: Define Bar Height -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
-<h4 class="margin step" id="step-11">Step 11: Define Bar Height</h4>
-
-<p>Define each element’s attributes</p>
-
-
-
-<h5 class="margin sub-step" id="what-it-does-5">What It Does</h5>
-
-<p>.attr(‘height’ , function (d,i) { return d.height })  <br>
-In the statement ‘function(d,i)’, d stands for each item in data while i is the index, beginning at 0 for the first element</p>
-
-
+  <h4 class="margin step" id="step-11">Step 11: Define Bar Height</h4>
+  <p>Define each element’s attributes</p>
+    <h5 class="margin sub-step" id="what-it-does-5">What It Does</h5>
+    <p><pre><code>.attr(‘height’ , function (d,i) { return d.height })</code></pre></p>
+    <p>In the statement <code>function(d,i)</code>, <code>d</code> represents items in the data and <code>i</code> is the index of 
+    elements, beginning at 0.</p>
 </div>
+
+<!-- Step 12: Put Bars In A Row -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
 <h4 class="margin step" id="step-12">Step 12: Put Bars In A Row</h4>
-
-<p>Separate bars from each other</p>
-
-
-
+<p>Separate bars from each other. When new bars are created from a dataset they are set to coordinates of (0, 0) so we have to 
+set some attributes to separate them. You will likely want your bar graph data already ordered by your x-axis values.</p>
 <h5 class="margin sub-step" id="what-it-does-6">What It Does</h5>
-
-<pre><code> .attr('x' , function (d,i) { return i * d.width }) 
-</code></pre>
-
-<p>In last statement we ended up with… a bunch of plants stacked on top of one another. That was disappointing. We also need to define x values for each bar so that they do not stack on top of each other, like they did in the last step. <br>
+<pre><code> .attr('x' , function (d,i) { return i * d.width }) </code></pre>
+<p>In last statement we ended up with… a bunch of plants stacked on top of one another. That was disappointing. We also need to 
+define x values for each bar so that they do not stack on top of each other, like they did in the last step. <br>
 Using the index of each bar, we can move them right to spread them out. We can multiply this index by the width of each bar to spread them out.</p>
-
-
 </div>
+
 <div class="container-fluid bg-topic-even padding-sides text-center">
 <h4 class="margin step" id="step-1313-bar-orientation">Step 13: Bar Orientation</h4>
 
