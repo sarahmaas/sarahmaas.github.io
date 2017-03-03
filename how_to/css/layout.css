@@ -129,14 +129,14 @@
   
   }
   
-  .bar {
-    fill: steelblue;
-  }
-  
-  .bar:hover {
-    fill: brown;
-  }
-  
-  .axis--x path {
-    display: none;
-  }
+	.axis {
+	  font: 10px sans-serif;
+	  fill: white;
+	}
+
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}

@@ -11,7 +11,6 @@
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-  <script src="https://d3js.org/d3.v4.min.js"></script>
   <script src="https://use.fontawesome.com/147d8defdd.js"></script>
 </head>
 <body>
@@ -70,6 +69,7 @@
 <!-- Credits -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
 <div id="bar-graph"></div>
+  <script src="https://d3js.org/d3.v3.min.js"></script>
   <script async src="scripts/bar_graph_other.js"></script> 
 
 <!--  <script async src="scripts/bar_graph.js"></script>  -->
@@ -293,29 +293,24 @@ svg.selectAll('rect.colorBar')
 </div>
 
 <div class="container-fluid bg-topic-even padding-sides text-center">
-
 <h3 id="add-x-and-y-axis">Add X and Y Axis</h3>
 </div>
+
 <div class="container-fluid bg-topic-odd padding-sides text-center">
-<h4 class="margin step" id="step-1420-scale-on-x-axis">Step 14: Scale on X Axis</h4>
-
+<h4 class="margin step" id="step-14">Step 14: Scale on X Axis</h4>
 <p>Before we add an axis to the graph, we need to define the start and end point.</p>
-
-
-
 <h5 class="margin sub-step" id="how-to-define-a-scale">How to define a scale</h5>
-
 <pre><code>var xScale = d3.scale.linear()
 .domain( [0, data.length] )
 .range( [0, width] ); 
 </code></pre>
-
 <p><code>d3.scale.linear()</code> = Indicates your scale will be linear across the range you specify, as opposed to exponential etc. <br>
 <code>.domain( [0, data.length] )</code> = Specifies that the scale ranges from 0 to the count of total number of items in the array <br>
 <code>.range( [0, width] )</code> = Maps the specified domain to corresponding spots on the SVG. In this case, extends the full width of the SVG.</p>
 </div>
-<div class="container-fluid bg-topic-odd padding-sides text-center">
-<h4 class="margin step" id="step-1520-scale-on-y-axis">Step 15: Scale on Y Axis</h4>
+
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="step-15">Step 15: Scale on Y Axis</h4>
 
 <p>Before we add an axis to the graph, we need to define the start and end point.</p>
 
@@ -332,7 +327,7 @@ svg.selectAll('rect.colorBar')
 <code>.domain( [0, d3.max(data, function(d) { return d.height; })] )</code> = Specifies that the scale ranges from 0 to the tallest bar, which d3.max will find based on the height attribute <br>
 <code>.range( [0, height] )</code> = Maps the specified domain to corresponding spots on the SVG. In this case, extends the full height of the SVG.</p>
 </div>
-<div class="container-fluid bg-topic-even padding-sides text-center">
+<div class="container-fluid bg-topic-odd padding-sides text-center">
 <h4 class="margin step" id="step-1620-create-x-axis-pt-1">Step 16: Create X Axis, Pt 1</h4>
 
 <p>Now that we have scales, we can turn them into elements in the DOM</p>
@@ -349,8 +344,8 @@ svg.selectAll('rect.colorBar')
 
 
 </div>
-<div class="container-fluid bg-topic-odd padding-sides text-center">
-<h4 class="margin step" id="step-1720-create-x-axis-pt-2">Step 17: Create X Axis, Pt 2</h4>
+<div class="container-fluid bg-topic-even padding-sides text-center">
+<h4 class="margin step" id="step-17">Step 17: Create X Axis, Pt 2</h4>
 
 <p>Now we can use an append statement to get this axis on the graph</p>
 
@@ -366,7 +361,7 @@ svg.selectAll('rect.colorBar')
 
 
 </div>
-<div class="container-fluid bg-topic-even padding-sides text-center">
+<div class="container-fluid bg-topic-odd padding-sides text-center">
 <h4 class="margin step" id="step-1820-create-y-axis-pt-1">Step 18: Create Y Axis, Pt 1</h4>
 
 <p>Now that we have scales, we can turn them into elements in the DOM</p>
@@ -385,7 +380,7 @@ svg.selectAll('rect.colorBar')
 
 
 </div>
-<div class="container-fluid bg-topic-odd padding-sides text-center">
+<div class="container-fluid bg-topic-even padding-sides text-center">
 <h4 class="margin step" id="step-1920-create-y-axis-pt-2">Step 19: Create Y Axis, Pt 2</h4>
 
 <p>Now we can use an append statement to get this axis on the graph</p>
@@ -400,7 +395,7 @@ svg.selectAll('rect.colorBar')
 <p><code>.append("g")</code> = An axis is not just a line. It can also include ticks and labels. So we will need a “g” element, not a path. <br>
 <code>.call(yAxis)</code> = The characteristics of this axis will be based on the axis we defined</p>
 </div>
-<div class="container-fluid bg-topic-even padding-sides text-center">
+<div class="container-fluid bg-topic-odd padding-sides text-center">
 <h4 class="margin step" id="links">Links</h4>
 
 <p><a class="links" href="http://alignedleft.com/tutorials/d3/axes">http://alignedleft.com/tutorials/d3/axes</a> <br>
@@ -434,8 +429,6 @@ svg.selectAll('rect.colorBar')
   	</div>
   </div>
 </div>
-
-  <script src="https://d3js.org/d3.v3.min.js"></script>
 
 <!-- Footer -->
 <footer class="container-fluid bg-footer text-center">
