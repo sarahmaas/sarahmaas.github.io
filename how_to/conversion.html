@@ -63,7 +63,7 @@
       <path d="M-100,-102l300,300" fill="none" stroke="url(#gradient-2)" stroke-width="40"></path>
     </g>
   </svg> 
-  <h3 class="bg-page-title">Conversion from Browser D3 to Design Studio D3</h3>
+  <h3 class="bg-page-title">Conversion from Browser to Design Studio</h3>
 </div>
 
 <!-- Get Ready -->
@@ -121,6 +121,8 @@
     <img class="img-responsive center-block" src="img/basic_arc/D3_arc.png">
 
     <h4 class="margin step" id="part-2b-getting-your-arc-into-a-component">Part 2b – Getting your Arc into a Component</h4>
+    <p>D3 and Require.js are not compatible, so Design Studio has a modified version of D3 built in. This is added to your project
+    via the contribution.xml file using the tag <code>&lt;stdInclude kind="d3"/&gt;</code>.</p>
     <p>Here is the script for the Design Studio extension and the arc as rendered in Design Studio. The height and width are still
     explicitly defined.
     <img class="img-responsive center-block" src="img/basic_arc/DS_arc_code.png">
@@ -137,6 +139,32 @@
 <!-- Properties -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin" id="properties">Properties</h3>
+  <p>Right now, all that's being rendered is a static graphic. D3 is supposed to be about representing data. The next step is to 
+  make a list of all the properties that should be configurable. This is the list provided by the tutorial:</p>
+  
+  <!-- Line Table -->
+    <div class="table-responsive">   
+      <table class="svg-attribute table-bordered">
+        <caption class="text-center">Configurable Properties</caption>
+        <thead>
+          <tr><th>Property</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Width and Height</td><td>size of the container</td></tr>
+          <tr><td>Start Angle (in degrees)</td><td>starting angle of the arc, 0 is straight up and 180 is straight down</td></tr>
+          <tr><td>End Angle (in degrees)</td><td>finishing angle of the arc</td></tr>
+          <tr><td>Padding (Top/Bottom/Left/Right)</td><td>allow for buffer space on the edges of the container</td></tr>
+          <tr><td>Inner Radius of the Arc</td><td>0 for it to be pie shaped, greater than 0 for a cutout in the center</td></tr>
+          <tr><td>Outer Radius of the Arc </td><td>distance between the center of the gauge and the outside bounded edge of the arc</td></tr>
+          <tr><td>Centerpoint</td><td>origin, the center of the arc</td></tr>
+          <tr><td>Color</td><td>color of the arc</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <p>Some of the properties are related, so not all of them would need to be set and could be derived. Height and width are 
+    standard properties of objects in Design Studio, so these would have to be set. From these, the (relative) centerpoint could be 
+    calculated. Given set values for the padding, the outer radius could be calculated.</p>
     <h4 class="margin step" id="part-3a-making-your-arc-configurable">Part 3a – Making your Arc Configurable</h4>
 
     <h4 class="margin step" id="part-3b-adding-properties-to-the-properties-pane">Part 3b – Adding Properties to the Properties Pane</h4>
