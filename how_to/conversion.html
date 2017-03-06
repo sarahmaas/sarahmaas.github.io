@@ -9,6 +9,10 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
   <link rel="stylesheet" href="css/layout.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
+  <link rel="stylesheet" href="../highlight/styles/vs.css">
+  <!-- tomorrow-night, solarized-dark, vs-->
+  <script src="../highlight/highlight.pack.js"></script>
+  <script>hljs.initHighlightingOnLoad();</script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://use.fontawesome.com/147d8defdd.js"></script>
@@ -105,7 +109,7 @@
     <h4 class="margin step" id="part-2a-your-first-steps-with-d3">Part 2a – Your first Steps with D3</h4>
     <p>The first part of this process is to start drawing your graphics using SVG. D3 is already built into Design Studio's SDK framework.</p>
     <p>This is a basic HTML file to use as a template. You can see D3 has been included here.</p>
-    <pre><code>    &lt;!DOCTYPE html&gt;
+    <pre><code class="html">    &lt;!DOCTYPE html&gt;
     &lt;html&gt;
       &lt;head&gt;
       &lt;title&gt;My First D3 Chart&lt;/title&gt;
@@ -119,16 +123,47 @@
     &lt;/html&gt;</code></pre><br>
     <p>Here is the arc in the browser and the script that generates it. Since we have no data, the arc's height and width are 
     explicitly defined so that it will appear.</p>
-    <img class="img-responsive center-block" src="img/basic_arc/D3_arc.png">
+    <img class="img-responsive center-block" src="img/gauges/basic_arc/D3_arc.png">
 
     <h4 class="margin step" id="part-2b-getting-your-arc-into-a-component">Part 2b – Getting your Arc into a Component</h4>
     <p>D3 and Require.js are not compatible, so Design Studio has a modified version of D3 built in. This is added to your project
     via the contribution.xml file using the tag <code>&lt;stdInclude kind="d3"/&gt;</code>.</p>
     <p>Here is the script for the Design Studio extension and the arc as rendered in Design Studio. The height and width are still
-    explicitly defined.
-    <img class="img-responsive center-block" src="img/basic_arc/DS_arc_code.png">
+    explicitly defined.</p>
+    <pre><code class="javascript">sap.designstudio.sdk.Component.subclass("com.sap.sample.scngauge.SCNGauge", function() {
+
+        var that = this;
+
+        this.init = function() {
+        var myDiv = that.$()[0];                    // added in as compared to browser D3
+		
+        var pi = Math.PI;                           //import Pi
+		
+        var vis = d3.select(myDiv)                  // selects myDiv 
+                    .append("svg")                  // appends svg element 
+                    .attr("width", "100%")          // sets width to 100% 
+                    .attr("height", "100%");        // sets height to 100% 
+	              
+        var arcDef = d3.svg.arc()
+                       .innerRadius(0)
+                       .outerRadius(70)
+                       .startAngle(45 * (pi/180))   // convert from degrees to radians
+                       .endAngle(3)
+	                 
+        var gaugeArc = vis.attr("width", "400").attr("height", "400").append("path")
+	                      .style("fill", "red")
+	                      .attr("transform", "translate(200,200)")
+	                      .attr("d", arcDef);		
+	};
+
+
+});
+</code></pre>
+<br>
+    <p>
+    <img class="img-responsive center-block" src="img/gauges/basic_arc/DS_arc_code.png">
     <br><br>
-    <img class="img-responsive center-block" src="img/basic_arc/DS_arc.png">
+    <img class="img-responsive center-block" src="img/gauges/basic_arc/DS_arc.png">
 
     <h4 class="margin step">Differences</h4>
     <p>You can see from looking at the code for both that the differences are fairly minor, since we are not yet binding any data
@@ -168,9 +203,57 @@
     calculated. Given set values for the padding, the outer radius could be calculated.</p>
     <h4 class="margin step" id="part-3a-making-your-arc-configurable">Part 3a – Making your Arc Configurable</h4>
     <p>
-      
+      text goes here
     </p>
-    <pre><code>  //Vis definitiions
+    <pre><code class="javascript">  //Vis definitions
+  var innerRad = 0;
+  var width = 200;
+  var height = 200;
+  var startAngleDeg = -90;
+  var endAngleDeg = 90;
+  var colorCode = "red";
+</code></pre>
+<br>
+<p>Text goes here</p>
+<pre><code = "javascript">  //Outer Dimensions & Positioning
+  var paddingTop = 10;
+  var paddingBottom = 10;
+  var paddingLeft = 10;
+  var paddingRight = 10;
+</code></pre>
+<br>
+<p>Text goes here</p>
+<pre><code = "javascript">//The total size of the component is calculated from its parts
+  // Find the larger left/right padding
+  var lrPadding = paddingLeft + paddingRight;
+  var tbPadding = paddingTop + paddingBottom;
+  var maxPadding = lrPadding;
+  if (maxPadding < tbPadding){
+    maxPadding = tbPadding;
+  }
+  var outerRad = (width - 2*(maxPadding))/2;
+</code></pre>
+<br>
+<p>Text goes here</p>
+<pre><code = "javascript">  //The offset will determine where the center of the arc shall be
+  var offsetLeft = width/2;
+  var offsetDown = height/2;
+</code></pre>
+<br>
+<p>Text goes here</p>
+<pre><code = "javascript">  //Don’t let the innerRad be greater than outer rad
+  if (outerRad < innerRad){
+    outerRad = innerRad;
+    var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
+    warningMsg += " radius, or increase the size of the control. Height & width (including";
+    warningMsg += " subtraction for padding) must me at least twice as large as Internal Radius.!";
+    alert(warningMsg);
+  }</code></pre>
+  <br>
+  <p>Here is the completed code for the responsive change for D3 in the browser:</p>
+  <pre><code = "javascript">  var pi = Math.PI;                                        //import Pi
+  
+  //Vis definitiions
   var innerRad = 0;
   var width = 200;
   var height = 200;
@@ -202,12 +285,118 @@
   //Don’t let the innerRad be greater than outer rad
   if (outerRad < innerRad){
     outerRad = innerRad;
-    var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner radius, or increase the size of the ";
-    warningMsg += "control. Height & width (including subtraction for padding) must me at least twice as large as Internal Radius.!";
+    var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
+    warningMsg += " radius, or increase the size of the control. Height & width (including";
+    warningMsg += " subtraction for padding) must me at least twice as large as Internal Radius.!";
     alert(warningMsg);
-  }</code></pre>
+  }
+	
+  var vis = d3.select("#content")                          // selects ID content 
+              .append("svg")                               // appends svg element 
+              .attr("width", "100%")                       // sets width to 100% 
+              .attr("height", "100%");                     // sets height to 100% 
+              
+  var arcDef = d3.svg.arc()
+                 .innerRadius(innerRad)
+                 .outerRadius(outerRad)
+                 .startAngle(startAngleDeg * (pi/180))     // convert from degrees to radians
+                 .endAngle(endAngleDeg * (pi/180))         // convert from degrees to radians
+                 
+  var gaugeArc = vis.attr("width", width).attr("height", height).append("path")
+                    .style("fill", colorCode)
+                    .attr("transform", "translate(" + offsetLeft + "," + offsetDown + ")")
+                    .attr("d", arcDef);</code></pre>
+                    <br>
+  <p>Here is the arc that is generated by the new changes - you can see that the start and end angle has changed from before
+  and is now more representative of a gauge. <br>
+  <img class="img-responsive center-block" src="img/gauges/configured_arc/D3_arc.png">
+</p>
     <h4 class="margin step" id="part-3b-adding-properties-to-the-properties-pane">Part 3b – Adding Properties to the Properties Pane</h4>
+    <p>This is now where the differences become more noticeable. We cannot simply set variables if we want to create a configurable
+    arc in Design Studio. For that, we have to set up properties that are then assigned. Properties are set up and initialized if 
+    desired in component.xml. Properties are added after the include elements.</p>
+    <h5 class="margin">The Property Element</h5>
+    <p>There are both mandatory and optional attributes for properties in Design Studio.
+      <!-- Mandatory Attribute Table -->
+    <div class="table-responsive">   
+      <table class="svg-attribute table-bordered">
+        <caption class="text-center">Mandatory Attributes</caption>
+        <thead>
+          <tr><th>Attribute</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>id</td><td>technical name</td></tr>
+          <tr><td>title</td><td>label</td></tr>
+          <tr><td>type</td><td>technical type</td></tr>
 
+        </tbody>
+      </table>
+    </div>
+    <br>
+    <!--<p>Allowed types are: <code>boolean</code>, <code>Color</code>, <code>float</code>, <code>int</code>, <code>ResultCell</code>, 
+    <code>ResultCellList</code>, <code>ResultCellSet</code>, <code>ResultSet</code>, <code>ScriptText</code>, <code>String</code>, 
+    <code>Text</code> and <code>Url</code>.<br>These are case sensitive.</p> -->
+    <p>Allowed types are: <code>boolean</code> <code>Color</code> <code>float</code> <code>int</code> <code>ResultCell</code> 
+    <code>ResultCellList</code> <code>ResultCellSet</code> <code>ResultSet</code> <code>ScriptText</code> <code>String</code> 
+    <code>Text</code> <code>Url</code><br>These are case sensitive.</p>
+    <!--<p>Allowed types are: boolean, Color, float, int, ResultCell, ResultCellList, ResultCellSet, ResultSet, 
+    ScriptText, String, Text and Url.<br>These are case sensitive.</p> -->
+      <!-- Optional Attribute Table -->
+    <div class="table-responsive">   
+      <table class="svg-attribute table-bordered">
+        <caption class="text-center">Optional Attributes</caption>
+        <thead>
+          <tr><th>Attribute</th><th>Description</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>group</td><td>Properties grouping, default is Display</td></tr>
+          <tr><td>bindable</td><td>enables data binding</td></tr>
+          <tr><td>tooltip</td><td>mouseover tooltip text</td></tr>
+          <tr><td>visible</td><td>set the property via the Additional Properties Sheet, via script only, or not at all</td></tr>
+
+        </tbody>
+      </table>
+    </div>
+    </p>
+    <h5 class="margin">Examples of Property Elements</h5>
+    <p>Here is an example of a float property with only the mandatory attributes assigned, <code>startAngleDeg</code>:</p>
+
+<pre><code class="xml">&lt;property
+  id="startAngleDeg"
+  title="Start Angle"
+  type="float"/&gt;</code></pre><br>
+<p>Here is an example of an int property with visible set to false, offsetLeft:</p>
+<pre><code class="xml">&lt;property
+  id="offsetLeft"
+  title="Centerpoint Offset X-Axis"
+  type="int"
+  visible="false"/&gt></code></pre>
+    <h5 class="margin">The &lt;initialization&gt; Element</h5>
+    <p>This element allows you to set default values for properties. </p>
+<br>
+<p>These are both valid empty <code>initialization</code> elements:</p>
+
+<pre><code class="xml">&lt;initialization/&gt;</code></pre><p></p>
+<pre><code class="xml">&lt;initialization&gt;
+&lt;/initialization&gt;</code></pre><br>
+
+<p>Best practice is to pre-fill these - mandatory properties are uppercase: <code>HEIGHT</code> <code>WIDTH</code></p>
+<pre><code class="xml">&lt;initialization&gt;
+  &lt;defaultValue property="WIDTH">100&lt;/defaultValue&gt;
+  &lt;defaultValue property="HEIGHT">100&lt;/defaultValue&gt;
+&lt;/initialization&gt;</code></pre><br>
+
+<p>Pre-filling some additional properties: <code>startAngleDeg</code> <code>endAngleDeg</code> <code>colorCode</code></p>
+<pre><code class="xml">&lt;initialization&gt;
+  &lt;defaultValue property="WIDTH">100&lt;/defaultValue&gt;
+  &lt;defaultValue property="HEIGHT">100&lt;/defaultValue&gt;
+  &lt;defaultValue property="startAngleDeg">-90.0&lt;/defaultValue&gt;
+  &lt;defaultValue property="endAngleDeg">90.0&lt;/defaultValue&gt;
+  &lt;defaultValue property="colorCode">blue&lt;/defaultValue&gt;
+&lt;/initialization&gt;</code></pre>
+    
+    <h5 class="margin">Properties and Initialization in Action</h5>
+    <p>Here are all of the properties for our project:</p>
     <h4 class="margin step" id="part3c-the-dark-art-of-property-synchronization">Part3c – The Dark Art of Property Synchronization</h4>
 
     <h4 class="margin step" id="part-3d-bringing-your-properties-to-life">Part 3d – Bringing Your Properties to Life</h4>
