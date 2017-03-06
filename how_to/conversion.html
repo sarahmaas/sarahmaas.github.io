@@ -79,7 +79,8 @@
     </a>
   </p>
     <h4 class="margin">Prep</h4>
-    <p>If you would like to follow along, you need to have Design Studio and Eclipse installed. If you don't have access to this, you should stop now.</p>
+    <p>If you would like to follow along, you need to have Design Studio and Eclipse installed. If you don't have access to these programs yet,
+    you should stop now.</p>
 </div>
 
 <!-- Setup -->
@@ -139,7 +140,7 @@
 <!-- Properties -->
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin" id="properties">Properties</h3>
-  <p>Right now, all that's being rendered is a static graphic. D3 is supposed to be about representing data. The next step is to 
+  <p>Right now, all that's being rendered is a static graphic. D3 is supposed to be about representing data, so the next step is to 
   make a list of all the properties that should be configurable. This is the list provided by the tutorial:</p>
   
   <!-- Line Table -->
@@ -166,7 +167,45 @@
     standard properties of objects in Design Studio, so these would have to be set. From these, the (relative) centerpoint could be 
     calculated. Given set values for the padding, the outer radius could be calculated.</p>
     <h4 class="margin step" id="part-3a-making-your-arc-configurable">Part 3a – Making your Arc Configurable</h4>
+    <p>
+      
+    </p>
+    <pre><code>  //Vis definitiions
+  var innerRad = 0;
+  var width = 200;
+  var height = 200;
+  var startAngleDeg = -90;
+  var endAngleDeg = 90;
+  var colorCode = "red";
 
+  //Outer Dimensions & Positioning
+  var paddingTop = 10;
+  var paddingBottom = 10;
+  var paddingLeft = 10;
+  var paddingRight = 10;
+  
+
+//The total size of the component is calculated from its parts
+  // Find the larger left/right padding
+  var lrPadding = paddingLeft + paddingRight;
+  var tbPadding = paddingTop + paddingBottom;
+  var maxPadding = lrPadding;
+  if (maxPadding < tbPadding){
+    maxPadding = tbPadding;
+  }
+  var outerRad = (width - 2*(maxPadding))/2;
+
+  //The offset will determine where the center of the arc shall be
+  var offsetLeft = width/2;
+  var offsetDown = height/2;
+
+  //Don’t let the innerRad be greater than outer rad
+  if (outerRad < innerRad){
+    outerRad = innerRad;
+    var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner radius, or increase the size of the ";
+    warningMsg += "control. Height & width (including subtraction for padding) must me at least twice as large as Internal Radius.!";
+    alert(warningMsg);
+  }</code></pre>
     <h4 class="margin step" id="part-3b-adding-properties-to-the-properties-pane">Part 3b – Adding Properties to the Properties Pane</h4>
 
     <h4 class="margin step" id="part3c-the-dark-art-of-property-synchronization">Part3c – The Dark Art of Property Synchronization</h4>
