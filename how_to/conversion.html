@@ -10,7 +10,10 @@
   <link rel="stylesheet" href="css/layout.css">
   <link href="https://fonts.googleapis.com/css?family=Montserrat" rel="stylesheet">
   <link rel="stylesheet" href="../highlight/styles/vs.css">
-  <!-- tomorrow-night, solarized-dark, vs-->
+  <!-- tomorrow-night, solarized-dark, rainbow, 
+  arduino-light
+  github,
+       xcode, vs-->
   <script src="../highlight/highlight.pack.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
@@ -161,8 +164,8 @@
 </code></pre>
 <br>
     <p>
-    <img class="img-responsive center-block" src="img/gauges/basic_arc/DS_arc_code.png">
-    <br><br>
+    <!--<img class="img-responsive center-block" src="img/gauges/basic_arc/DS_arc_code.png">
+    <br><br> -->
     <img class="img-responsive center-block" src="img/gauges/basic_arc/DS_arc.png">
 
     <h4 class="margin step">Differences</h4>
@@ -203,7 +206,7 @@
     calculated. Given set values for the padding, the outer radius could be calculated.</p>
     <h4 class="margin step" id="part-3a-making-your-arc-configurable">Part 3a – Making your Arc Configurable</h4>
     <p>
-      text goes here
+      Define the basic properties and set default values:
     </p>
     <pre><code class="javascript">  //Vis definitions
   var innerRad = 0;
@@ -214,7 +217,8 @@
   var colorCode = "red";
 </code></pre>
 <br>
-<p>Text goes here</p>
+<p>Define the basic margins and set default values:
+</p>
 <pre><code = "javascript">  //Outer Dimensions & Positioning
   var paddingTop = 10;
   var paddingBottom = 10;
@@ -222,7 +226,7 @@
   var paddingRight = 10;
 </code></pre>
 <br>
-<p>Text goes here</p>
+<p>Define derived properties based on existing properties:</p>
 <pre><code = "javascript">//The total size of the component is calculated from its parts
   // Find the larger left/right padding
   var lrPadding = paddingLeft + paddingRight;
@@ -232,15 +236,13 @@
     maxPadding = tbPadding;
   }
   var outerRad = (width - 2*(maxPadding))/2;
-</code></pre>
-<br>
-<p>Text goes here</p>
-<pre><code = "javascript">  //The offset will determine where the center of the arc shall be
+
+  //The offset will determine where the center of the arc shall be
   var offsetLeft = width/2;
   var offsetDown = height/2;
 </code></pre>
 <br>
-<p>Text goes here</p>
+<p>Define error handling for bad settings:</p>
 <pre><code = "javascript">  //Don’t let the innerRad be greater than outer rad
   if (outerRad < innerRad){
     outerRad = innerRad;
@@ -282,7 +284,7 @@
   var offsetLeft = width/2;
   var offsetDown = height/2;
 
-  //Don’t let the innerRad be greater than outer rad
+  //Don’t let the innerRad be greater than outerRad
   if (outerRad < innerRad){
     outerRad = innerRad;
     var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
@@ -365,13 +367,13 @@
   id="startAngleDeg"
   title="Start Angle"
   type="float"/&gt;</code></pre><br>
-<p>Here is an example of an int property with visible set to false, offsetLeft:</p>
+<p>Here is an example of an int property with visible set to false, <code>offsetLeft</code>:</p>
 <pre><code class="xml">&lt;property
   id="offsetLeft"
   title="Centerpoint Offset X-Axis"
   type="int"
   visible="false"/&gt></code></pre>
-    <h5 class="margin">The &lt;initialization&gt; Element</h5>
+    <h5 class="margin">The <code>&lt;initialization&gt;</code> Element</h5>
     <p>This element allows you to set default values for properties. </p>
 <br>
 <p>These are both valid empty <code>initialization</code> elements:</p>
@@ -396,11 +398,315 @@
 &lt;/initialization&gt;</code></pre>
     
     <h5 class="margin">Properties and Initialization in Action</h5>
-    <p>Here are all of the properties for our project:</p>
+    <p>Here are all of the properties for our project. Making a table like this will help to keep track of all the properties for 
+    project during setup.</p>
+    <p>These properties are derived from other properties, so they will be hidden (visible is set to false):
+    <code>outerRad</code> <code>offsetLeft</code> <code>offsetDown</code></p>
+<!-- Property Table -->
+<div class="table-responsive">   
+  <table class="svg-attribute table-bordered">
+    <caption class="text-center">Properties</caption>
+    <thead>
+      <tr><th>id</th><th>title</th><th>type</th><th>visible</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>startAngleDeg</td>  <td>Start Angle</td>                  <td>float</td>    <td> </td></tr>
+    <tr><td>endAngleDeg</td>    <td>End Angle</td>                    <td>float</td>      <td> </td></tr>
+      <tr><td>innerRad</td>       <td>Inner Radius</td>                 <td>float</td>    <td> </td></tr>
+      <tr><td>outerRad</td>       <td>Outer Radius</td>                 <td>float</td>    <td>false</td></tr>
+      <tr><td>offsetLeft</td>     <td>Centerpoint Offset X-Axis</td>    <td>int</td>      <td>false</td></tr>
+      <tr><td>offsetDown</td>     <td>Centerpoint Offset Y-Axis</td>    <td>int</td>      <td>false</td></tr>
+      <tr><td>paddingTop</td>     <td>Top Padding</td>                  <td>int</td>      <td> </td></tr>
+      <tr><td>paddingBottom</td>  <td>Bottom Padding</td>               <td>int</td>      <td> </td></tr>
+      <tr><td>paddingLeft</td>    <td>Left Padding</td>                 <td>int</td>      <td> </td></tr>
+      <tr><td>paddingRight</td>   <td>Right Padding</td>                <td>int</td>      <td> </td></tr>
+      <tr><td>colorCode</td>      <td>Color</td>                        <td>Color</td>    <td> </td></tr>
+    </tbody>
+  </table>
+</div>
+<br>
+    <p>Full configuration.xml file:</p>
+    <pre><code = "xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;sdkExtension
+    eula=""
+    id="com.sap.sample.scngauge"
+    title="SCN Tutorial Gauge"
+    vendor="SAP"
+    version="15.1"
+    xmlns="http://www.sap.com/bi/zen/sdk"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.sap.com/bi/zen/sdk"&gt; 
+  &lt;license&gt;license&lt;/license&gt;
+  &lt;component
+      databound="false"
+      group=""
+      handlerType="div"
+      icon="res/gauge.png"
+      id="SCNGauge"
+      propertySheetPath="res/additional_properties_sheet/additional_properties_sheet.html"
+      title="Gauge"
+      tooltip=""
+      visible="true"&gt;
+    &lt;stdInclude kind="d3"/&gt;
+    &lt;jsInclude&gt;res/js/component.js&lt;/jsInclude&gt;
+    &lt;cssInclude&gt;res/css/component.css&lt;/cssInclude&gt;
+    &lt;property
+        id="startAngleDeg"
+        title="Start Angle"
+        type="float"/&gt;
+    &lt;property
+        id="endAngleDeg"
+        title="End Angle"
+        type="float"/&gt;
+    &lt;property
+        id="innerRad"
+        title="Inner Radius"
+        type="float"/&gt;
+    &lt;property
+        id="outerRad"
+        title="Outer Radius"
+        type="float"
+        visible="false"/&gt;
+    &lt;property
+        id="offsetLeft"
+        title="Centerpoint Offset X-Axis"
+        type="int"
+        visible="false"/&gt;
+    &lt;property
+        id="offsetDown"
+        title="Centerpoint Offset Y-Axis"
+        type="int"
+        visible="false"/&gt;
+    &lt;property
+        id="paddingTop"
+        title="Top Padding"
+        type="int"/&gt;
+    &lt;property
+        id="paddingBottom"
+        title="Bottom Padding"
+        type="int"/&gt;
+    &lt;property
+        id="paddingLeft"
+        title="Left Padding"
+        type="int"/&gt;
+    &lt;property
+        id="paddingRight"
+        title="Right Padding"
+        type="int"/&gt;
+    &lt;property
+        id="colorCode"
+        title="Color"
+        type="Color"/&gt;
+    &lt;initialization&gt;
+        &lt;defaultValue property="WIDTH"&gt;100&lt;/defaultValue&gt;
+        &lt;defaultValue property="HEIGHT"&gt;100&lt;/defaultValue&gt;
+        &lt;defaultValue property="startAngleDeg"&gt;-90.0&lt;/defaultValue&gt;
+        &lt;defaultValue property="endAngleDeg"&gt;90.0&lt;/defaultValue&gt;
+        &lt;defaultValue property="colorCode"&gt;blue&lt;/defaultValue&gt;
+    &lt;/initialization&gt;
+  &lt;/component&gt;
+&lt;/sdkExtension&gt;</code></pre><p></p>
+<p>This sets up the properties, but when we bring it into Design Studio they don't actually do anything because they haven't been
+assigned.</p>
+    <img class="img-responsive center-block" src="img/gauges/configured_arc/DS_properties.png">
+
     <h4 class="margin step" id="part3c-the-dark-art-of-property-synchronization">Part3c – The Dark Art of Property Synchronization</h4>
-
+  <p>Properties live in 2 or 3 of these places depending on where you're running the component:
+  server, canvas/client,  additional properties sheet (APS). Properties are synchronized by changes happening on the server or an 
+  explicit Javascript function <code>firePropertiesChanged()</code>
+  which  sends a message to the server for further propagation if needed. </p>
+  <p>I'm not even going to try to explain the different scenarios so just read this: <a class="links" 
+  href="https://blogs.sap.com/2015/11/11/3c-the-dark-art-of-property-synchronization/">
+    https://blogs.sap.com/2015/11/11/3c-the-dark-art-of-property-synchronization/
+  </a></p>
+  <p> Ensure that you explicitly initialize every property in the APS and component.js and make sure to call <code>firePropertiesChanged()</code>
+  when appropriate.</p>
     <h4 class="margin step" id="part-3d-bringing-your-properties-to-life">Part 3d – Bringing Your Properties to Life</h4>
+  <p></p>
+  <h5 class="margin">Property Initialization</h5>
+  <p>In component.js, replace:</p>
+  <pre><code>var that = this;</code></pre><p></p>
+  <p>With:</p>
+  <pre><code>var me = this;
+	
+// initialize properties
+me._colorCode = 'blue';
+me._innerRad = 0.0;
+me._outerRad = 0.0;
+me._endAngleDeg = 90.0;
+me._startAngleDeg = 90.0;
+me._paddingTop = 0;
+me._paddingBottom = 0;
+me._paddingLeft = 0;
+me._offsetDown = 0;</code></pre><p></p>
+  <p>This is similar to what was done in Part 3a for the browser version, but now referencing the component as an object.</p>
+  
+    <h5 class="margin">Redraw Encapsulation</h5>
+  <p>In the browser, the arc is drawn and then we have no way of manipulating it further. This is not the case for our Design 
+  Studio extension. However, this means we need to encapsulate some functions to allow for more than just initialization.</p>
+  <p>Create a <code>redraw()</code> function and move everything from init into it. Add a call to <code>me.redraw()</code> in 
+  <code>init()</code>   to replace what was removed. Add a line to clear any existing objects. <code>d3.select(myDiv).selectAll("*").remove();</code></p>
+  <pre><code class="javascript">sap.designstudio.sdk.Component.subclass("com.sap.sample.scngauge.SCNGauge", function() {
 
+  var me = this;
+	
+  // initialize properties
+  me._colorCode = 'blue';
+  me._innerRad = 0.0;
+  me._outerRad = 0.0;
+  me._endAngleDeg = 90.0;
+  me._startAngleDeg = 90.0;
+  me._paddingTop = 0;
+  me._paddingBottom = 0;
+  me._paddingLeft = 0;
+  me._offsetDown = 0;
+
+  me.redraw = function() {
+    var myDiv = me.$()[0];                            // changed reference to me from that
+		
+    var pi = Math.PI;                                 // import Pi
+		
+    // clear gauges if they exist
+    d3.select(myDiv).selectAll("*").remove();
+		
+    var vis = d3.select(myDiv)                        // selects myDiv 
+                .append("svg")                        // appends svg element 
+                .attr("width", "100%")                // sets width to 100% 
+                .attr("height", "100%");              // sets height to 100% 
+	              
+    var arcDef = d3.svg.arc()
+                   .innerRadius(0)
+                   .outerRadius(70) 
+                   .startAngle(45 * (pi/180))         // convert from degrees to radians
+                   .endAngle(3)
+	                 
+    var gaugeArc = vis.attr("width", "400").attr("height", "400").append("path")
+                      .style("fill", "red")
+                      .attr("transform", "translate(200,200)")
+                      .attr("d", arcDef);			
+  }
+  
+  this.init = function() {
+    me.redraw();                                      // now calls redraw instead 
+  };
+  
+});</code></pre>
+    <h5 class="margin">Add Derived Properties</h5>
+  <p>The derived properties will need to be recalculated at runtime, so these will go inside the <code>redraw()</code> function.</p>
+  <p>This code from the browser script:</p>
+  <pre><code class="javascript">//The total size of the component is calculated from its parts
+  // Find the larger left/right padding
+  var lrPadding = paddingLeft + paddingRight;
+  var tbPadding = paddingTop + paddingBottom;
+  var maxPadding = lrPadding;
+  if (maxPadding < tbPadding){
+    maxPadding = tbPadding;
+  }
+  var outerRad = (width - 2*(maxPadding))/2;
+
+  //The offset will determine where the center of the arc shall be
+  var offsetLeft = width/2;
+  var offsetDown = height/2;</code></pre><p></p>
+  <p>Becomes this in the Design Studio extension script:</p>
+  <pre><code class="javascript">//The total size of the component is calculated from its parts
+  // Find the larger left/right padding
+  var lrPadding = me._paddingLeft + me._paddingRight;
+  var tbPadding = me._paddingTop + me._paddingBottom;
+  var maxPadding = lrPadding;
+  if (maxPadding < tbPadding){
+    maxPadding = tbPadding;
+  }
+  me._outerRad = (me.$().width() - 2*(maxPadding))/2;
+
+  //The offset will determine where the center of the arc shall be
+  me._offsetLeft = width/2;
+  me._offsetDown = height/2;</code></pre><p></p>
+  <p>Changes of note here are appending <code>me._</code> to variable name, the change for calling width from <code>width</code> to 
+  <code>me.$().width()</code>,
+  and that some of the variables have already been initialized that weren't yet when we were working in the browser.</p>
+    <h5 class="margin">Update Other Items</h5>
+  <p>The radius validation, <code>arcDef</code> and <code>gaugeArc</code> now need to be updated as well. As a reminder, 
+  these are inside <code>redraw()</code>.</p>
+  <pre><code class="javascript">/* Configurable Arc in Browser */
+
+  //Don’t let the innerRad be greater than outerRad
+  if (outerRad < innerRad){
+    outerRad = innerRad;
+    var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
+    warningMsg += " radius, or increase the size of the control. Height & width (including";
+    warningMsg += " subtraction for padding) must me at least twice as large as Internal Radius.!";
+    alert(warningMsg);
+  }
+
+  var arcDef = d3.svg.arc()
+                 .innerRadius(innerRad)
+                 .outerRadius(outerRad)
+                 .startAngle(startAngleDeg * (pi/180))     // convert from degrees to radians
+                 .endAngle(endAngleDeg * (pi/180))         // convert from degrees to radians
+                 
+  var gaugeArc = vis.attr("width", width).attr("height", height).append("path")
+                    .style("fill", colorCode)
+                    .attr("transform", "translate(" + offsetLeft + "," + offsetDown + ")")
+                    .attr("d", arcDef);</code></pre>
+                    <p></p>
+<p></p>
+<pre><code>/* Static Arc in Design Studio */
+
+var arcDef = d3.svg.arc()
+               .innerRadius(0)
+               .outerRadius(70)
+               .startAngle(45 * (pi/180))   // convert from degrees to radians
+               .endAngle(3)
+	                 
+var gaugeArc = vis.attr("width", "400").attr("height", "400").append("path")
+                  .style("fill", "red")
+                  .attr("transform", "translate(200,200)")
+                  .attr("d", arcDef);		</code></pre>
+<p></p>
+<pre><code>/* Updated to Configurable Arc in Design Studio SDK */
+
+// Don’t let the innerRad be greater than outerRad
+if (outerRad < innerRad){
+  outerRad = innerRad;
+  var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
+  warningMsg += " radius, or increase the size of the control. Height & width (including";
+  warningMsg += " subtraction for padding) must me at least twice as large as Internal Radius.!";
+  alert(warningMsg);
+}
+
+var arcDef = d3.svg.arc()
+               .innerRadius(me._innerRad)
+               .outerRadius(me._outerRad)
+               .startAngle(me._startAngleDeg * (pi/180))   // convert from degrees to radians
+               .endAngle(me._endAngleDeg * (pi/180))       // convert from degrees to radians
+	                 
+var gaugeArc = vis.attr("width", me.$().width()).attr("height", me.$().height()).append("path")
+                  .style("fill", me._colorCode)
+                  .attr("transform", "translate(" + me._offsetLeft + "," + me._offsetDown + ")")
+                  .attr("d", arcDef);		</code></pre><p></p>
+  <p>Changes of note here are appending <code>me._</code> to variable name, the change for calling width from <code>width</code> to 
+  <code>me.$().width()</code>, and the change for calling height from <code>height</code> to <code>me.$().height()</code>.</p>
+  
+    <h5 class="margin">Error Handling/Validation</h5>
+ <!-- <p>In the browser code we set up a warning for setting a smaller <code>outerRad</code> than the <code>innerRad</code>. To handle
+  this in the Design Studio SDK it's best to set up a validation function. </p>
+  <pre><code>/* Browser */
+  
+  //Don’t let the innerRad be greater than outer rad
+  if (outerRad < innerRad){
+    outerRad = innerRad;
+    var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
+    warningMsg += " radius, or increase the size of the control. Height & width (including";
+    warningMsg += " subtraction for padding) must me at least twice as large as Internal Radius.!";
+    alert(warningMsg);
+  }  </code></pre><p></p>
+  <pre><code>/* Design Studion SDK */
+  </code></pre>
+      <h5 class="margin"></h5>
+  <p></p>
+      <h5 class="margin"></h5>
+  <p></p>
+ --> 
 </div>
 
 <!-- Additional Properties Sheet -->
