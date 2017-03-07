@@ -19,6 +19,20 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://use.fontawesome.com/147d8defdd.js"></script>
+
+  <style>
+    h5.margin {
+      font-style: italic;
+    }
+    .comment {
+      font-style: italic;
+      color: purple;
+      background: lightgray;
+      border-style: solid;
+      border-color: mediumturquoise;
+      border-width: "1px";
+    }
+  </style>
 </head>
 <body>
 
@@ -88,6 +102,8 @@
     <h4 class="margin">Prep</h4>
     <p>If you would like to follow along, you need to have Design Studio and Eclipse installed. If you don't have access to these programs yet,
     you should stop now.</p>
+    <p>Download <a class="links" href="http://help-legacy.sap.com/businessobject/product_guides/AAD16/en/ds_16SP04_dev_guide_en.pdf">
+     this guide</a>. It has more technical info on anything you might have questions on and it's for Design Studio version 1.6.</p>
 </div>
 
 <!-- Setup -->
@@ -126,6 +142,30 @@
     &lt;/html&gt;</code></pre><br>
     <p>Here is the arc in the browser and the script that generates it. Since we have no data, the arc's height and width are 
     explicitly defined so that it will appear.</p>
+    <p class="comment">Should I keep the D3 visual and code snippet or leave it with the picture?</p>
+    <div id="content_static_arc"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+
+    <script src="scripts/conversion/static_arc.js"></script>
+    <pre><code class="javascript">/* This is the code for creating a simple, static arc in a browser. */
+
+  var pi = Math.PI;                             //import Pi
+	
+  var vis = d3.select("#content_static_arc")    // selects ID content_static_arc 
+              .append("svg")                    // appends svg element 
+              .attr("width", "100%")            // sets width to 100% 
+              .attr("height", "100%");          // sets height to 100% 
+              
+  var arcDef = d3.svg.arc()
+                 .innerRadius(0)
+                 .outerRadius(70)
+                 .startAngle(45 * (pi/180))     // convert from degrees to radians
+                 .endAngle(3)
+                 
+  var gaugeArc = vis.attr("width", "400").attr("height", "400").append("path")
+                    .style("fill", "red")
+                    .attr("transform", "translate(200,200)")
+                    .attr("d", arcDef);</code></pre><br>
     <img class="img-responsive center-block" src="img/gauges/basic_arc/D3_arc.png">
 
     <h4 class="margin step" id="part-2b-getting-your-arc-into-a-component">Part 2b – Getting your Arc into a Component</h4>
@@ -248,7 +288,7 @@
     outerRad = innerRad;
     var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
     warningMsg += " radius, or increase the size of the control. Height & width (including";
-    warningMsg += " subtraction for padding) must me at least twice as large as Internal Radius.!";
+    warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius.!";
     alert(warningMsg);
   }</code></pre>
   <br>
@@ -289,7 +329,7 @@
     outerRad = innerRad;
     var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
     warningMsg += " radius, or increase the size of the control. Height & width (including";
-    warningMsg += " subtraction for padding) must me at least twice as large as Internal Radius.!";
+    warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius.!";
     alert(warningMsg);
   }
 	
@@ -634,7 +674,7 @@ me._offsetDown = 0;</code></pre><p></p>
     outerRad = innerRad;
     var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
     warningMsg += " radius, or increase the size of the control. Height & width (including";
-    warningMsg += " subtraction for padding) must me at least twice as large as Internal Radius.!";
+    warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius.!";
     alert(warningMsg);
   }
 
@@ -670,7 +710,7 @@ if (outerRad < innerRad){
   outerRad = innerRad;
   var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
   warningMsg += " radius, or increase the size of the control. Height & width (including";
-  warningMsg += " subtraction for padding) must me at least twice as large as Internal Radius.!";
+  warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius.!";
   alert(warningMsg);
 }
 
@@ -697,7 +737,7 @@ var gaugeArc = vis.attr("width", me.$().width()).attr("height", me.$().height())
     outerRad = innerRad;
     var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
     warningMsg += " radius, or increase the size of the control. Height & width (including";
-    warningMsg += " subtraction for padding) must me at least twice as large as Internal Radius.!";
+    warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius.!";
     alert(warningMsg);
   }  </code></pre><p></p>
   <pre><code>/* Design Studion SDK */
@@ -707,6 +747,189 @@ var gaugeArc = vis.attr("width", me.$().width()).attr("height", me.$().height())
       <h5 class="margin"></h5>
   <p></p>
  --> 
+     <h5 class="margin">Updating Properties</h5>
+     <p>We need to set up get and set methods. Unlike typical classes, the Design Studio SDK framework has a standard pattern for this
+     which is actually a signle function. It is called <code>&lt;property&gt;(value)</code>, where it returns either the value of the property 
+     (when nothing is passed) or the parent object <code>this</code>.</p>
+     <pre><code class="javascript">/* Property Getter and Setter Functions Example */
+       
+this.color = function(value) {
+  if (value === undefined) {
+   return this.$().css("background-color");      // return current value of property
+  } else {
+    this.$().css("background-color", value);     // set property to passed value
+    return this;
+  }
+};
+</code></pre><br>
+<p>In a more complex rendering, you might need to call an additional function like the redraw function we have created for the 
+gauge. If this were added to the above code it would be after the property update right before the return:</p>
+<pre><code class="javascript">    this.$().css("background-color", value);     // set property to passed value
+    me.redraw();                                 // redraw the visualization          
+    return this;
+</code></pre>
+     <h5 class="margin">Property Getter and Setter Functions for Our Project</h5>
+<p></p>
+<pre><code class="javascript">/* Getters and Setters for Gauges */
+  
+  /******************************************************************* 
+   *                       me.colorCode 
+   * Description: gets and sets the colorCode based on the value
+   * Parameters: value (type color)
+   *******************************************************************/
+  me.colorCode = function(value) {
+    if (value === undefined) {
+      return me._colorCode;
+    } else {
+      me._colorCode = value;
+      me.redraw();
+      return me;
+    }
+  };
+
+  /******************************************************************* 
+   *                       me.innerRad 
+   * Description: gets and sets the innerRad based on the value,
+   *              if value is invalid just warns and does not set 
+   * Parameters: value (type float)
+   *******************************************************************/  
+  me.innerRad = function(value) {
+    if (value === undefined) {
+      return me._innerRad;
+    } else {
+    
+      var isValid = me.validateRadii(value, me._outerRad);
+      if (isValid === false){
+        alert("Warning!  The gauge arc can't have a small inner radius than outer!  Inner Radius must be equal to or less than " + me._outerRad);
+        alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+      } else {
+        me._innerRad = value;
+        me.redraw();
+      }
+      return this;
+    }
+  };
+
+  /******************************************************************* 
+   *                       me.endAngleDeg 
+   * Description: gets and sets the endAngleDeg based on the value
+   * Parameters: value (type float)
+   *******************************************************************/    
+  me.endAngleDeg = function(value) {
+    if (value === undefined) {
+      return me._endAngleDeg;
+    } else {
+      me._endAngleDeg = value;
+      me.redraw();
+      return this;
+    }
+  };
+
+  /******************************************************************* 
+   *                       me.startAngleDeg 
+   * Description: gets and sets the startAngleDeg based on the value
+   * Parameters: value (type float)
+   *******************************************************************/ 
+  me.startAngleDeg = function(value) {
+    if (value === undefined) {
+      return me._startAngleDeg;
+    } else {
+      me._startAngleDeg = value;
+      me.redraw();
+      return this;
+    }
+  };
+
+  /******************************************************************* 
+   *                       me.paddingTop 
+   * Description: gets and sets the paddingTop based on the value,
+   *              if value is invalid just warns and does not set 
+   * Parameters: value (type int)
+   *******************************************************************/  
+  me.paddingTop = function(value) {
+    if (value === undefined) {
+      return me._paddingTop;
+    } else {
+      var isValid =me.recalculateOuterRadius(me._paddingLeft, me._paddingRight, value, me._paddingBottom);
+      if (isValid === false){
+        alert("Warning!  The gauge arc can't have a small inner radius than outer!  Outer Radius must be equal to or greater than " + me._innerRad);
+        alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+      } else {
+        me._paddingTop = value;
+        me.redraw();
+      }
+      return this;
+    }
+  };
+
+  /******************************************************************* 
+   *                       me.paddingBottom 
+   * Description: gets and sets the paddingBottom based on the value,
+   *              if value is invalid just warns and does not set 
+   * Parameters: value (type int)
+   *******************************************************************/  
+  me.paddingBottom = function(value) {
+    if (value === undefined) {
+      return me._paddingBottom;
+    } else {
+      var isValid = me.recalculateOuterRadius(me._paddingLeft, me._paddingRight, me._paddingTop, value);
+      if (isValid === false){
+        alert("Warning!  The gauge arc can't have a small inner radius than outer!  Outer Radius must be equal to or greater than " + me._innerRad);
+        alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+      } else {
+        me.me._paddingBottom = value;
+        me.redraw();
+      }
+      return this;
+    }
+  };
+
+  /******************************************************************* 
+   *                       me.paddingLeft 
+   * Description: gets and sets the paddingLeft based on the value,
+   *              if value is invalid just warns and does not set 
+   * Parameters: value (type int)
+   *******************************************************************/   
+  me.paddingLeft = function(value) {
+    if (value === undefined) {
+      paddingLeft = me._paddingLeft;
+      return paddingLeft;
+    } else {
+      var isValid = me.recalculateOuterRadius(value, me._paddingRight, me._paddingTop, me._paddingBottom);
+      if (isValid === false){
+        alert("Warning!  The gauge arc can't have a small inner radius than outer!  Outer Radius must be equal to or greater than " + me._innerRad);
+        alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+      } else {
+        me._paddingLeft = value;
+        me.redraw();
+      }
+      return this;
+
+    }
+  };
+
+  /******************************************************************* 
+   *                       me.paddingRight 
+   * Description: gets and sets the paddingRight based on the value,
+   *              if value is invalid just warns and does not set 
+   * Parameters: value (type int)
+   *******************************************************************/  
+  me.paddingRight = function(value) {
+    if (value === undefined) {
+      paddingRight = me._paddingRight;
+    } else {
+      var isValid = me.recalculateOuterRadius(me._paddingLeft, value, me._paddingTop, me._paddingBottom);
+      if (isValid === false){
+        alert("Warning!  The gauge arc can't have a small inner radius than outer!  Outer Radius must be equal to or greater than " + me._innerRad);
+        alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+      } else {
+        me._paddingRight = value;
+        me.redraw();
+      }
+      return this;
+    }
+  };
+</code></pre>
 </div>
 
 <!-- Additional Properties Sheet -->
@@ -811,6 +1034,7 @@ var gaugeArc = vis.attr("width", me.$().width()).attr("height", me.$().height())
 
 </div>
 
+
 <!-- Creating an Installer Zip File -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin" id="creating-an-installer-zip-file">Creating an Installer Zip File</h3>
@@ -852,6 +1076,20 @@ var gaugeArc = vis.attr("width", me.$().width()).attr("height", me.$().height())
     </div>
 </div>
  
+<!-- Helpful Links -->
+<div class="container-fluid bg-topic-even padding-sides text-center">
+  <h3 class="margin">Helpful Links</h3>
+  <p>Going through this process is a lot of work; how do you know if it'll be worth it in the end? You can make rapid changes in
+  the browser, but how do you know how it'll look in Design Studio? Check out this prototyping tool: 
+    <a class="links" href="https://blogs.sap.com/2013/12/17/ds-12-sdk-rapid-prototyping-addon-htmljs-templating/">https://blogs.sap.com/2013/12/17/ds-12-sdk-rapid-prototyping-addon-htmljs-templating/</a></p>
+    <p>SAP Design Studio - An Introduction to Creating Components with the Design Studio SDK:
+    <a class="links" href="https://www.youtube.com/watch?v=DbuddWQic5Y">https://www.youtube.com/watch?v=DbuddWQic5Y</a>
+    </p>
+    <p>Design Studio 1.6 including the Developer Guide: <a class="links" href="http://help-legacy.sap.com/bodesignstudio_re">
+      http://help-legacy.sap.com/bodesignstudio_re</a></p>
+</div>
+
+
 <!-- About This Site -->
 <div class="container-fluid bg-about padding-sides text-center">    
   <!--<h3 class="margin">About</h3><br>-->

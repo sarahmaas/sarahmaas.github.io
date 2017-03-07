@@ -1,5 +1,5 @@
 Once how to is graded:
-    Add bold to h5 CSS
+    Add font-style: italic; to h5.margin on layout.css
     Add highlight.js to every page, prior to jQuery call:
       <link rel="stylesheet" href="../highlight/styles/vs.css">
       <!-- tomorrow-night, solarized-dark, vs-->
