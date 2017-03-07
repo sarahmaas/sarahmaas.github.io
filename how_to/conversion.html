@@ -286,9 +286,9 @@
 <pre><code = "javascript">  //Don’t let the innerRad be greater than outer rad
   if (outerRad < innerRad){
     outerRad = innerRad;
-    var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
+    var warningMsg = "Warning! The gauge arc has a negative radius. Please decrease the inner"
     warningMsg += " radius, or increase the size of the control. Height & width (including";
-    warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius.!";
+    warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius!";
     alert(warningMsg);
   }</code></pre>
   <br>
@@ -327,9 +327,9 @@
   //Don’t let the innerRad be greater than outerRad
   if (outerRad < innerRad){
     outerRad = innerRad;
-    var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
+    var warningMsg = "Warning! The gauge arc has a negative radius. Please decrease the inner"
     warningMsg += " radius, or increase the size of the control. Height & width (including";
-    warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius.!";
+    warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius!";
     alert(warningMsg);
   }
 	
@@ -672,9 +672,9 @@ me._offsetDown = 0;</code></pre><p></p>
   //Don’t let the innerRad be greater than outerRad
   if (outerRad < innerRad){
     outerRad = innerRad;
-    var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
+    var warningMsg = "Warning! The gauge arc has a negative radius. Please decrease the inner"
     warningMsg += " radius, or increase the size of the control. Height & width (including";
-    warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius.!";
+    warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius!";
     alert(warningMsg);
   }
 
@@ -708,9 +708,9 @@ var gaugeArc = vis.attr("width", "400").attr("height", "400").append("path")
 // Don’t let the innerRad be greater than outerRad
 if (outerRad < innerRad){
   outerRad = innerRad;
-  var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
+  var warningMsg = "Warning! The gauge arc has a negative radius. Please decrease the inner"
   warningMsg += " radius, or increase the size of the control. Height & width (including";
-  warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius.!";
+  warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius!";
   alert(warningMsg);
 }
 
@@ -728,34 +728,65 @@ var gaugeArc = vis.attr("width", me.$().width()).attr("height", me.$().height())
   <code>me.$().width()</code>, and the change for calling height from <code>height</code> to <code>me.$().height()</code>.</p>
   
     <h5 class="margin">Error Handling/Validation</h5>
- <!-- <p>In the browser code we set up a warning for setting a smaller <code>outerRad</code> than the <code>innerRad</code>. To handle
-  this in the Design Studio SDK it's best to set up a validation function. </p>
-  <pre><code>/* Browser */
-  
-  //Don’t let the innerRad be greater than outer rad
-  if (outerRad < innerRad){
-    outerRad = innerRad;
-    var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
-    warningMsg += " radius, or increase the size of the control. Height & width (including";
-    warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius.!";
-    alert(warningMsg);
-  }  </code></pre><p></p>
-  <pre><code>/* Design Studion SDK */
+    <p>Previously, we set up a warning for setting a smaller <code>outerRad</code> than the <code>innerRad</code>. This is in the
+    <code>redraw()</code> function but that doesn't help with updating properties. To handle
+    this in the Design Studio SDK it's best to also set up a validation function and then a recalculate outer radius function. </p>
+
+  <pre><code class="javascript">/* Design Studio SDK */
+
+  /******************************************************************* 
+   *                       me.validateRadii 
+   * Description: double checks the inner and outer radii to see if 
+   *              they're valid
+   * Parameters: value (type float)
+   *******************************************************************/   
+  me.validateRadii = function(inner, outer) {
+    if (inner <= outer) {
+      return true;
+    } else {
+      return false;
+    }
+  };
+
+  /******************************************************************* 
+   *                       me.recalculateOuterRadius 
+   * Description: recalculates the outer radius, double checks inner
+   *              radius, if value is invalid it does not recalculate 
+   * Parameters: value (type float)
+   *******************************************************************/   
+  me.recalculateOuterRadius = function(paddingLeft, paddingRight, paddingTop, paddingBottom){
+    // Find the larger left/right padding
+    var lrPadding = paddingLeft + paddingRight;
+    var tbPadding = paddingTop + paddingBottom;
+    var maxPadding = lrPadding;
+    if (maxPadding < tbPadding){
+      maxPadding = tbPadding
+    }      
+    var newOuterRad = (me.$().width() - 2*(maxPadding))/2;
+    var isValid = me.validateRadii(me._innerRad, newOuterRad);
+    if (isValid === true){
+      me._outerRad = newOuterRad;
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
   </code></pre>
       <h5 class="margin"></h5>
   <p></p>
       <h5 class="margin"></h5>
   <p></p>
- --> 
+
      <h5 class="margin">Updating Properties</h5>
-     <p>We need to set up get and set methods. Unlike typical classes, the Design Studio SDK framework has a standard pattern for this
-     which is actually a signle function. It is called <code>&lt;property&gt;(value)</code>, where it returns either the value of the property 
-     (when nothing is passed) or the parent object <code>this</code>.</p>
+     <p>We need to set up get and set methods. Unlike typical classes, the Design Studio SDK framework has a standard pattern for 
+     this which is actually a single function. It is called <code>&lt;property&gt;(value)</code>, where it returns either 
+     the value of the property(when nothing is passed) or the parent object <code>this</code>.</p>
      <pre><code class="javascript">/* Property Getter and Setter Functions Example */
        
 this.color = function(value) {
   if (value === undefined) {
-   return this.$().css("background-color");      // return current value of property
+    return this.$().css("background-color");      // return current value of property
   } else {
     this.$().css("background-color", value);     // set property to passed value
     return this;
@@ -783,7 +814,7 @@ gauge. If this were added to the above code it would be after the property updat
     } else {
       me._colorCode = value;
       me.redraw();
-      return me;
+      return this;
     }
   };
 
@@ -800,8 +831,8 @@ gauge. If this were added to the above code it would be after the property updat
     
       var isValid = me.validateRadii(value, me._outerRad);
       if (isValid === false){
-        alert("Warning!  The gauge arc can't have a small inner radius than outer!  Inner Radius must be equal to or less than " + me._outerRad);
-        alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+        alert("Warning! The gauge arc can't have a small inner radius than outer! Inner Radius must be equal to or less than " + me._outerRad);
+        alert("Please decrease the inner radius, or increase the size of the control. Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
       } else {
         me._innerRad = value;
         me.redraw();
@@ -852,8 +883,8 @@ gauge. If this were added to the above code it would be after the property updat
     } else {
       var isValid =me.recalculateOuterRadius(me._paddingLeft, me._paddingRight, value, me._paddingBottom);
       if (isValid === false){
-        alert("Warning!  The gauge arc can't have a small inner radius than outer!  Outer Radius must be equal to or greater than " + me._innerRad);
-        alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+        alert("Warning! The gauge arc can't have a small inner radius than outer! Outer Radius must be equal to or greater than " + me._innerRad);
+        alert("Please decrease the inner radius, or increase the size of the control. Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
       } else {
         me._paddingTop = value;
         me.redraw();
@@ -874,8 +905,8 @@ gauge. If this were added to the above code it would be after the property updat
     } else {
       var isValid = me.recalculateOuterRadius(me._paddingLeft, me._paddingRight, me._paddingTop, value);
       if (isValid === false){
-        alert("Warning!  The gauge arc can't have a small inner radius than outer!  Outer Radius must be equal to or greater than " + me._innerRad);
-        alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+        alert("Warning! The gauge arc can't have a small inner radius than outer! Outer Radius must be equal to or greater than " + me._innerRad);
+        alert("Please decrease the inner radius, or increase the size of the control. Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
       } else {
         me.me._paddingBottom = value;
         me.redraw();
@@ -897,14 +928,13 @@ gauge. If this were added to the above code it would be after the property updat
     } else {
       var isValid = me.recalculateOuterRadius(value, me._paddingRight, me._paddingTop, me._paddingBottom);
       if (isValid === false){
-        alert("Warning!  The gauge arc can't have a small inner radius than outer!  Outer Radius must be equal to or greater than " + me._innerRad);
-        alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+        alert("Warning! The gauge arc can't have a small inner radius than outer! Outer Radius must be equal to or greater than " + me._innerRad);
+        alert("Please decrease the inner radius, or increase the size of the control. Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
       } else {
         me._paddingLeft = value;
         me.redraw();
       }
       return this;
-
     }
   };
 
@@ -920,8 +950,8 @@ gauge. If this were added to the above code it would be after the property updat
     } else {
       var isValid = me.recalculateOuterRadius(me._paddingLeft, value, me._paddingTop, me._paddingBottom);
       if (isValid === false){
-        alert("Warning!  The gauge arc can't have a small inner radius than outer!  Outer Radius must be equal to or greater than " + me._innerRad);
-        alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+        alert("Warning! The gauge arc can't have a small inner radius than outer! Outer Radius must be equal to or greater than " + me._innerRad);
+        alert("Please decrease the inner radius, or increase the size of the control. Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
       } else {
         me._paddingRight = value;
         me.redraw();
