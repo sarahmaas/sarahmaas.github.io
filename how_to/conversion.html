@@ -142,7 +142,7 @@
     &lt;/html&gt;</code></pre><br>
     <p>Here is the arc in the browser and the script that generates it. Since we have no data, the arc's height and width are 
     explicitly defined so that it will appear.</p>
-    <p class="comment">Should I keep the D3 visual and code snippet or leave it with the picture?</p>
+    <!--<p class="comment">Should I keep the D3 visual and code snippet or leave it with the picture?</p>
     <div id="content_static_arc"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
 
@@ -166,6 +166,7 @@
                     .style("fill", "red")
                     .attr("transform", "translate(200,200)")
                     .attr("d", arcDef);</code></pre><br>
+                    -->
     <img class="img-responsive center-block" src="img/gauges/basic_arc/D3_arc.png">
 
     <h4 class="margin step" id="part-2b-getting-your-arc-into-a-component">Part 2b – Getting your Arc into a Component</h4>
@@ -466,6 +467,9 @@
 </div>
 <br>
     <p>Full configuration.xml file:</p>
+      <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#contribution-new-properties">Show contribution.xml</button>
+  <div id="contribution-new-properties" class="collapse">
+    <p></p>
     <pre><code = "xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;sdkExtension
     eula=""
@@ -545,7 +549,7 @@
         &lt;defaultValue property="colorCode"&gt;blue&lt;/defaultValue&gt;
     &lt;/initialization&gt;
   &lt;/component&gt;
-&lt;/sdkExtension&gt;</code></pre><p></p>
+&lt;/sdkExtension&gt;</code></pre></div><p></p>
 <p>This sets up the properties, but when we bring it into Design Studio they don't actually do anything because they haven't been
 assigned.</p>
     <img class="img-responsive center-block" src="img/gauges/configured_arc/DS_properties.png">
@@ -820,7 +824,11 @@ gauge. If this were added to the above code it would be after the property updat
     return this;
 </code></pre>
      <h5 class="margin">Property Getter and Setter Functions for Our Project</h5>
-<p></p>
+<p>We need to set up a function like the example for setting each of our properties that will be visible to the designer in
+Design Studio. Dependent properties are all handled in <code>redraw()</code> which is called in each of these functions when 
+setting a property.</p>
+  <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#get-set-functions">Show all functions</button>
+  <div id="get-set-functions" class="collapse"><p></p>
 <pre><code class="javascript">/* Getters and Setters for Gauges */
   
   /******************************************************************* 
@@ -979,12 +987,422 @@ gauge. If this were added to the above code it would be after the property updat
       return this;
     }
   };
-</code></pre>
-<h5 class="margin substep">Final Code for Comparison</h5>
-<p>To save some scrolling, if you want to see, go here. The two files you want are contribution.xml and res/js/component.js.
+</code></pre></div>
+<h5 class="margin substep">Step 3 Ending Code for Comparison</h5>
+<p>The entire project so far can be viewed here, but the main two files you want are contribution.xml and res/js/component.js.
 <a class="links" href="https://github.com/davidhstocker/YourFirstDesignStudioExtension_Part3/tree/master/com.sap.sample.scngauge">
   https://github.com/davidhstocker/YourFirstDesignStudioExtension_Part3/tree/master/com.sap.sample.scngauge</a></p>
+  <p>I added a <code>debugMode</code> to my component.js to aid with finding an error where it turned out that I'd accidentally 
+  deleted a couple lines from the initialization of property values. When set to true, it notified me which functions were getting
+  called.</p>
+  <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#contribution">Show contribution.xml</button>
+  <div id="contribution" class="collapse">
+    <p></p>
+    <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;sdkExtension
+	eula=""	
+	id="com.sap.sample.scngauge"
+	title="Design Studio SDK Extension SCN Tutorial Gauge"
+	vendor="SAP"
+	version="15.0"
+	xmlns="http://www.sap.com/bi/zen/sdk"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+	xsi:schemaLocation="http://www.sap.com/bi/zen/sdk http://www.sap.com/bi/zen/sdk "&gt;
+	&lt;license&gt;license&lt;/license&gt;
+	&lt;component
+		databound="false"
+		group="BSE"		
+		handlerType="div" 
+	  	icon="res/gauge.png" 
+	  	id="SCNGauge" 
+	  	propertySheetPath="res/additional_properties_sheet/additional_properties_sheet.html" 
+	  	title="Gauge" 
+	  	tooltip="" 
+		newInstancePrefix="SCNGAUGE_INSTANCE"
+		visible="true"&gt;
+		&lt;stdInclude kind="d3"/&gt;
+		&lt;jsInclude&gt;res/js/component.js&lt;/jsInclude&gt;
+		&lt;cssInclude&gt;res/css/component.css&lt;/cssInclude&gt;
+		&lt;property
+			id="startAngleDeg"
+			title="Start Angle"
+			type="float"/&gt;
+		&lt;property
+			id="endAngleDeg"
+			title="End Angle"
+			type="float"/&gt;
+		&lt;property
+			id="innerRad"
+			title="Inner Radius"
+			type="float"/&gt;
+		&lt;property
+			id="outerRad"
+			title="Outer Radius"
+			type="float"
+			visible="false"/&gt;
+		&lt;property
+			id="offsetLeft"
+			title="Centerpoint Offset X-Axis"
+			type="int"
+			visible="false"/&gt;
+		&lt;property
+			id="offsetDown"
+			title="Centerpoint Offset Y-Axis"
+			type="int"
+			visible="false"/&gt;
+		&lt;property
+			id="paddingTop"
+			title="Top Padding"
+			type="int"/&gt;		
+		&lt;property
+			id="paddingBottom"
+			title="Bottom Padding"
+			type="int"/&gt;
+		&lt;property
+			id="paddingLeft"
+			title="Left Padding"
+			type="int"/&gt;		
+		&lt;property
+			id="paddingRight"
+			title="Right Padding"
+			type="int"/&gt;
+		&lt;property
+			id="colorCode"
+			title="Color"
+			type="Color"/&gt;
+		&lt;initialization&gt;	
+			&lt;defaultValue property="WIDTH"&gt;200&lt;/defaultValue&gt;
+			&lt;defaultValue property="HEIGHT"&gt;200&lt;/defaultValue&gt;
+			&lt;defaultValue property="startAngleDeg"&gt;-90.0&lt;/defaultValue&gt;
+			&lt;defaultValue property="endAngleDeg"&gt;90.0&lt;/defaultValue&gt;
+			&lt;defaultValue property="ColorCode"&gt;blue&lt;/defaultValue&gt;			
+		&lt;/initialization&gt;
+	&lt;/component&gt;
+&lt;/sdkExtension&gt;
+</code></pre><br></div>
+  <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#component">Show component.js</button>
+  <div id="component" class="collapse">
+    <p></p>
+    <pre><code class="javascript">sap.designstudio.sdk.Component.subclass("com.sap.sample.scngauge.SCNGauge", function() {
+	var debugMode = false;
+	var me = this;
+	
+	// initialize properties
+	me._colorCode = 'blue';
+	me._innerRad = 0.0;
+	me._outerRad = 0.0;
+	me._endAngleDeg = 90.0;
+	me._startAngleDeg = -90.0;
+	me._paddingTop = 0;
+	me._paddingBottom = 0;
+	me._paddingLeft = 0;
+	me._paddingRight = 0;
+	me._offsetLeft = 0;
+	me._offsetDown = 0;
 
+	/******************************************************************* 
+	 *                       me.validateRadii 
+	 * Description: double checks the inner and outer radii to see if 
+	 *              they're valid
+	 * Parameters: value (type float)
+	*******************************************************************/   
+	me.validateRadii = function(inner, outer) {
+		if (debugMode === true) {
+			alert("me.validateRadii()");
+		}
+		if (inner <= outer) {
+			return true;
+		} else {
+			return false;
+		}
+	};
+
+	/******************************************************************* 
+	*                       me.recalculateOuterRadius 
+	* Description: recalculates the outer radius, double checks inner
+	*              radius, if value is invalid it does not recalculate 
+	* Parameters: value (type float)
+	*******************************************************************/   
+	me.recalculateOuterRadius = function(paddingLeft, paddingRight, paddingTop, paddingBottom){
+		if (debugMode === true) {
+			alert("me.recalculateOuterRadius()");
+		}		
+		// Find the larger left/right padding
+		var lrPadding = paddingLeft + paddingRight;
+		var tbPadding = paddingTop + paddingBottom;
+		var maxPadding = lrPadding;
+		if (maxPadding < tbPadding){
+			maxPadding = tbPadding
+		}      
+		var newOuterRad = (me.$().width() - 2*(maxPadding))/2;
+		var isValid = me.validateRadii(me._innerRad, newOuterRad);
+		if (isValid === true){
+			me._outerRad = newOuterRad;
+			return true;
+		}
+		else {
+			return false;
+		}
+    }
+
+	/******************************************************************* 
+	*                       me.colorCode 
+	* Description: gets and sets the colorCode based on the value
+	* Parameters: value (type color)
+	*******************************************************************/
+	me.colorCode = function(value) {
+		if (debugMode === true) {
+			alert("me.colorCode()");
+		}	
+		if (value === undefined) {
+			return me._colorCode;
+		} else {
+			me._colorCode = value;
+			me.redraw();
+			return me;
+		}
+	};
+	
+	/******************************************************************* 
+	*                       me.innerRad 
+	* Description: gets and sets the innerRad based on the value,
+	*              if value is invalid just warns and does not set 
+	* Parameters: value (type float)
+	*******************************************************************/  
+	me.innerRad = function(value) {
+		if (debugMode === true) {
+			alert("me.innerRad()");
+		}	
+		if (value === undefined) {
+			return me._innerRad;
+		} else {
+		
+			var isValid = me.validateRadii(value, me._outerRad);
+			if (isValid === false){
+				alert("Warning!  The gauge arc can't have a small inner radius than outer!  Inner Radius must be equal to or less than " + me._outerRad);
+				alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+			} else {
+				me._innerRad = value;
+				me.redraw();
+			}
+			return this;
+		}
+	};
+
+	/******************************************************************* 
+	*                       me.endAngleDeg 
+	* Description: gets and sets the endAngleDeg based on the value
+	* Parameters: value (type float)
+	*******************************************************************/   
+	me.endAngleDeg = function(value) {
+		if (debugMode === true) {
+			alert("me.endAngleDeg()");
+		}	
+		if (value === undefined) {
+			return me._endAngleDeg;
+		} else {
+			me._endAngleDeg = value;
+			me.redraw();
+			return this;
+		}
+	};
+
+	/******************************************************************* 
+	*                       me.startAngleDeg 
+	* Description: gets and sets the startAngleDeg based on the value
+	* Parameters: value (type float)
+	*******************************************************************/ 
+	me.startAngleDeg = function(value) {
+		if (debugMode === true) {
+			alert("me.startAngleDeg()");
+		}	
+		if (value === undefined) {
+			return me._startAngleDeg;
+		} else {
+			me._startAngleDeg = value;
+			me.redraw();
+			return this;
+		}
+	};
+
+	/******************************************************************* 
+	*                       me.paddingTop 
+	* Description: gets and sets the paddingTop based on the value,
+	*              if value is invalid just warns and does not set 
+	* Parameters: value (type int)
+	*******************************************************************/
+	me.paddingTop = function(value) {
+		if (debugMode === true) {
+			alert("me.paddingTop()");
+		}
+		if (value === undefined) {
+			return me._paddingTop;
+		} else {
+			var isValid =me.recalculateOuterRadius(me._paddingLeft, me._paddingRight, value, me._paddingBottom);
+			if (isValid === false){
+				alert("Warning!  The gauge arc can't have a small inner radius than outer!  Outer Radius must be equal to or greater than " + me._innerRad);
+				alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+			} else {
+				me._paddingTop = value;
+				me.redraw();
+			}
+			return this;
+		}
+	};
+
+	/******************************************************************* 
+	*                       me.paddingBottom 
+	* Description: gets and sets the paddingBottom based on the value,
+	*              if value is invalid just warns and does not set 
+	* Parameters: value (type int)
+	*******************************************************************/
+	me.paddingBottom = function(value) {
+		if (debugMode === true) {
+			alert("me.paddingBottom()");
+		}
+
+		if (value === undefined) {
+			return me._paddingBottom;
+		} else {
+			var isValid = me.recalculateOuterRadius(me._paddingLeft, me._paddingRight, me._paddingTop, value);
+			if (isValid === false){
+				alert("Warning!  The gauge arc can't have a small inner radius than outer!  Outer Radius must be equal to or greater than " + me._innerRad);
+				alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+			} else {
+				me.me._paddingBottom = value;
+				me.redraw();
+			}
+			return this;
+		}
+	};
+	
+	/******************************************************************* 
+	*                       me.paddingLeft 
+	* Description: gets and sets the paddingLeft based on the value,
+	*              if value is invalid just warns and does not set 
+	* Parameters: value (type int)
+	*******************************************************************/  
+	me.paddingLeft = function(value) {
+		if (debugMode === true) {
+			alert("me.paddingLeft()");
+		}
+		if (value === undefined) {
+			paddingLeft = me._paddingLeft;
+			return paddingLeft;
+		} else {
+			var isValid = me.recalculateOuterRadius(value, me._paddingRight, me._paddingTop, me._paddingBottom);
+			if (isValid === false){
+				alert("Warning!  The gauge arc can't have a small inner radius than outer!  Outer Radius must be equal to or greater than " + me._innerRad);
+				alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+			} else {
+				me._paddingLeft = value;
+				me.redraw();
+			}
+			return this;
+
+		}
+	};
+	
+	/******************************************************************* 
+	*                       me.paddingRight 
+	* Description: gets and sets the paddingRight based on the value,
+	*              if value is invalid just warns and does not set 
+	* Parameters: value (type int)
+	*******************************************************************/ 
+	me.paddingRight = function(value) {
+		if (debugMode === true) {
+			alert("me.paddingRight()");
+		}
+		if (value === undefined) {
+			paddingRight = me._paddingRight;
+		} else {
+			var isValid = me.recalculateOuterRadius(me._paddingLeft, value, me._paddingTop, me._paddingBottom);
+			if (isValid === false){
+				alert("Warning!  The gauge arc can't have a small inner radius than outer!  Outer Radius must be equal to or greater than " + me._innerRad);
+				alert("Please decrease the inner radius, or increase the size of the control.  Height & width (including subtraction for padding) must me at least twice as large as Internal Radius!");
+			} else {
+				me._paddingRight = value;
+				me.redraw();
+			}
+			return this;
+		}
+	};
+	
+	/******************************************************************* 
+	*                       me.redraw 
+	* Description: redraws the component
+	* Parameters: none
+	*******************************************************************/  	
+	me.redraw = function() {
+		var myDiv = me.$()[0];						// added in as compared to browser D3
+
+		var pi = Math.PI;							//import Pi
+
+		// clear gauges if they exist
+		d3.select(myDiv).selectAll("*").remove();
+
+		var vis = d3.select(myDiv)					// selects myDiv 
+                    .append("svg")					// appends svg element 
+                    .attr("width", "100%")			// sets width to 100% 
+                    .attr("height", "100%");		// sets height to 100% 
+		
+		// Find the larger left/right padding
+		var lrPadding = me._paddingLeft + me._paddingRight;
+		var tbPadding = me._paddingTop + me._paddingBottom;
+		var maxPadding = lrPadding;
+		if (maxPadding < tbPadding){
+		    maxPadding = tbPadding;
+		}
+		
+		if (debugMode === true) {
+			alert("Width: "+ me.$().width() + " maxPadding: " + maxPadding);
+		}
+		
+		me._outerRad = (me.$().width() - 2*(maxPadding))/2;
+		
+		if (debugMode === true) {
+			alert("me.redraw(): testing outer <= inner " + me._outerRad + " <= " + me._innerRad);
+		}
+		
+		//Don’t let the innerRad be greater than outerRad
+		if (me._outerRad <= me._innerRad){
+		    var warningMsg = "Warning!  The gauge arc has a negative radius.  Please decrease the inner"
+		    warningMsg += " radius, or increase the size of the control. Height & width (including";
+		    warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius.!";
+		    alert(warningMsg);
+		}
+		
+		//The offset will determine where the center of the arc shall be
+		me._offsetLeft = me._outerRad + me._paddingLeft;
+		me._offsetDown = me._outerRad + me._paddingTop;  
+	              
+		var arcDef = d3.svg.arc()
+	                 .innerRadius(me._innerRad)
+	                 .outerRadius(me._outerRad)
+	                 .startAngle(me._startAngleDeg * (pi/180))		// convert from degrees to radians
+	                 .endAngle(me._endAngleDeg * (pi/180))			// convert from degrees to radians
+	    
+	    /* Define the gauge arc with all of it's attributes and append it to the div. */
+        var gaugeArc = vis.attr("width", me.$().width()).attr("height", me.$().height()).append("path")
+	                      .style("fill", me._colorCode)
+	                      .attr("transform", "translate(" + me._offsetLeft + "," + me._offsetDown + ")")
+	                      .attr("d", arcDef);			
+	}
+	
+	/******************************************************************* 
+	*                       me.init 
+	* Description: initializes the component
+	* Parameters: none
+	*******************************************************************/  	
+	me.init = function() {
+		me.redraw();
+	};
+
+});
+
+
+</code></pre>
+  </div>
 <h5 class="margin substep">Testing it Out in Design Studio</h5>
 <p>The initialization appears to work now since the visualization matches the properties set:</p>
     <img class="img-responsive center-block" src="img/gauges/configured_arc/DS_properties_assigned.png"><br>
