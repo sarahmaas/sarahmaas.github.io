@@ -207,7 +207,7 @@
     <!--<img class="img-responsive center-block" src="img/gauges/basic_arc/DS_arc_code.png">
     <br><br> -->
     <img class="img-responsive center-block" src="img/gauges/basic_arc/DS_arc.png">
-
+    </p>
     <h4 class="margin step">Differences</h4>
     <p>You can see from looking at the code for both that the differences are fairly minor, since we are not yet binding any data
     to the arc. The real change is that in Design Studio it is nested inside functions and the 'div' it's assigned to is called
@@ -578,6 +578,8 @@ me._startAngleDeg = 90.0;
 me._paddingTop = 0;
 me._paddingBottom = 0;
 me._paddingLeft = 0;
+me._paddingRight = 0;
+me._offsetLeft = 0;
 me._offsetDown = 0;</code></pre><p></p>
   <p>This is similar to what was done in Part 3a for the browser version, but now referencing the component as an object.</p>
   
@@ -599,6 +601,8 @@ me._offsetDown = 0;</code></pre><p></p>
   me._paddingTop = 0;
   me._paddingBottom = 0;
   me._paddingLeft = 0;
+  me._paddingRight = 0;
+  me._offsetLeft = 0;
   me._offsetDown = 0;
 
   me.redraw = function() {
@@ -659,10 +663,10 @@ me._offsetDown = 0;</code></pre><p></p>
   me._outerRad = (me.$().width() - 2*(maxPadding))/2;
 
   //The offset will determine where the center of the arc shall be
-  me._offsetLeft = width/2;
-  me._offsetDown = height/2;</code></pre><p></p>
+  me._offsetLeft = me._outerRad + me._paddingLeft;
+  me._offsetDown = me._outerRad + me._paddingTop;</code></pre><p></p>
   <p>Changes of note here are appending <code>me._</code> to variable name, the change for calling width from <code>width</code> to 
-  <code>me.$().width()</code>,
+  <code>me.$().width()</code>, changes to the offset calculations, 
   and that some of the variables have already been initialized that weren't yet when we were working in the browser.</p>
     <h5 class="margin">Update Other Items</h5>
   <p>The radius validation, <code>arcDef</code> and <code>gaugeArc</code> now need to be updated as well. As a reminder, 
@@ -772,11 +776,27 @@ var gaugeArc = vis.attr("width", me.$().width()).attr("height", me.$().height())
       return false;
     }
   }
-  </code></pre>
-      <h5 class="margin"></h5>
-  <p></p>
-      <h5 class="margin"></h5>
-  <p></p>
+  </code></pre><br>
+  <p>In addition to this change, you should now remove a line of code from <code>me.redraw()</code>.</p>
+  <pre><code class="javascript">// Don’t let the innerRad be greater than outerRad
+if (outerRad < innerRad){
+  outerRad = innerRad;
+  var warningMsg = "Warning! The gauge arc has a negative radius. Please decrease the inner"
+  warningMsg += " radius, or increase the size of the control. Height & width (including";
+  warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius!";
+  alert(warningMsg);
+}</code>
+</pre><p></p><p>Deactivate or remove <code>outerRad = innerRad;</code> and change <code>outerRad < innerRad</code> to 
+<code>outerRad <= innerRad</code>.</p>
+<pre><code class="javascript">// Don’t let the innerRad be greater than outerRad
+if (outerRad <= innerRad){          // changed sign
+  //outerRad = innerRad;            // deactivated
+  var warningMsg = "Warning! The gauge arc has a negative radius. Please decrease the inner"
+  warningMsg += " radius, or increase the size of the control. Height & width (including";
+  warningMsg += " subtraction for padding) must be at least twice as large as Internal Radius!";
+  alert(warningMsg);
+</code></pre>
+
 
      <h5 class="margin">Updating Properties</h5>
      <p>We need to set up get and set methods. Unlike typical classes, the Design Studio SDK framework has a standard pattern for 
@@ -960,6 +980,17 @@ gauge. If this were added to the above code it would be after the property updat
     }
   };
 </code></pre>
+<h5 class="margin substep">Final Code for Comparison</h5>
+<p>To save some scrolling, if you want to see, go here. The two files you want are contribution.xml and res/js/component.js.
+<a class="links" href="https://github.com/davidhstocker/YourFirstDesignStudioExtension_Part3/tree/master/com.sap.sample.scngauge">
+  https://github.com/davidhstocker/YourFirstDesignStudioExtension_Part3/tree/master/com.sap.sample.scngauge</a></p>
+
+<h5 class="margin substep">Testing it Out in Design Studio</h5>
+<p>The initialization appears to work now since the visualization matches the properties set:</p>
+    <img class="img-responsive center-block" src="img/gauges/configured_arc/DS_properties_assigned.png"><br>
+    <p>It's responsive to changes made in the properties panel too:</p>
+    <img class="img-responsive center-block" src="img/gauges/configured_arc/DS_properties_updated.png">
+
 </div>
 
 <!-- Additional Properties Sheet -->
