@@ -818,14 +818,38 @@ var gaugeArc = vis.attr("width", me.$().width()).attr("height", me.$().height())
     your extension, you need to make it available for use! You need to create an installer file.</p>
     <h4 class="margin step" id="part-14-zipit-n-shipit">Part 14 – Zipit ‘n Shipit</h4>
     <h5 class="margin substep">Create a Feature Project (as a Project in Eclipse)</h5>
-    <p>File->New->Feature Project or File->New->Other and search for Feature Project.</p>
-    <p>Assign a Project Name. The Feature ID and Feature Name will be automatically assigned based on the Project Name.</p>
-    <p>To be continued...</p>
+    <div class="inline-list">
+      <ul>
+        <li>File->New->Feature Project or File->New->Other and search for Feature Project.</li>
+        <li>Assign a Project Name. The Feature ID and Feature Name will be automatically assigned based on the Project Name.</li>
+        <li>When it prompts you to switch perceptive, Yes.</li>
+        <li>Select the Included Plug-Ins tab, uncheck "Unpack the plug-in archive after the installation," and save.</li>
+      </ul>
+
+    </div>
+
     <h5 class="margin substep">Add a Category to your Feature Project</h5>
-    <p></p>
+    <div class="inline-list">
+      <ul>
+        <li>File->New->Category Definition or File->New->Other and search for Category Definition.</li>
+        <li>Select the parent folder of your project.</li>
+        <li>When it prompts you to switch perceptive, Yes.</li>
+        <li>Select the Included Plug-Ins tab, uncheck "Unpack the plug-in archive after the installation," and save.</li>
+      </ul>
 
+    </div>
     <h5 class="margin substep">Create a Deployable Feature</h5>
+    <div class="inline-list">
+      <ul>
+        <li>Right click on the Feature Project and click Export.</li>
+        <li>Select Deployable features.</li>
+        <li>Add a destination - for simplicity, choose one on your computer.</li>
+        <li>Under the Options tab, click Browse and select the category.xml file you just created in the last section.</li>
+        <li>Click Finish.</li>
 
+      </ul>
+
+    </div>
 </div>
  
 <!-- About This Site -->
