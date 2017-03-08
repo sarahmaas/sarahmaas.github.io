@@ -14,25 +14,13 @@
   arduino-light
   github,
        xcode, vs-->
+  <link rel="stylesheet" href="css/conversion.css">
   <script src="../highlight/highlight.pack.js"></script>
   <script>hljs.initHighlightingOnLoad();</script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://use.fontawesome.com/147d8defdd.js"></script>
 
-  <style>
-    h5.margin {
-      font-style: italic;
-    }
-    .comment {
-      font-style: italic;
-      color: purple;
-      background: lightgray;
-      border-style: solid;
-      border-color: mediumturquoise;
-      border-width: "1px";
-    }
-  </style>
 </head>
 <body>
 
@@ -1409,164 +1397,19 @@ setting a property.</p>
     <p>It's responsive to changes made in the properties panel too:</p>
     <img class="img-responsive center-block" src="img/gauges/configured_arc/DS_properties_updated.png">
 
+
 </div>
 
-<!-- Additional Properties Sheet -->
+<!-- Review -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
-  <h3 class="margin" id="additional-properties-sheet">Additional Properties Sheet</h3>
-
-    <h4 class="margin step" id="part-4a-introducing-the-additional-properties-sheet">Part 4a – Introducing the Additional Properties Sheet</h4>
-
-    <h4 class="margin step" id="part-4b-the-positioning-visualizer">Part 4b – The Positioning Visualizer</h4>
-
-    <h4 class="margin step" id="part-4c-putting-the-positioning-visualizer-into-the-additional-properties-sheet">Part 4c – Putting the Positioning Visualizer into the Additional Properties Sheet</h4>
-
-    <h4 class="margin step" id="part-4d-the-aps-interacting-with-the-canvas">Part 4d – The APS Interacting with the Canvas</h4>
+  <h3 class="margin" id="review">Review</h3>
+  <p>In this part of the tutorial we've covered getting a basic shape from D3 in the browser into a configurable shape in 
+  Design Studio using the SDK.</p>
+  <!-- Add in important steps? -->
+  <button type="button" class="btn btn-block" onClick="location.href='conversion_2.html'">Continue to the next section...</button>
 
 </div>
 
-<!-- Scripting API -->
-<div class="container-fluid bg-topic-even padding-sides text-center">
-  <h3 class="margin" id="scripting-api">Scripting API</h3>
-
-    <h4 class="margin step" id="part-5-making-your-component-scriptable">Part 5 – Making your Component Scriptable</h4>
-
-</div>
-
-<!-- Data Binding -->
-<div class="container-fluid bg-topic-odd padding-sides text-center">
-  <h3 class="margin" id="data-binding">Data Binding</h3>
-
-    <h4 class="margin step" id="part-6a-adding-property-binding-preparation">Part 6a – Adding Property Binding: Preparation</h4>
-
-    <h4 class="margin step" id="part-6b-adding-property-binding">Part 6b – Adding Property Binding</h4>
-
-</div>
-
-<!-- Advanced Property Types Introduced in 1.6 -->
-<div class="container-fluid bg-topic-even padding-sides text-center">
-  <h3 class="margin" id="advanced-property-types-introduced-in-16">Advanced Property Types Introduced in 1.6</h3>
-
-    <h4 class="margin step" id="part-7a-property-arrays-and-complex-properties">Part 7a – Property Arrays and Complex Properties</h4>
-
-    <h4 class="margin step" id="part-7b-using-an-object-array-to-create-conditional-formatting">Part 7b – Using an Object Array to Create Conditional Formatting</h4>
-
-</div>
-
-<!-- Advanced Polish: Guide Lines and Arcs -->
-<div class="container-fluid bg-topic-odd padding-sides text-center">
-  <h3 class="margin" id="advanced-polish-guide-lines-and-arcs">Advanced Polish: Guide Lines and Arcs</h3>
-
-    <h4 class="margin step" id="part-8a-drawing-radial-guide-lines-and-arcs-with-d3">Part 8a – Drawing Radial Guide Lines and Arcs with D3</h4>
-
-    <h4 class="margin step" id="part-8b-adding-radial-guide-lines-and-arcs-to-the-gauge-component">Part 8b – Adding Radial Guide Lines and Arcs to the Gauge Component</h4>
-
-</div>
-
-<!-- Advanced Polish: Adding an Indicator Needle -->
-<div class="container-fluid bg-topic-even padding-sides text-center">
-  <h3 class="margin" id="advanced-polish-adding-an-indicator-needle">Advanced Polish: Adding an Indicator Needle</h3>
-
-    <h4 class="margin step" id="part-9a-drawing-an-indicator-needle-d3">Part 9a – Drawing an Indicator Needle (D3)</h4>
-
-    <h4 class="margin step" id="part-9b-drawing-an-indicator-needle-in-the-component">Part 9b – Drawing an Indicator Needle in the Component</h4>
-
-</div>
-
-<!-- Advanced Polish: Animations -->
-<div class="container-fluid bg-topic-odd padding-sides text-center">
-  <h3 class="margin" id="advanced-polish-animations">Advanced Polish: Animations</h3>
-
-    <h4 class="margin step" id="part-10a-the-data-in-data-driven-documents">Part 10a – The “data” in Data Driven Documents</h4>
-
-    <h4 class="margin step" id="part-10b-transitions-in-d3">Part 10b – Transitions in D3</h4>
-
-    <h4 class="margin step" id="part-10c-transitions-in-the-component">Part 10c – Transitions in the Component</h4>
-
-</div>
-
-<!-- Advanced Polish: Dynamic Text Callouts -->
-<div class="container-fluid bg-topic-even padding-sides text-center">
-  <h3 class="margin" id="advanced-polish-dynamic-text-callouts">Advanced Polish: Dynamic Text Callouts</h3>
-
-    <h4 class="margin step" id="part-11a-d3-and-the-svg-text-element">Part 11a – D3 and the SVG Text Element</h4>
-
-    <h4 class="margin step" id="part-11b-dynamic-text-positioning-with-d3">Part 11b – Dynamic Text Positioning with D3</h4>
-
-    <h4 class="margin step" id="part-11c-text-callouts-in-the-component">Part 11c – Text callouts in the Component</h4>
-
-</div>
-
-<!-- Advanced Polish: Custom Component CSS Styling -->
-<div class="container-fluid bg-topic-odd padding-sides text-center">
-  <h3 class="margin" id="advanced-polish-custom-component-css-styling">Advanced Polish: Custom Component CSS Styling</h3>
-
-    <h4 class="margin step" id="part-12-cascading-stylesheets-in-custom-components">Part 12 – Cascading Stylesheets in Custom Components</h4>
-
-</div>
-
-<!-- Infrastructure: RequireJS -->
-<div class="container-fluid bg-topic-even padding-sides text-center">
-  <h3 class="margin" id="infrastructure-requirejs">Infrastructure: RequireJS</h3>
-
-    <h4 class="margin step" id="part-13-requirejs">Part 13 – RequireJS</h4>
-
-</div>
-
-
-<!-- Creating an Installer Zip File -->
-<div class="container-fluid bg-topic-odd padding-sides text-center">
-  <h3 class="margin" id="creating-an-installer-zip-file">Creating an Installer Zip File</h3>
-    <p>This isn't really crucial to the comparison, but it's an important step in the process. Once you've finished creating
-    your extension, you need to make it available for use! You need to create an installer file.</p>
-    <h4 class="margin step" id="part-14-zipit-n-shipit">Part 14 – Zipit ‘n Shipit</h4>
-    <h5 class="margin substep">Create a Feature Project (as a Project in Eclipse)</h5>
-    <div class="inline-list">
-      <ul>
-        <li>File->New->Feature Project or File->New->Other and search for Feature Project.</li>
-        <li>Assign a Project Name. The Feature ID and Feature Name will be automatically assigned based on the Project Name.</li>
-        <li>When it prompts you to switch perceptive, Yes.</li>
-        <li>Select the Included Plug-Ins tab, uncheck "Unpack the plug-in archive after the installation," and save.</li>
-      </ul>
-
-    </div>
-
-    <h5 class="margin substep">Add a Category to your Feature Project</h5>
-    <div class="inline-list">
-      <ul>
-        <li>File->New->Category Definition or File->New->Other and search for Category Definition.</li>
-        <li>Select the parent folder of your project.</li>
-        <li>When it prompts you to switch perceptive, Yes.</li>
-        <li>Select the Included Plug-Ins tab, uncheck "Unpack the plug-in archive after the installation," and save.</li>
-      </ul>
-
-    </div>
-    <h5 class="margin substep">Create a Deployable Feature</h5>
-    <div class="inline-list">
-      <ul>
-        <li>Right click on the Feature Project and click Export.</li>
-        <li>Select Deployable features.</li>
-        <li>Add a destination - for simplicity, choose one on your computer.</li>
-        <li>Under the Options tab, click Browse and select the category.xml file you just created in the last section.</li>
-        <li>Click Finish.</li>
-
-      </ul>
-
-    </div>
-</div>
- 
-<!-- Helpful Links -->
-<div class="container-fluid bg-topic-even padding-sides text-center">
-  <h3 class="margin">Helpful Links</h3>
-  <p>Going through this process is a lot of work; how do you know if it'll be worth it in the end? You can make rapid changes in
-  the browser, but how do you know how it'll look in Design Studio? Check out this prototyping tool: 
-    <a class="links" href="https://blogs.sap.com/2013/12/17/ds-12-sdk-rapid-prototyping-addon-htmljs-templating/">https://blogs.sap.com/2013/12/17/ds-12-sdk-rapid-prototyping-addon-htmljs-templating/</a></p>
-    <p>SAP Design Studio - An Introduction to Creating Components with the Design Studio SDK:
-    <a class="links" href="https://www.youtube.com/watch?v=DbuddWQic5Y">https://www.youtube.com/watch?v=DbuddWQic5Y</a>
-    </p>
-    <p>Design Studio 1.6 including the Developer Guide: <a class="links" href="http://help-legacy.sap.com/bodesignstudio_re">
-      http://help-legacy.sap.com/bodesignstudio_re</a></p>
-</div>
 
 
 <!-- About This Site -->

@@ -1,0 +1,21 @@
+    h5.margin {
+      font-style: italic;
+    }
+    .comment {
+      font-style: italic;
+      color: purple;
+      background: lightgray;
+      border-style: solid;
+      border-color: mediumturquoise;
+      border-width: "1px";
+    }
+    .btn-block {
+      color: #474e5d;
+    }
+    .btn-block:hover {
+      background-color: white;
+    }
+    
+    .links:hover {
+        color: 	lightsteelblue;
+    }
