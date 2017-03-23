@@ -101,9 +101,89 @@
   <h3 class="margin" id="additional-properties-sheet">Additional Properties Sheet</h3>
 
     <h4 class="margin step" id="part-4a-introducing-the-additional-properties-sheet">Part 4a – Introducing the Additional Properties Sheet</h4>
-
+    <p> A good way to start this process is to mock up what you might need, then break it down into parts. As taken from 
+    <a class="links" href="https://blogs.sap.com/2015/12/08/your-first-extension-part-4b-the-positioning-visualizer/">here</a>, 
+    we would need to create something like this image for this extension. 
+      <img class="img-responsivecenter-block" src="img/gauges/positioning_visualizer.png">
+    </p>
     <h4 class="margin step" id="part-4b-the-positioning-visualizer">Part 4b – The Positioning Visualizer</h4>
+    <div class="inline-list">
+      <p>
+        <ul>
+          <li>
+            It will represent the component at a 1:1 scale.
+          </li>
+          <li>
+            It will draw a black rectangle, indicating the borders of the component
+          </li>
+          <li>
+            It will draw a black rectangle, indicating the borders of the component
+          </li>
+          <li>
+        It will draw the padding margins as blue lines, within the component.
+            
+          </li>
+          <li>
+        It will represent the potential arc of the gauge (from -180° to +180°) as a black circle.
+            
+          </li>
+          <li>
+            This circle will be positioned as the actual gauge within the canvas, allowing the designer to see where the 
+            padding margins are and how these padding margins affect the size and positioning of the gauge.
+          </li>
+          <li>
+           There will be white crosshairs, centered on the centroid of the circle, allowing the designer to easily see 
+           there the origin of the arc is.
+          </li>
+        </ul>
+      </p>
+    </div>
+    <p class="comment">
+      [more stuff about the parts]
+      <!-- 
+      In order to construct it in D3, we’ll break the visualizer down into its constituent components.  In terms of raw shapes, 
+      we have the following:
+      
+      * 4 blue rectangles.  D3 allows us to draw a rectangle, but we won’t use that feature, as it is filled in by default.  
+        Instead, we’ll use paths and draw each rectangle by tracing through each of the corners and returning to the original, 
+        as if we were drawing with a pencil.
+      * 1 black rectangle, drawn the same way.
+      * The crosshairs, which will be drawn as two lines.
+      * The circle, which will be drawn the same way as we’ve been drawing the gauge; as an arc.  The color will be fixed to black 
+        and the start/end angles will be -180° and 180° respectively.
+      
+      We’ll use a consistent line stroke thickness of two pixels.
+      -->
+    </p>
+    <h5 class="margin substep">Set up JavaScript</h5>
+    <p class="comment">four padding properties, underscore means local copies
+    <!--For our APS Javascript, we’ll be using the four padding properties.  In the actual component, we’ll be following the 
+    of me._<propertyName> for the local copies of these four properties.  In in sandbox, we’ll dispense with the me. Prefix, 
+    but we’ll keep the underscore.  The padding sizes are defined as follows:-->
+    </p>
+    <pre><code class="javascript">//Outer Dimensions & Positioning
+_paddingTop = 0;
+_paddingBottom = 0;
+_paddingLeft = 0;
+_paddingRight = 0;</code></pre><p></p>
+<p class="comment">stroke thicknesses, including height and width as placeholders, these are defined specially in DS SDK
+  <!--We’ll define the stroke thicknesses and set a variable for the height and width.  We’re not following the underscore 
+  convention, even though height and width are properties.  They are not accessible via the normal methods however.  We’ll 
+  cover synching them later, but for now we’ll just define variables for height and width.-->
+</p>
+    <pre><code class="javascript">//Viz definitions
+var lineThickness = 2;
 
+//Height and Width Proxies
+widthProxy = 200;
+heightProxy = 200;</code></pre><p></p>
+<p class="comment">Next, we clear any SVG elements from the HTML file’s content div and re-insert one.  While we’re at it, 
+we’ll declare the PI variable</p>
+<pre><code class="javascript">// Clear any existing content.  We’ll redraw from scratch.
+d3.select("#content").selectAll("*").remove();
+var vis = d3.select("#content").append("svg").attr("width", "100%").attr("height", "100%");
+var pi = Math.PI;
+</code></pre>
     <h4 class="margin step" id="part-4c-putting-the-positioning-visualizer-into-the-additional-properties-sheet">Part 4c – Putting the Positioning Visualizer into the Additional Properties Sheet</h4>
 
     <h4 class="margin step" id="part-4d-the-aps-interacting-with-the-canvas">Part 4d – The APS Interacting with the Canvas</h4>
