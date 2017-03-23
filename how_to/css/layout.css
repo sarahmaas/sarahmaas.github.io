@@ -13,13 +13,6 @@
 
 
   
-  .padding-sides {
-
-    
-    padding-left: 5%;
-    padding-right: 5%;
-  }
-  
   .bg-heading { 
     background-color: lightsteelblue;
     color: #2f2f2f; /* Black Gray */
@@ -155,10 +148,25 @@
 @media (min-width: 550px) {}
 
 /* Larger than tablet */
-@media (min-width: 750px) {}
+@media (min-width: 750px) {
+  .padding-sides {
+    padding-left: 90px;
+    padding-right: 90px;
+  }
+}
 
 /* Larger than desktop */
-@media (min-width: 1000px) {}
+@media (min-width: 1000px) {
+  .padding-sides {
+    padding-left: 135px;
+    padding-right: 135px;
+  }
+}
 
 /* Larger than Desktop HD */
-@media (min-width: 1200px) {}
+@media (min-width: 1200px) {
+  .padding-sides {
+    padding-left: 180px;
+    padding-right: 180px;
+  }
+}
