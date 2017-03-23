@@ -11,7 +11,9 @@
   
   .margin {margin-bottom: 45px;}
 
-
+  button {
+     white-space: normal;
+  }
   
   .bg-heading { 
     background-color: lightsteelblue;
@@ -145,7 +147,12 @@
 @media (min-width: 400px) {}
 
 /* Larger than phablet */
-@media (min-width: 550px) {}
+@media (min-width: 550px) {
+  .padding-sides {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+}
 
 /* Larger than tablet */
 @media (min-width: 750px) {
