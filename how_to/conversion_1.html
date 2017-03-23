@@ -557,9 +557,9 @@ assigned.</p>
   <p></p>
   <h5 class="margin">Property Initialization</h5>
   <p>In component.js, replace:</p>
-  <pre><code>var that = this;</code></pre><p></p>
+  <pre><code class="javascript">var that = this;</code></pre><p></p>
   <p>With:</p>
-  <pre><code>var me = this;
+  <pre><code class="javascript">var me = this;
 	
 // initialize properties
 me._colorCode = 'blue';
@@ -686,7 +686,7 @@ me._offsetDown = 0;</code></pre><p></p>
                     .attr("d", arcDef);</code></pre>
                     <p></p>
 <p></p>
-<pre><code>/* Static Arc in Design Studio */
+<pre><code class="javascript">/* Static Arc in Design Studio */
 
 var arcDef = d3.svg.arc()
                .innerRadius(0)
@@ -699,7 +699,7 @@ var gaugeArc = vis.attr("width", "400").attr("height", "400").append("path")
                   .attr("transform", "translate(200,200)")
                   .attr("d", arcDef);		</code></pre>
 <p></p>
-<pre><code>/* Updated to Configurable Arc in Design Studio SDK */
+<pre><code class="javascript">/* Updated to Configurable Arc in Design Studio SDK */
 
 // Don’t let the innerRad be greater than outerRad
 if (outerRad < innerRad){
@@ -986,7 +986,7 @@ setting a property.</p>
   <button type="button" class="btn btn-default" data-toggle="collapse" data-target="#contribution">Show contribution.xml</button>
   <div id="contribution" class="collapse">
     <p></p>
-    <pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+    <pre><code class="xml">&lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;sdkExtension
 	eula=""	
 	id="com.sap.sample.scngauge"

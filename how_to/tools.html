@@ -142,7 +142,7 @@
 </p>
 <p>Stroke is a presentation element, so it's most often used to style the other attributes.</p>
 <p>For a colored line:</p>
-<pre><code>&lt;svg height="50" width="300"&gt;
+<pre><code class="html">&lt;svg height="50" width="300"&gt;
     &lt;path stroke="orange" d="M5 20 1215 0" /&gt;
 &lt;/svg&gt;
 </code></pre>
@@ -150,7 +150,7 @@
     <path stroke="orange" d="M5 20 1215 0" />
 </svg>
 <p>To create a circle with a border, you would do something like this:<br>
-<pre><code>&lt;svg height="50" width="300"&gt;
+<pre><code class="html">&lt;svg height="50" width="300"&gt;
     &lt;path stroke="orange" d="M5 20 1215 0" /&gt;
 &lt;/svg&gt;
 &lt;svg height="100" width="100"&gt;
@@ -254,7 +254,7 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
   <p>Another major feature of D3 to preview is how to bind data. This is a full example
   from <a class="links" href="https://en.wikipedia.org/wiki/D3.js">Wikipedia</a>.
    Let's take a closer look at what's happening in the code.</p>
-  <pre><code>
+  <pre><code class="javascript">
   // Data
   var data = [
      { name:"Ireland",  income:53000, life: 78, pop:6378, color: "green"},
@@ -279,7 +279,7 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
   </code></pre>
   <h4 class="margin">Include Data</h4>
   <p>Here we have data defined with 5 different attributes per item:</p>
-    <pre><code>
+    <pre><code class="javascript">
   // Data
   var data = [
      { name:"Ireland",  income:53000, life: 78, pop:6378, color: "green"},
@@ -290,13 +290,13 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
    <h4 class="margin">Create SVG Container</h4>
   <p>Using what we learned about selections earlier, you would select the HTML element onto which 
   you'd like to append. This snippet utilizes chaining. <br>
-  <code>d3.select("#hook").append("svg")</code>
+  <code class="javascript">d3.select("#hook").append("svg")</code>
   selects the HTML element with id hook and appends an svg element to it.<br>
   <code>.attr("width", 120)</code> This sets the width attribute of the svg to 120.<br>
   <code>.attr("height", 120)</code> This sets the height attribute of the svg to 120.<br>
   <code>.style("background-color", "#D0D0D0");</code> This sets the background-color of the svg.
   </p>
-    <pre><code>
+    <pre><code class="javascript">
 // Create SVG container
   var svg = d3.select("#hook").append("svg")
         .attr("width", 120)
@@ -317,7 +317,7 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
     
   </p>
   <p>
-    <pre><code>
+    <pre><code class="javascript">
 // Create SVG elements from data 
     svg.selectAll("circle")                  // create virtual circle template
       .data(data)                            // bind data
@@ -333,7 +333,7 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
   <p>Inclusion of <code>update</code> and <code>exit</code> will allow for dynamic visualizations. An example of this from Mike's data joins
   article linked above:</p>
   <p>
-  <pre><code>
+  <pre><code class="javascript">
     var circle = svg.selectAll("circle")
       .data(data);
     
@@ -358,7 +358,7 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
   <p>This doesn't cover all types, but here are some you're likely to see.</p>
   <h4 class="margin">JSON</h4>
   <p></p>
-  <p><pre><code> 
+  <p><pre><code class="javascript"> 
   d3.json('phones.json', function(error, data) {
     // do something with the data here
     console.log(error);
@@ -368,7 +368,7 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
   
     <h4 class="margin">CSV</h4>
   <p></p>
-  <p><pre><code> 
+  <p><pre><code class="javascript"> 
    d3.csv('climate_data.csv', function(data) {
       debugger;
    });

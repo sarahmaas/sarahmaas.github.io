@@ -99,7 +99,7 @@ Create an area to create the visualization in.  <br>
   <h4 class="margin step" id="step-2">Step 2: Declare SVG</h4>
     <h5 class="margin sub-step">Define the canvas.</h5>
     <p>This can be done with the following statement:</p>
-    <p><pre><code>var svg = d3.select('div.canvas').append('svg').attr('width', '648px').attr('height', '452px');</code></pre></p>
+    <p><pre><code class="javascript">var svg = d3.select('div.canvas').append('svg').attr('width', '648px').attr('height', '452px');</code></pre></p>
     <p>This takes advantage of D3’s chaining. Breaking the statement down: <br>
     1. Select the canvas. <code>var svg = d3.select('div.class')</code> <br>
     2. Append the svg. <code>.append('svg')</code> <br>
@@ -136,7 +136,7 @@ Create an area to create the visualization in.  <br>
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h4 class="margin step" id="step-6">Step 6: Add data()</h4>
   <p>Check out the properties of each element. These are what can be assigned to attributes of the SVG elements for your graph.</p>
-  <pre><code>var tomatoes = [
+  <pre><code class="javascript">var tomatoes = [
   {"width":25,"height":86,"color":"red"},
   {"width":25,"height":84,"color":"red"},
   {"width":25,"height":98,"color":"red"},
@@ -159,7 +159,7 @@ Create an area to create the visualization in.  <br>
   {"width":25,"height":93,"color":"red"},
   ]</code></pre>
     <h5 class="margin sub-step" id="how-to-use-data">How to use data()</h5>
-    <p><pre><code>svg.selectAll('rect.colorBar').data(tomatoes)</code></pre></p>
+    <p><pre><code class="javascript">svg.selectAll('rect.colorBar').data(tomatoes)</code></pre></p>
     <p><code>data()</code> declares the object or array for iteration.</p>
 </div>
 
@@ -167,7 +167,7 @@ Create an area to create the visualization in.  <br>
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h4 class="margin step" id="step-7">Step 7: enter() the data</h4>
   <p><code>enter()</code> performs the data join and returns the subset of new entries.</p>
-  <p><pre><code> svg.selectAll('rect.colorBar').data(tomatoes).enter()  </code></pre></p>
+  <p><pre><code class="javascript"> svg.selectAll('rect.colorBar').data(tomatoes).enter()  </code></pre></p>
     <h5 class="margin sub-step" id="what-it-does-2">What It Does</h5>
     <p><code>enter()</code> combines your data with the empty set from <code>selectAll()</code> and creates a set of elements that 
     can then be accessed one by one in D3</p>
@@ -181,7 +181,7 @@ Create an area to create the visualization in.  <br>
     <p><code>append()</code> allows you to choose from the 
     <a class="links" href="https://www.w3.org/TR/SVG/shapes.html">7 basic SVG elements</a> or a 'g' element. 
     A 'g' element groups SVG shapes together. </p><p>In this case, we want a 'rect' element to build a bar graph.</p>
-    <pre><code> svg.selectAll('rect.colorBar').data(tomatoes)
+    <pre><code class="javascript"> svg.selectAll('rect.colorBar').data(tomatoes)
     .enter().append('rect')   </code></pre>
 </div>
 
@@ -192,7 +192,7 @@ Create an area to create the visualization in.  <br>
   <p>We are close to building the bar graph! So far, we've defined data, selected the empty set of rect elements of class bar, added 
   the dataset, joined the data with the empty set, and added a rect element for each item in the data.</p>
 
-  <pre><code>var tomatoes = [
+  <pre><code class="javascript">var tomatoes = [
   {"width":25,"height":86,"color":"red"},
   {"width":25,"height":84,"color":"red"},
   {"width":25,"height":98,"color":"red"},
@@ -217,7 +217,7 @@ Create an area to create the visualization in.  <br>
   </code></pre>
 
     <h5 class="margin sub-step" id="how-to-define-each-bar">How to define each bar</h5>
-    <pre><code> svg.selectAll('rect.bar').data(data)
+    <pre><code class="javascript"> svg.selectAll('rect.bar').data(data)
     .enter().append('rect') 
     </code></pre>
     <p><code>svg.selectAll('rect.bar')</code> = Creates an empty set of rect elements with class 'bar' <br>
@@ -232,7 +232,7 @@ Create an area to create the visualization in.  <br>
   <p><code>attr()</code> statements define the properties of each bar. The attributes specific to each type of SVG element can be 
   reviewed <a class="links" href="http://devdocs.io/d3~3/svg-shapes.md">here</a>.</p>
     <h5 class="margin sub-step" id="what-it-does-4">What It Does</h5>
-    <p><pre><code> .attr('width' , function (d,i) { return d.width }) </code></pre></p>
+    <p><pre><code class="javascript"> .attr('width' , function (d,i) { return d.width }) </code></pre></p>
     <p><code>attr()</code> statements define how you want your bars to appear. Specifically, they can be assigned properties of data points.</p>
 </div>
 
@@ -241,7 +241,7 @@ Create an area to create the visualization in.  <br>
   <h4 class="margin step" id="step-11">Step 11: Define Bar Height</h4>
   <p>Continue defining each element’s attributes with height.</p>
     <h5 class="margin sub-step" id="what-it-does-5">What It Does</h5>
-    <p><pre><code>.attr(‘height’ , function (d,i) { return d.height })</code></pre></p>
+    <p><pre><code class="javascript">.attr(‘height’ , function (d,i) { return d.height })</code></pre></p>
     <p>In the statement <code>function(d,i)</code>, <code>d</code> represents items in the data and <code>i</code> is the index of 
     elements, beginning at 0.</p>
 </div>
@@ -252,7 +252,7 @@ Create an area to create the visualization in.  <br>
   <p>Separate bars from each other. When new bars are created from a dataset they are set to coordinates of (0, 0) so we have to 
   set some attributes to separate them. You will likely want your bar graph data already ordered by your x-axis values.</p>
     <h5 class="margin sub-step" id="what-it-does-6">What It Does</h5>
-    <p><pre><code> .attr('x' , function (d,i) { return i * d.width }) </code></pre></p>
+    <p><pre><code class="javascript"> .attr('x' , function (d,i) { return i * d.width }) </code></pre></p>
     <p>The last statement created a bunch of bars stacked on top of each other. This is because of the default values for the attributes.
     We have to define x values for this type of bar chart for them to be spaced out appropriately. 
     To space them out we can multiply the index of each bar by the width of the bars to spread them out.</p>
@@ -263,7 +263,7 @@ Create an area to create the visualization in.  <br>
   <h4 class="margin step" id="step-13">Step 13: Bar Orientation</h4>
   <p>The origin is the top left corner so the bars are likely upside down. </p>
     <h5 class="margin sub-step" id="what-it-does-7">What It Does</h5>
-    <p><pre><code> .attr('y' , function (d,i) { return divHeight - d.height }) </code></pre></p>
+    <p><pre><code class="javascript"> .attr('y' , function (d,i) { return divHeight - d.height }) </code></pre></p>
     <p>Since the start point (origin) for D3 is the top left corner of the div, bar charts will come down from the top of the div. 
     So, how do we fix this? <br>
     We need to set a new starting point. To do this, we subtract the bar height from the overall height. This fixes the problem!</p>
@@ -272,7 +272,7 @@ Create an area to create the visualization in.  <br>
 <!-- Bar Chart is Done -->
 <div class="container-fluid bg-topic-odd padding-sides text-center">
 <h4 class="margin step" id="done-final-code">Final Code for the Internal Portion of the Bar Graph</h4>
-<p><pre><code>var w= 535;
+<p><pre><code class="javascript">var w= 535;
 var h= 250;
 var svg= d3.select('.gardenDiv')
     .append('svg')
@@ -309,7 +309,7 @@ svg.selectAll('rect.colorBar')
 <h4 class="margin step" id="step-14">Step 14: Scale on X Axis</h4>
 <p>Before we add an axis to the graph, we need to define the start and end point of the graph.</p>
 <h5 class="margin sub-step" id="how-to-define-a-scale">How to define a scale</h5>
-<pre><code>var xScale = d3.scale.linear()
+<pre><code class="javascript">var xScale = d3.scale.linear()
 .domain( [0, data.length] )
 .range( [0, width] ); 
 </code></pre>
@@ -327,7 +327,7 @@ svg.selectAll('rect.colorBar')
 
 <h5 class="margin sub-step" id="how-to-define-a-scale-1">How to define a scale</h5>
 
-<pre><code> var yScale = d3.scale.linear()
+<pre><code class="javascript"> var yScale = d3.scale.linear()
 .domain( [0, d3.max(data, function(d) { return d.height; })] )
 .range( [0, height] ); 
 </code></pre>
@@ -345,7 +345,7 @@ svg.selectAll('rect.colorBar')
 
 <h5 class="margin sub-step" id="how-to-define-an-axis">How to define an axis</h5>
 
-<pre><code> var xAxis = d3.svg.axis().scale(xScale) 
+<pre><code class="javascript"> var xAxis = d3.svg.axis().scale(xScale) 
 </code></pre>
 
 <p><code>d3.svg.axis()</code> = Indicates that we want to create an element with the characteristics of an axis i.e. can have labels and tick marks. <br>
@@ -362,7 +362,7 @@ svg.selectAll('rect.colorBar')
 
 <h5 class="margin sub-step" id="how-to-append-an-axis">How to append an axis</h5>
 
-<pre><code> svg.append("g").call(xAxis); 
+<pre><code class="javascript"> svg.append("g").call(xAxis); 
 </code></pre>
 
 <p><code>.append("g")</code> = An axis isn't just a line; it can also have text for labels and tick marks. Since it has multiple
@@ -380,7 +380,7 @@ elements to it, this would be a 'g' element in SVG. <br>
 
 <h5 class="margin sub-step" id="how-to-define-an-axis-1">How to define an axis</h5>
 
-<pre><code> var yAxis = d3.svg.axis().scale(yScale)
+<pre><code class="javascript"> var yAxis = d3.svg.axis().scale(yScale)
 .orient("left") 
 </code></pre>
 
@@ -399,7 +399,7 @@ elements to it, this would be a 'g' element in SVG. <br>
 
 <h5 class="margin sub-step" id="how-to-append-an-axis-1">How to append an axis</h5>
 
-<pre><code> svg.append("g").call(yAxis); 
+<pre><code class="javascript"> svg.append("g").call(yAxis); 
 </code></pre>
 
 <p><code>.append("g")</code> = An axis isn't just a line; it can also have text for labels and tick marks. Since it has multiple

@@ -85,7 +85,7 @@
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin">Step 1: Create the SVG element</h3>
   <p>This selects the HTML element 'body', attaches an 'svg' element to it, and assigns the height and width to that 'svg' element.</p>
-  <p><pre><code>//Create SVG element
+  <p><pre><code class="javascript">//Create SVG element
     var svg = d3.select("body")
       .append("svg")
       .attr("width", w)
@@ -99,7 +99,7 @@
   the case here. From there, the data is joined to the set with <code>data(dataset)</code>.<br><code>enter()</code> signifies the 
   set of data points that are new to the join. <code>append("circle")</code> then creates a new circle for each of the data points,
   assigning them the default attributes.</p>
-  <p><pre><code>svg.selectAll("circle")
+  <p><pre><code class="javascript">svg.selectAll("circle")
    .data(dataset)
    .enter()
    .append("circle")</code></pre></p>
@@ -112,7 +112,7 @@
   size of the data, while <code>cx</code> and <code>cy</code> are the coordinates of the center of the circle and would determine
   the position of the circle on the graph.<br>You wouldn't necessarily need to use the sizing of <code>r</code>, but it is definitely
   helpful with data representations.</p>
-  <p><pre><code>.attr("cx", function(d) {
+  <p><pre><code class="javascript">.attr("cx", function(d) {
     return d[0];
 })
 .attr("cy", function(d) {
@@ -125,7 +125,7 @@
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin">Demo 1</h3>
   <p>Here is the working code so far and the chart it generates.</p>
-<p><pre><code>//Width and height
+<p><pre><code class="javascript">//Width and height
 var w = 500;
 var h = 100;
 
@@ -166,7 +166,7 @@ svg.selectAll("circle")
   <p>The first thing we can do is alter the size of the circles. Normally, you'd only do this when you have some data to 
   represent with the size of the circles. It would typically be bound to them at the time they are created, but could 
   also be updated later if needed.<br>For this example, an equation is used to generate random numbers.</p>
-  <p><pre><code>.attr("r", function(d) {
+  <p><pre><code class="javascript">.attr("r", function(d) {
     return Math.sqrt(h - d[1]);
 });</code></pre></p>
 </div>
@@ -176,7 +176,7 @@ svg.selectAll("circle")
   <h3 class="margin">Step 5: Add labels to circles</h3>
   <p>Since we don't have axes to label the graph, the first option is to add text labels. This code actually labels the points
   with their coordinates. <code>attr()</code> is used a number of times here to assign both data values and styles.</p>
-  <p><pre><code>svg.selectAll("text")
+  <p><pre><code class="javascript">svg.selectAll("text")
   .data(dataset)
   .enter()
   .append("text")
@@ -199,7 +199,7 @@ svg.selectAll("circle")
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin">Demo 2</h3>
   <p>This next demo now shows the labels that were just added. </p>
-  <p><pre><code>//Width and height
+  <p><pre><code class="javascript">//Width and height
 var w = 500;
 var h = 100;
 
@@ -251,7 +251,7 @@ svg.selectAll("text")
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin">Step 5: Scales</h3>
   <p>There are two parts to a scale: domain (input) and output range (output). Here is an example of setting up a static scale:</p>
-  <p><pre><code>var scale = d3.scale.linear()
+  <p><pre><code class="javascript">var scale = d3.scale.linear()
   .domain([100, 500])
   .range([10, 350]);</code></pre></p>
 </div>
@@ -261,7 +261,7 @@ svg.selectAll("text")
   <h3 class="margin">Step 6: Set dynamic scale </h3>
   <p>A dynamic scale is set based on the data input. This is ideal, especially since one of the main reasons for using D3 is to 
   make dynamic visualizations! The code here finds the max of the entire dataset and sets the domain and range accordingly.</p>
-  <p><pre><code>var xScale = d3.scale.linear()
+  <p><pre><code class="javascript">var xScale = d3.scale.linear()
   .domain([0, d3.max(dataset, function(d) { return d[0]; })])
   .range([0, w]);
   
@@ -274,7 +274,7 @@ var yScale = d3.scale.linear()
   should now be updated to reflect the new scaling. <br>These functions don't do this, but it's possible to set the scaling functions
   up such that you can normalize your data view a bit in extreme cases.</p>
   <p>Replace this code:</p>
-  <p><pre><code>.attr("cx", function(d) {
+  <p><pre><code class="javascript">.attr("cx", function(d) {
   return d[0];
 })
 
@@ -282,7 +282,7 @@ var yScale = d3.scale.linear()
   return d[1];
 })</code></pre></p>
   <p>With this code:</p>
-  <p><pre><code>.attr("cx", function(d) {
+  <p><pre><code class="javascript">.attr("cx", function(d) {
   return xScale(d[0]);
 })
 
@@ -294,14 +294,14 @@ var yScale = d3.scale.linear()
   <p>These also need to be updated to match the functions for the circles. If not, you could end up with text and circles in
   different areas since they might be to a different scale.</p>
   <p>Replace this code:</p>
-  <p><pre><code>.attr("x", function(d) {
+  <p><pre><code class="javascript">.attr("x", function(d) {
   return d[0];
 })
 .attr("y", function(d) {
   return d[1];
 })</code></pre></p>
   <p>With this code:</p>
-  <p><pre><code>.attr("x", function(d) {
+  <p><pre><code class="javascript">.attr("x", function(d) {
   return xScale(d[0]);
 })
 .attr("y", function(d) {
@@ -313,7 +313,7 @@ var yScale = d3.scale.linear()
 <div class="container-fluid bg-topic-odd padding-sides text-center">
   <h3 class="margin">Demo 3</h3>
   <p>This is the graph, now updated for dynamic scaling.</p>
-  <p><pre><code>//Width and height
+  <p><pre><code class="javascript">//Width and height
 var w = 500;
 var h = 100;
 
@@ -403,7 +403,7 @@ svg.selectAll("text")
 <div class="container-fluid bg-topic-even padding-sides text-center">
   <h3 class="margin">Demo 5</h3>
   <p>Now we can see the graph with padding.</p>
-  <p><pre><code>//Width and height
+  <p><pre><code class="javascript">//Width and height
 var w = 500;
 var h = 100;
 
@@ -467,7 +467,7 @@ svg.selectAll("text")
   beyond the size of the SVG. This can be applied to any dataset and would be particularly useful. It not only keeps the data from 
   getting too large, but also ensures that the smallest data points can be seen.</p>
   <p>Here is a scale for <code>r</code>, the radius of the circles:</p>
-  <p><pre><code>var rScale = d3.scale.linear()
+  <p><pre><code class="javascript">var rScale = d3.scale.linear()
   .domain([0, d3.max(dataset, function(d) { return d[1]; })])
   .range([2, 5]);</code></pre></p>
   <p>The radius would then change from the arbitrary <code>return Math.sqrt(h - d[1]);</code> to <code>return rScale(d[1]);</code></p>
@@ -481,17 +481,17 @@ svg.selectAll("text")
   <p>This code creates an axis function, assigns it a scale, and then assigns where the labels should appear. This can be a bit
   misleading. <code>orient("bottom")</code> does not put the axis at the bottom of the chart. It only puts the labels at the 
   bottom of the axis. The axis defaults to being created at the origin (which is the top left).</p>
-  <p><pre><code>var xAxis = d3.svg.axis()
+  <p><pre><code class="javascript">var xAxis = d3.svg.axis()
   .scale(xScale)
   .orient("bottom");</code></pre></p>
   <p>We can use this function to actually create an axis now.</p>
-  <p><pre><code>svg.append("g")
+  <p><pre><code class="javascript">svg.append("g")
   .call(xAxis);</code></pre></p>  
     <h4 class="margin">y Axis</h4>
     <p>The same can be done for the y axis. You might notice that here there's an additional attribute, <code>ticks()</code>. This
     is assigned automatically, but you can also override it as shown here and it determines the number of markings there are
     along the axis.</p>
-      <pre><code>//Define Y axis
+      <pre><code class="javascript">//Define Y axis
 var yAxis = d3.svg.axis()
   .scale(yScale)
   .orient("left")
@@ -499,7 +499,7 @@ var yAxis = d3.svg.axis()
   <p>This example also shows some additions compare to the sample from the x axis. This assigns the class "axis" to the axis so
   that it can be styled with CSS. The ability to style with CSS is one of the many great features of SVG/D3. You can also see
   the transform that moves the axis to its desired location. </p>
-<pre><code>//Create Y axis
+<pre><code class="javascript">//Create Y axis
 svg.append("g")
   .attr("class", "axis")
   .attr("transform", "translate(" + padding + ",0)")
@@ -513,7 +513,7 @@ svg.append("g")
   <h3 class="margin">Step 11: Adjust visuals</h3>
   <p>Clean up tick marks if desired, add CSS for styling, and update padding as needed to account for the addition of the axes.<br>
   For more details on how to handle tick marks, see the link at the top of the page.</p>
-  <p><pre><code>.axis path,
+  <p><pre><code class="javascript">.axis path,
 .axis line {
     fill: none;
     stroke: black;
@@ -533,7 +533,7 @@ svg.append("g")
   <p>This demo includes all of the new changes - including adjustments to ticks and transforms for the x axis. It is also now
   generating a dynamic data set. This shows how this code could be used for many different data sets and chart sizes and still
   function how it should.</p>
-<p><pre><code>//Width and height
+<p><pre><code class="javascript">//Width and height
 var w = 500;
 var h = 300;
 var padding = 30;
