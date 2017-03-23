@@ -1,25 +1,5 @@
 Once how to is graded:
-    Add font-style: italic; to h5.margin on layout.css
-    Add highlight.js to every page, prior to jQuery call:
-      <link rel="stylesheet" href="../highlight/styles/vs.css">
-      <!-- tomorrow-night, solarized-dark, vs-->
-      <script src="../highlight/highlight.pack.js"></script>
-      <script>hljs.initHighlightingOnLoad();</script>
-      
-      
-      
-  <link rel="stylesheet" href="../highlight/styles/vs.css">
-  <!-- tomorrow-night, solarized-dark, rainbow, 
-  arduino-light
-  github,
-       xcode, vs-->
-  <link rel="stylesheet" href="css/conversion.css">
-  <script src="../highlight/highlight.pack.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
-  
-  
-  
-  
+
   Examples List
   http://bl.ocks.org/NPashaP/96447623ef4d342ee09b
   
