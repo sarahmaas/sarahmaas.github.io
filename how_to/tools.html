@@ -20,6 +20,11 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
   <script src="https://use.fontawesome.com/147d8defdd.js"></script>
+  <style>
+    a {
+      word-wrap: break-word;
+    }
+  </style>
 </head>
 <body>
 
@@ -76,7 +81,7 @@
 
 
 <!-- Basics of SVG -->
-<div class="container-fluid bg-topic-odd padding-sides text-center">
+<div class="container-fluid bg-topic-odd text-center">
   <h3 class="margin">SVG</h3>
   <p>SVG, or Scalable Vector Graphic, is an XML language used to draw graphics. Typically Adobe 
   Illustrator or a free tool like <a class="links" href="http://www.inkscape.org/">Inkscape</a> 
@@ -138,7 +143,7 @@
 <!-- Stroke Element --> 
 <h5 class="margin"><code>stroke</code> element</h5>
 <p>Code examples from
-  <a class="links" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke">https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke</a>
+  <a class="links shorten-link" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke">https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/stroke</a>
 </p>
 <p>Stroke is a presentation element, so it's most often used to style the other attributes.</p>
 <p>For a colored line:</p>
@@ -192,7 +197,7 @@
   </code>
 </pre>
 -->
-<pre><code class="language-XML"><span class="hljs-tag">&lt;<span class="hljs-title">svg</span> <span class="hljs-attribute">width</span>=<span class="hljs-value">"96"</span> <span class="hljs-attribute">height</span>=<span class="hljs-value">"91"</span>&gt;</span>
+<p><pre><code class="language-XML"><span class="hljs-tag">&lt;<span class="hljs-title">svg</span> <span class="hljs-attribute">width</span>=<span class="hljs-value">"96"</span> <span class="hljs-attribute">height</span>=<span class="hljs-value">"91"</span>&gt;</span>
     <span class="hljs-tag">&lt;<span class="hljs-title">clipPath</span> <span class="hljs-attribute">id</span>=<span class="hljs-value">"clip"</span>&gt;</span>
       <span class="hljs-tag">&lt;<span class="hljs-title">path</span> <span class="hljs-attribute">d</span>=<span class="hljs-value">"M0,0h7.75a45.5,45.5 0 1 1 0,91h-7.75v-20h7.75a25.5,25.5 0 1 0 0,-51h-7.75zm36.2510,0h32a27.75,27.75 0 0 1 21.331,45.5a27.75,27.75 0 0 1 -21.331,45.5h-32a53.6895,53.6895 0 0 0 18.7464,-20h13.2526a7.75,7.75 0 1 0 0,-15.5h-7.75a53.6895,53.6895 0 0 0 0,-20h7.75a7.75,7.75 0 1 0 0,-15.5h-13.2526a53.6895,53.6895 0 0 0 -18.7464,-20z"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">path</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">clipPath</span>&gt;</span>
@@ -214,11 +219,11 @@
       <span class="hljs-tag">&lt;<span class="hljs-title">path</span> <span class="hljs-attribute">d</span>=<span class="hljs-value">"M-100,-102l300,300"</span> <span class="hljs-attribute">fill</span>=<span class="hljs-value">"none"</span> <span class="hljs-attribute">stroke</span>=<span class="hljs-value">"url(#gradient-2)"</span> <span class="hljs-attribute">stroke-width</span>=<span class="hljs-value">"40"</span>&gt;</span><span class="hljs-tag">&lt;/<span class="hljs-title">path</span>&gt;</span>
     <span class="hljs-tag">&lt;/<span class="hljs-title">g</span>&gt;</span>
 <span class="hljs-tag">&lt;/<span class="hljs-title">svg</span>&gt;</span>
-</code></pre>
+</code></pre></p>
 <h4 class="margin">Links</h4>
-<p>For more info on SVG: <a class="links" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Introduction">https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Introduction</a><br>
-Browser Compatibility: <a class="links" href="http://caniuse.com/#feat=svg">http://caniuse.com/#feat=svg</a><br>
-Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element">https://developer.mozilla.org/en-US/docs/Web/SVG/Element</a></p>
+<p>For more info on SVG: <a class="links shorten-link" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Introduction">https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Introduction</a><br>
+Browser Compatibility: <a class="links shorten-link" href="http://caniuse.com/#feat=svg">http://caniuse.com/#feat=svg</a><br>
+Full Element List: <a class="links shorten-link" href="https://developer.mozilla.org/en-US/docs/Web/SVG/Element">https://developer.mozilla.org/en-US/docs/Web/SVG/Element</a></p>
 </div>
 
 <!-- Selections in D3 -->
@@ -276,7 +281,7 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
         .attr("cy", function(d) { return d.life })           // set the circle's vertical position according to life expectancy 
         .attr("r",  function(d) { return d.pop /1000 *2 })   // set the circle's radius according to country's population 
         .attr("fill",function(d){ return d.color });         // set the circle's color according to country's color
-  </code></pre>
+  </code></pre></p>
   <h4 class="margin">Include Data</h4>
   <p>Here we have data defined with 5 different attributes per item:</p>
     <pre><code class="javascript">
@@ -444,6 +449,5 @@ Full Element List: <a class="links" href="https://developer.mozilla.org/en-US/do
 <footer class="container-fluid bg-footer text-center">
   <p>Page built with: HTML5, Bootstrap, D3</p>
 </footer>
-
 </body>
 </html>
